@@ -33,7 +33,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-green sidebar-mini" id="customer">
+<body class="hold-transition skin-green sidebar-mini" id="product">
 <div class="wrapper">
 
   <header class="main-header">
@@ -70,7 +70,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
+                      <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                       <span class="hidden-xs">Alexander Pierce</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -108,12 +108,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Customer 
-        <small>Customer List</small>
+        Product 
+        <small>Product List</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Customer</li>
+        <li class="active">Product</li>
       </ol>
     </section>
 
@@ -122,120 +122,85 @@
       <!-- Small boxes (Stat box) -->
 
 
-
-       <div class="row">
+      <div class="row">
 
             <div id="modal_section">
-
-              <!-- add customer message--> 
-               <?php if ($this->session->flashdata('add_customer_success')) { ?>
-         
-                   <div class="modal modal-success" id="successmodal" role="dialog">
-                     <div class="modal-dialog">
-                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"></h4>
-                      </div>
-                      <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('add_customer_success'); ?> </p>
-                      </div>
-                      <div class="modal-footer">
-                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
-                     </div>
-                     </div>
-                     </div>
-                  </div>
-
-               <?php } ?>
-
-
-
-
-                <!-- addCustomerModal-->  
-                <div class="modal fade" id="addCustomerModal">
+                
+                <div class="modal fade" id="addProductModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new customer</h4>
+                        <h4 class="modal-title">Edit Product</h4>
                       </div>
                       <div class="modal-body">
                         <?php //beginning form
-                          echo form_open_multipart('create_controller/create_new_customer');
+                          echo form_open_multipart('product_controller/add_new_product');
                         ?>
 
                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="First Name"   name="first_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Middle Name"  name="middle_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Last Name" name="last_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            <select "  class="form-control" name="drug_class">
+                                <option value="">Please choose a drug type</option>
+                                <?php foreach($drug_types as $drug_type): ?>
+                                  <option value="<?php echo $drug_type['drugtype_id']?>"><?php echo ucfirst($drug_type['drug_type'])?></option>
+                                <?php endforeach;?>       
+                            </select>
                           </div>
 
 
+                            <div class="form-group has-feedback">
+                              <input type="text"  title=""  class="form-control" placeholder="Product Code"  name="product_code">
+                              <span class="fa fa-minus-square form-control-feedback"></span>
+                            </div>
 
-                          <?php //option for unit of measurements
+                            <div class="form-group has-feedback">
+                              <input type="text"  title=""  class="form-control" placeholder="Product Description"  name="product_description">
+                              <span class="fa fa-minus-square form-control-feedback"></span>
+                            </div>
+
+                          
+
+
+
+                            <?php //option for unit of measurements
                                 $option = array(
-                                    "" => "Gender",
-                                    "male" => "Male",
-                                    "female" => "Female",
-                                    
+                                    "" => "Please choose a unit of measurement",
+                                    "BTL" => "Bottle",
+                                    "PWD" => "Powder",
+                                    "TUBE" => "Tube",
+                                    "VIAL" => "Vial",
                                 );
                             ?>
                             <div class="form-group has-feedback">
-                             <?php echo form_dropdown('gender',$option,'','class="form-control"');?>
+                             <?php echo form_dropdown('measure_option',$option,'','class="form-control"');?>
                             </div>
 
                             <!-- end dropdown-->
 
-                          <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth">
-                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-                          </div>
+                            <div class="form-group has-feedback">
+                              <input type="text"  title="" class="form-control" placeholder="Unit Cost"  name="unit_cost">
+                              <span class="fa fa-minus-square form-control-feedback"></span>
+                            </div>
 
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Telephone"  name="telephone">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
+                             <div class="form-group has-feedback">
+                              <input type="text"  title=""  class="form-control" placeholder="Quantity"  name="quantity">
+                              <span class="fa fa-minus-square form-control-feedback"></span>
+                            </div>
 
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Cellphone"  name="cellphone">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Address"  name="address">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
+                           
 
 
+                           
 
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Email"  name="email">
-                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="password"    class="form-control" placeholder="Password"  name="password">
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                          </div>
-                          
-
-
-                      </div><!-- end modal content-->
+                            <div class="form-group has-feedback">
+                                <?php echo form_upload('product_image');?>
+                            </div>
+                           
+                      </div>
                       <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_customer', 'name' =>'add_customer', 'value' => 'Add Customer','class'=>'pull-right btn btn-primary')); ?>
-                        
+                       
+                        <button type="submit" class="pull-right btn btn-primary">Save changes</button>
                       </div>
 
                       <?php form_close();//endform?>
@@ -251,18 +216,12 @@
 
             <div class="col-md-4">
               <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
+                <span class="info-box-icon bg-blue"><i class="fa fa-plus-square-o"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Customer Count 
-                  </span>
-                  
-                  <?php foreach($count_all_customer as $total_count_all_customer):?>
-                      <span class="info-box-number"><?php echo $total_count_all_customer['count_all'];?></span>
-                  <?php endforeach?>
-
-
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addCustomerModal">
-                    Add new customer
+                  <span class="info-box-text">Product Count</span>
+                  <span class="info-box-number">23</span>
+                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addProductModal">
+                    Add new Product
                   </button>
                  
                 </div>
@@ -271,27 +230,19 @@
 
                 <div class="col-md-4">
                   <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-male"></i></span>
+                    <span class="info-box-icon bg-yellow"><i class="fa fa-minus-square-o"></i></span>
                     <div class="info-box-content">
-                      <span class="info-box-text">Male Customer</span>
-
-                      <?php foreach($count_male_customer as $total_count_male_customer):?>
-                      <span class="info-box-number"><?php echo $total_count_male_customer['count_male'];?></span>
-                      <?php endforeach?>
-
+                      <span class="info-box-text">Items in Inventory</span>
+                      <span class="info-box-number">23</span>
                     </div>
                   </div>
             </div>
             <div class="col-md-4">
                   <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-female"></i></span>
+                    <span class="info-box-icon bg-red"><i class="fa fa-star-o"></i></span>
                     <div class="info-box-content">
-                      <span class="info-box-text">Female Customer</span>
-
-                       <?php foreach($count_female_customer as $total_count_female_customer):?>
-                      <span class="info-box-number"><?php echo $total_count_female_customer['count_female'];?></span>
-                      <?php endforeach?>
-
+                      <span class="info-box-text">Total Price</span>
+                      <span class="info-box-number">23</span>
                     </div>
                   </div>
             </div>
@@ -299,55 +250,49 @@
       </div>
 
 
-
-
       <div class="row">
 
+        <?php if ($this->session->flashdata('category_success')) { ?>
+          <div class="alert alert-danger"> <?= $this->session->flashdata('category_success') ?>dsddsdsdsd </div>
+      <?php } ?>
+       
        <div class="col-xs-12">
-       <div class="box">
-            <div class="box-header">
-              <h3 class="box-title"></h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Customer ID</th>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  <th>Telephone Number</th>
-                  <th>Phone Number</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <?php foreach($customers as $customer):?>
-                  <tr>
-                    <td><?php echo $customer['customer_id'];?></td>
-                    <td><?php echo $customer['first_name'] .' ' . $customer['middle_name'] .' ' . $customer['last_name'];?></td>
-                    <td><?php echo $customer['gender'];?></td>
-                    <td><?php echo $customer['telephone'];?></td>
-                    <td><?php echo $customer['cellphone'];?></td>
-                    <td><?php if($customer['is_active'] == 1){ ?>
-                        Active
-                  <?php  }else{ ?>
-
-                        Not Active
-                  <?php   } ?></td>
-                    <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $customer['customer_id'];?>" class="btn btn-primary">View More Details</a></td>
-                  </tr>
-                <?php endforeach; ?>
-
-                </tbody>
-                
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
+             <div class="box">
+                  <div class="box-header">
+                    <h3 class="box-title">Product</h3>
+                  </div>
+                  <!-- /.box-header -->
+                  <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                      <thead>
+                      <tr>
+                        <th>Product Code</th>
+                        <th>Product Description</th>
+                         <th>Unit of Measure</th>
+                        <th>Unit Cost</th>
+                        <th>In Store</th>
+                        <th>Warehouse</th>
+                        <th>Action</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td>QCO-THYM-M-084</td>
+                        <td>FUROSEMIDE 20MG AMP (FRUMID)</td>
+                        <td>AMP</td>
+                        <td>100</td>
+                        <td>284</td>
+                        <td>284</td>
+                        <td><a href="<?php echo site_url()?>admin/pet_details/1">View More Details</a></td>
+                      </tr>
+                     
+                      </tbody>
+                      
+                    </table>
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
 
           </div>
       </div>
@@ -414,15 +359,6 @@
       'autoWidth'   : false
     })
   })
-
-
-
-    $(document).ready(function(){
-    $('#successmodal').modal('show');
-  });
-
-
-
   </script>
 </body>
 </html>

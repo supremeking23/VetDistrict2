@@ -164,7 +164,7 @@
                       </div>
                       <div class="modal-body">
                         <?php //beginning form
-                          echo form_open_multipart('create_controller/create_new_customer');
+                          echo form_open_multipart('admin/create_new_customer');
                         ?>
 
                           <div class="form-group has-feedback">
@@ -247,7 +247,7 @@
                 <!-- /.modal -->
 
 
-            </div>
+            </div> <!-- modal section -->
 
             <div class="col-md-4">
               <div class="info-box">
@@ -296,7 +296,7 @@
                   </div>
             </div>
         
-      </div>
+      </div> <!-- end first row -->
 
 
 
@@ -306,7 +306,7 @@
        <div class="col-xs-12">
        <div class="box">
             <div class="box-header">
-              <h3 class="box-title"></h3>
+              <h3 class="box-title">Customer</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -317,7 +317,7 @@
                   <th>Name</th>
                   <th>Gender</th>
                   <th>Telephone Number</th>
-                  <th>Phone Number</th>
+                  <th>Cellphone Number</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
@@ -337,7 +337,7 @@
 
                         Not Active
                   <?php   } ?></td>
-                    <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $customer['customer_id'];?>" class="btn btn-primary">View More Details</a></td>
+                    <td><a href="<?php echo site_url()?>admin/customer_details/<?php echo $customer['customer_id'];?>" class="btn btn-primary">View More Details</a></td>
                   </tr>
                 <?php endforeach; ?>
 

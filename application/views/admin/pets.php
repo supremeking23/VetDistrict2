@@ -32,6 +32,13 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+<script>
+  
+ 
+</script>
+
 </head>
 <body class="hold-transition skin-green sidebar-mini" id="pet">
 <div class="wrapper">
@@ -120,12 +127,336 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
+
+      <div class="row">
+
+          <div id="modal_section">
+
+              <!-- add pet message--> 
+               <?php if ($this->session->flashdata('add_pets_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('add_pets_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+               <!-- add pet type message--> 
+               <?php if ($this->session->flashdata('add_pettype_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('add_pettype_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+               <!-- add pet breed message--> 
+               <?php if ($this->session->flashdata('add_petbreed_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('add_petbreed_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+               
+
+                <!-- addPetModal-->  
+                <div class="modal fade" id="addPetModal">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add new Pet</h4>
+                      </div>
+                      <div class="modal-body">
+                        <?php //beginning form
+                          echo form_open_multipart('admin/create_new_pet');
+                        ?>
+
+
+
+                        <?php  //for customer name?>
+                          <div class="form-group has-feedback">
+                               <select name="customer_id" class="form-control">
+                                <option value="">Customer Name</option>
+                                <?php foreach($customers as $customer):?>
+                                  
+                                 <option value="<?php echo $customer['customer_id']?>"><?php echo $customer['first_name'] .' '. $customer['middle_name'] .' '. $customer['last_name']?></option>
+                                 <?php ?>
+                               <?php endforeach;?>
+                               </select>
+                          </div>
+
+
+
+
+                            <!-- end dropdown-->
+
+                          <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Pet Name"   name="pet_name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                          </div>
+
+                           
+
+
+
+                          <?php //
+                                $option = array(
+                                    "" => "Gender",
+                                    "male" => "Male",
+                                    "female" => "Female",
+                                    
+                                );
+                            ?>
+                            <div class="form-group has-feedback">
+                             <?php echo form_dropdown('gender',$option,'','class="form-control"');?>
+                            </div>
+
+                            <!-- end dropdown-->
+
+
+                      <div class="form-group has-feedback">
+                        <select id="pet_type" name="pet_type" class="form-control">
+                                 <option value="">Pet Type</option>
+                                <?php foreach($pet_type as $type):?>
+                                 
+                                 <option value="<?php echo $type['pettype_id']?>"><?php echo $type['pet_type'];?></option>
+                                 <?php ?>
+                               <?php endforeach;?>
+                               </select>
+                       </div>
+
+
+                        <div class="form-group has-feedback">
+                        <select id="breed" name="breed" class="form-control">
+                       </select>
+                       </div>
+
+                            <!-- end dropdown-->
+
+
+                        <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Pet Size in kg"   name="pet_size">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+
+
+
+                        <div class="form-group has-feedback">
+                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth">
+                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+                        </div>
+
+
+
+                      </div><!-- end modal content-->
+                      <div class="modal-footer">
+                        <?php echo form_submit(array('id' => 'add_pet', 'name' =>'add_pet', 'value' => 'Add Pet','class'=>'pull-right btn btn-primary')); ?>
+                        
+                      </div>
+
+                      <?php echo form_close();//endform?>
+                    </div>
+                    <!-- /.modal-content -->
+                  </div>
+                  <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+
+
+                <!--addPetTypeModal-->
+                <div class="modal fade" id="addPetTypeModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Add new pet type</h4>
+                    </div>
+                    <div class="modal-body">
+                      <?php echo form_open_multipart('admin/create_new_pettype');?>
+
+                         <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Pet Type"   name="new_pet_type">
+                            <span class="fa fa-firefox form-control-feedback"></span>
+                          </div>
+
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <?php echo form_submit(array('id' => 'add_pettype', 'name' =>'add_pettype', 'value' => 'Add Pet Type','class'=>'pull-right btn btn-primary')); ?>
+                    </div>
+
+                    <?php echo form_close();?>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+
+
+              <!--addPetBreedModal-->
+              <div class="modal fade" id="addPetBreedModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Add new pet breed</h4>
+                    </div>
+                    <div class="modal-body">
+                       <?php echo form_open_multipart('admin/create_new_petbreed');?>
+
+                         <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Pet Breed"   name="new_petbreed">
+                            <span class="fa fa-firefox form-control-feedback"></span>
+                          </div>
+
+
+                        <div class="form-group has-feedback">
+                          <select id="pet_type" name="pet_type" class="form-control">
+                                 <option value="">Pet Type</option>
+                                <?php foreach($pet_type as $type):?>
+                                 
+                                 <option value="<?php echo $type['pettype_id']?>"><?php echo $type['pet_type'];?></option>
+                                 <?php ?>
+                               <?php endforeach;?>
+                          </select>
+                       </div>
+
+                    </div>
+                    <div class="modal-footer">
+                       <?php echo form_submit(array('id' => 'add_petbreed', 'name' =>'add_petbreed', 'value' => 'Add Pet Breed','class'=>'pull-right btn btn-primary')); ?>
+                    </div>
+
+                     <?php echo form_close();?>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+
+            </div>
+        
+
+            <div class="col-md-4">
+              <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-firefox"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Pet Count 
+                  </span>
+                  
+                 
+                 <?php foreach($count_all_pet as $total_count_all_pet):?>
+                      <span class="info-box-number"><?php echo $total_count_all_pet['count_all'];?></span>
+                  <?php endforeach?>
+
+                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addPetModal">
+                    Add new pet
+                  </button>
+                 
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="col-md-4">
+              <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa fa-firefox"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Pet Type  
+                  </span>
+                  
+                 
+                  <span class="info-box-number"><br/></span>
+
+                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addPetTypeModal">
+                    Add new pet type
+                  </button>
+                 
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-4">
+              <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="fa fa-firefox"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Pet Breed  
+                  </span>
+                  
+                 <span class="info-box-number"><br/></span>
+                
+
+                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addPetBreedModal">
+                    Add new pet breed
+                  </button>
+                 
+                </div>
+              </div>
+            </div>
+
+      </div> <!-- end first row -->
+
+
       <div class="row">
        
        <div class="col-xs-12">
        <div class="box">
             <div class="box-header">
-              <h3 class="box-title"></h3>
+              <h3 class="box-title">Pet</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -134,21 +465,27 @@
                 <tr>
                   <th>ID</th>
                   <th>Name</th>
-                   <th>Animal Type</th>
+                   <th>Animal Type <?php //echo date('F d Y',31556926)?></th>
                   <th>Breed</th>
                   <th>Owner</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
+
+              <?php foreach($pets as $pet_info):?>
+
                 <tr>
-                  <td>1</td>
-                  <td>Hachi</td>
-                  <td>Dog</td>
-                  <td>Chiwawa</td>
-                  <td>Ivan Christian Jay Funcion</td>
-                  <td><a href="<?php echo site_url()?>admin/pet_details/1">View More Details</a></td>
+                  <td><?php echo $pet_info['pet_id'];?></td>
+                  <td><?php echo $pet_info['pet_name'];?></td>
+                  <td><?php echo $pet_info['pet_type'];?></td>
+                  <td><?php echo $pet_info['breed'];?></td>
+                  <td><?php echo $pet_info['first_name'] .' '. $pet_info['middle_name']. ' ' . $pet_info['last_name'];?></td>
+                  <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary">View More Details</a></td>
                 </tr>
+
+
+                <?php endforeach; ?>
                
                 </tbody>
                 
@@ -223,6 +560,51 @@
       'autoWidth'   : false
     })
   })
+
+
+    $(document).ready(function() {
+
+          $('#breed').hide(); 
+
+        $('select[name="pet_type"]').on('change', function() {
+
+            var stateID = $(this).val();
+
+            if(stateID) {
+
+                 $('#breed').show(); 
+                $.ajax({
+
+                    url: '<?php echo base_url('admin/pet_breed/')?>'+stateID,
+
+                    type: "GET",
+
+                    dataType: "json",
+
+                    success:function(data) {
+
+                        $('select[name="breed"]').empty();
+                         $.each(data, function(key, value) {
+
+                            $('select[name="breed"]').append('<option value="'+ value.breed_id +'">'+ value.breed +'</option>');
+
+                        });
+
+                    }
+
+                });
+
+            }else{
+
+                $('select[name="breed"]').empty();
+
+            }
+
+        });
+
+    });
+
+   
   </script>
 </body>
 </html>

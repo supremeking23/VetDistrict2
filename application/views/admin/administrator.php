@@ -33,7 +33,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-green sidebar-mini" id="employee">
+<body class="hold-transition skin-green sidebar-mini" id="administrator">
 <div class="wrapper">
 
   <header class="main-header">
@@ -70,7 +70,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                      <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                       <span class="hidden-xs">Alexander Pierce</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -108,12 +108,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Employee 
-        <small>Employee List</small>
+        Administrator 
+        <small>Administrator List</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Employee</li>
+        <li class="active">Administrator</li>
       </ol>
     </section>
 
@@ -122,12 +122,13 @@
       <!-- Small boxes (Stat box) -->
 
 
-      <div class="row">
+
+       <div class="row">
 
             <div id="modal_section">
 
               <!-- add customer message--> 
-               <?php if ($this->session->flashdata('add_employee_success')) { ?>
+               <?php if ($this->session->flashdata('add_admin_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -138,7 +139,7 @@
                         <h4 class="modal-title"></h4>
                       </div>
                       <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('add_employee_success'); ?> </p>
+                        <p> <?php echo $this->session->flashdata('add_admin_success'); ?> </p>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
@@ -153,32 +154,18 @@
 
 
                 <!-- addCustomerModal-->  
-                <div class="modal fade" id="addEmployeeModal">
+                <div class="modal fade" id="addAdminModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new customer</h4>
+                        <h4 class="modal-title">Add new Admin</h4>
                       </div>
                       <div class="modal-body">
                         <?php //beginning form
-                          echo form_open_multipart('admin/create_new_employee');
+                          echo form_open_multipart('admin/create_new_admin');
                         ?>
-
-                           <?php //option for employee type
-                                $option = array(
-                                    "" => "Employee Type",
-                                    "vet" => "Veterinarian",
-                                    "staff" => "Staff",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                              <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('employee_type',$option,'','class="form-control" required');?>
-                            </div>
-
 
                           <div class="form-group has-feedback">
                             <input type="text"  class="form-control" placeholder="First Name"   name="first_name">
@@ -197,7 +184,7 @@
 
 
 
-                          <?php //option for  gender
+                          <?php //option for unit of measurements
                                 $option = array(
                                     "" => "Gender",
                                     "male" => "Male",
@@ -206,8 +193,7 @@
                                 );
                             ?>
                             <div class="form-group has-feedback">
-                              <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
+                             <?php echo form_dropdown('gender',$option,'','class="form-control"');?>
                             </div>
 
                             <!-- end dropdown-->
@@ -248,7 +234,7 @@
 
                       </div><!-- end modal content-->
                       <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_employee', 'name' =>'add_employee', 'value' => 'Add Employee','class'=>'pull-right btn btn-primary')); ?>
+                        <?php echo form_submit(array('id' => 'add_admin', 'name' =>'add_admin', 'value' => 'Add Admin','class'=>'pull-right btn btn-primary')); ?>
                         
                       </div>
 
@@ -265,17 +251,18 @@
 
             <div class="col-md-4">
               <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+                <span class="info-box-icon bg-green"><i class="fa fa-user"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Employee Count 
+                  <span class="info-box-text">Administrator Count 
                   </span>
                   
-                  <?php foreach($count_all_employee as $total_count_all_employee):?>
-                      <span class="info-box-number"><?php echo $total_count_all_employee['count_all'];?></span>
+                  <?php foreach($count_all_admins as $total_count_all_admins):?>
+                      <span class="info-box-number"><?php echo $total_count_all_admins['count_all'];?></span>
                   <?php endforeach?>
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addEmployeeModal">
-                    Add new Employee
+
+                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addAdminModal">
+                    Add new Admin
                   </button>
                  
                 </div>
@@ -284,26 +271,26 @@
 
                 <div class="col-md-4">
                   <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-user"></i></span>
+                    <span class="info-box-icon bg-blue"><i class="fa fa-male"></i></span>
                     <div class="info-box-content">
-                      <span class="info-box-text">Staff</span>
+                      <span class="info-box-text">Male Administrator</span>
 
-                     <?php foreach($count_staff as $total_count_staff):?>
-                      <span class="info-box-number"><?php echo $total_count_staff['count_staff'];?></span>
-                  <?php endforeach?>
+                      <?php foreach($count_male_admins as $total_count_male_admins):?>
+                      <span class="info-box-number"><?php echo $total_count_male_admins['count_male'];?></span>
+                      <?php endforeach?>
 
                     </div>
                   </div>
             </div>
             <div class="col-md-4">
                   <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
+                    <span class="info-box-icon bg-red"><i class="fa fa-female"></i></span>
                     <div class="info-box-content">
-                      <span class="info-box-text">Veterinarian</span>
+                      <span class="info-box-text">Female Customer</span>
 
-                     <?php foreach($count_veterinarian as $total_count_veterinarian):?>
-                      <span class="info-box-number"><?php echo $total_count_veterinarian['count_veterinarian'];?></span>
-                     <?php endforeach?>
+                       <?php foreach($count_female_admins as $total_count_female_admins):?>
+                      <span class="info-box-number"><?php echo $total_count_female_admins['count_female'];?></span>
+                      <?php endforeach?>
 
                     </div>
                   </div>
@@ -312,13 +299,12 @@
       </div> <!-- end first row -->
 
 
+ <div class="row">
 
-      <div class="row">
-       
        <div class="col-xs-12">
        <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Employee</h3>
+              <h3 class="box-title">Admin</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -327,34 +313,31 @@
                 <tr>
                   <th>Admin ID</th>
                   <th>Name</th>
-                  <th>Employee Type</th>
                   <th>Gender</th>
                   <th>Telephone Number</th>
                   <th>Cellphone Number</th>
+                  <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                
 
-                <?php foreach($employees as $employee):?>
-                <tr>
-                  <td><?php echo $employee['employee_id'];?></td>
-                  <td><?php echo $employee['first_name'] .' '. $employee['middle_name'] .' '.$employee['last_name'] ;?></td>
-                  <td><?php  
+                <?php foreach($admins as $admin):?>
+                  <tr>
+                    <td><?php echo $admin['admin_id'];?></td>
+                    <td><?php echo $admin['first_name'] .' ' . $admin['middle_name'] .' ' . $admin['last_name'];?></td>
+                    <td><?php echo $admin['gender'];?></td>
+                    <td><?php echo $admin['telephone'];?></td>
+                    <td><?php echo $admin['cellphone'];?></td>
+                    <td><?php if($admin['is_active'] == 1){ ?>
+                        Active
+                  <?php  }else{ ?>
 
-                  if($employee['employee_type'] == 'staff'){
-                            echo "Staff";
-                  }else{
-                            echo "Veterinarian";
-                  }?></td>
-                  <td><?php echo $employee['gender'];?></td>
-                  <td><?php echo $employee['telephone'];?></td>
-                  <td><?php echo $employee['cellphone'];?></td>
-                  <td><a href="<?php echo site_url()?>admin/employee_details/<?php echo $employee['employee_id']; ?>" class="btn btn-primary">View More Details</a></td>
-                </tr>
-               <?php endforeach;?>
-
+                        Not Active
+                  <?php   } ?></td>
+                    <td><a href="<?php echo site_url()?>admin/admin_details/<?php echo $admin['admin_id'];?>" class="btn btn-primary">View More Details</a></td>
+                  </tr>
+                <?php endforeach; ?>
 
                 </tbody>
                 
@@ -366,6 +349,8 @@
 
           </div>
       </div>
+
+     
       <!-- /.row (main row) -->
 
     </section>
@@ -429,6 +414,15 @@
       'autoWidth'   : false
     })
   })
+
+
+
+    $(document).ready(function(){
+    $('#successmodal').modal('show');
+  });
+
+
+
   </script>
 </body>
 </html>

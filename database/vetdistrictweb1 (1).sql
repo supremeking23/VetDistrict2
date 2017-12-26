@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2017 at 08:16 PM
+-- Generation Time: Dec 26, 2017 at 03:07 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -21,6 +21,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `vetdistrictweb1`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbladmins`
+--
+
+CREATE TABLE `tbladmins` (
+  `admin_id` int(11) NOT NULL,
+  `first_name` varchar(45) NOT NULL,
+  `middle_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
+  `gender` varchar(45) NOT NULL,
+  `date_birth` date NOT NULL,
+  `cellphone` text NOT NULL,
+  `telephone` text NOT NULL,
+  `address` text NOT NULL,
+  `date_added` int(11) NOT NULL,
+  `email` text NOT NULL,
+  `password` text NOT NULL,
+  `is_active` int(11) NOT NULL,
+  `image` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbladmins`
+--
+
+INSERT INTO `tbladmins` (`admin_id`, `first_name`, `middle_name`, `last_name`, `gender`, `date_birth`, `cellphone`, `telephone`, `address`, `date_added`, `email`, `password`, `is_active`, `image`) VALUES
+(1, 'Ernesto', 'Dimayuga', 'Enrile', 'male', '1986-05-12', '090911212112', '09111', 'Makait', 1514096346, 'icjfuncion@gmail.com', '1234', 1, '21740072_758328241017235_7088747667943620100_n.png');
 
 -- --------------------------------------------------------
 
@@ -68,11 +98,15 @@ CREATE TABLE `tblcustomers` (
 --
 
 INSERT INTO `tblcustomers` (`customer_id`, `first_name`, `middle_name`, `last_name`, `address`, `cellphone`, `telephone`, `email`, `image`, `gender`, `is_active`, `password`, `date_added`, `date_birth`) VALUES
-(1, 'ewew', 'ewew', 'wewe', 'Makait', '4343', '343', '4343', '', 'male', 1, '', 1513793545, '2017-12-12'),
+(1, 'IVan', '', 'Johnson', 'Makait', '4343', '343', '4343', 'Capture_11.PNG', 'male', 1, '', 1513793545, '2003-01-06'),
 (2, 'ivan', 'ivan', 'ivan', '6464646', '666', '66', 'ivanchristianjayfuncion@yahoo.com.ph', '', 'male', 1, '123', 1513793634, '1991-06-18'),
 (3, 'Lordes\'s', 'dsds', 'dsds', '444', '444', '44', '44', '', 'male', 1, '4', 1513794430, '2017-12-05'),
 (4, 'wewe', 'wewe', 'wew', '343', '343', 'wew', '343', '', 'male', 0, '33', 1513794478, '2017-12-08'),
-(5, 'rere', 'er', 'ere', '454', '454', '454', '545', '', 'female', 1, '454', 1513794573, '2017-12-13');
+(5, 'rere', 'er', 'ere', '454', '454', '454', '545', '', 'female', 1, '454', 1513794573, '2017-12-13'),
+(6, 'rer', '', '', '', '', '', '', '', '', 1, '', 1513834391, '0000-00-00'),
+(7, 'rereerer', 'erereeerer', '', '', '', '', '', '', '', 1, '', 1513835373, '0000-00-00'),
+(8, '\'/dsdsere', 'dsds', 'dsds', '2323', '2323', '<?script>alert(\'haha\');</script>', 'ivanchristianjayfuncion@yahoo.com.ph', 'AGAIN.PNG', 'male', 1, '233', 1513854612, '2017-12-05'),
+(9, 'hehehehhe', 'Sdsd', 'dsd', '', '', 'ss', '', '', 'male', 1, '', 1513945682, '2017-12-04');
 
 -- --------------------------------------------------------
 
@@ -113,7 +147,7 @@ INSERT INTO `tbldrugtype` (`drugtype_id`, `drug_type`) VALUES
 
 CREATE TABLE `tblemployees` (
   `employee_id` int(11) NOT NULL,
-  `position` varchar(45) NOT NULL,
+  `employee_type` varchar(45) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `middle_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
@@ -123,9 +157,24 @@ CREATE TABLE `tblemployees` (
   `address` text NOT NULL,
   `image` text NOT NULL,
   `password` text NOT NULL,
-  `qr_code` text NOT NULL,
-  `is_active` int(11) NOT NULL
+  `gender` varchar(45) NOT NULL,
+  `is_active` int(11) NOT NULL,
+  `date_birth` date NOT NULL,
+  `date_added` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblemployees`
+--
+
+INSERT INTO `tblemployees` (`employee_id`, `employee_type`, `first_name`, `middle_name`, `last_name`, `email`, `cellphone`, `telephone`, `address`, `image`, `password`, `gender`, `is_active`, `date_birth`, `date_added`) VALUES
+(1, 'staff', 'John', 'Sniper', 'Snipes', 'wes@gmail.com', '090911212112', '09111', 'Makait', '21740072_758328241017235_7088747667943620100_n3.png', '1234', 'male', 1, '1997-06-17', 1513834245),
+(2, 'staff', 'Tony', 'Miranda', 'Dela Criz', 'tonydelaa@gmail.com', '90093343434', '33s', 'Alaska Milkmen', 'AGAIN.PNG', '333', 'male', 1, '2017-12-12', 1513834357),
+(3, 'staff', 'Ivan Christian Jay ', 'Echanes', 'Funcion', 'icjfuncion@gmail.com', '090911212112', '911', 'Makait', 'soil_m.jpg', '33333', 'male', 1, '1995-11-23', 1513834465),
+(4, 'vet', 'fdfe', 'rer', 'erer', '34343', '3434', 'erer', '3434', '', '3', 'male', 1, '2017-12-19', 1513834504),
+(5, 'staff', 'Lordes\'s', 'dsd', 'sdsd', '333333', '3434', '3434', '3434', '', '34343', 'female', 1, '2017-11-27', 1513841712),
+(6, 'vet', 'dsd', 'Sds', 'Sns', 's', 's', 'd', 'd', '', 'd', 'male', 1, '2017-12-14', 1513945232),
+(7, 'staff', 'dsdsds', 'Sds', 'Ss', 's', 's', 'ds', 's', 'DSC_0692.JPG', 's', 'female', 1, '1999-07-22', 1513945255);
 
 -- --------------------------------------------------------
 
@@ -138,6 +187,28 @@ CREATE TABLE `tblinstoreproducts` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblpetbreed`
+--
+
+CREATE TABLE `tblpetbreed` (
+  `breed_id` int(11) NOT NULL,
+  `breed` varchar(45) NOT NULL,
+  `pettype_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblpetbreed`
+--
+
+INSERT INTO `tblpetbreed` (`breed_id`, `breed`, `pettype_id`) VALUES
+(1, 'Labrador Retriever', 1),
+(2, 'Great Dane', 1),
+(3, 'Garfield', 2),
+(4, 'Tilapya', 3);
 
 -- --------------------------------------------------------
 
@@ -164,17 +235,53 @@ CREATE TABLE `tblpetcheckup` (
 
 CREATE TABLE `tblpets` (
   `pet_id` int(11) NOT NULL,
-  `qr_code` text NOT NULL,
   `pet_name` text NOT NULL,
-  `pet_type` varchar(45) NOT NULL,
+  `pet_type` int(11) NOT NULL,
+  `pet_breed` int(11) NOT NULL,
   `pet_size` varchar(45) NOT NULL,
-  `pet_bread` int(11) NOT NULL,
-  `birthdate` datetime NOT NULL,
+  `date_birth` datetime NOT NULL,
   `gender` varchar(45) NOT NULL,
   `pet_image` text NOT NULL,
-  `date_added` datetime NOT NULL,
-  `customer_id` int(11) NOT NULL
+  `date_added` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblpets`
+--
+
+INSERT INTO `tblpets` (`pet_id`, `pet_name`, `pet_type`, `pet_breed`, `pet_size`, `date_birth`, `gender`, `pet_image`, `date_added`, `customer_id`, `is_active`) VALUES
+(1, 'Rica', 1, 1, '2', '2015-05-11 00:00:00', 'female', '', 1514184327, 1, 1),
+(2, 'Hha', 1, 1, '3', '2013-02-12 00:00:00', 'female', '', 1514184327, 1, 1),
+(3, 'Ashley', 2, 3, '2.4', '2013-01-15 00:00:00', 'female', '', 1514215656, 3, 1),
+(4, 'hahahhaasdsdsda', 1, 2, '13', '2016-06-15 00:00:00', 'male', '', 1514220010, 5, 1),
+(5, 'sds', 1, 1, '2', '2012-02-23 00:00:00', 'male', '', 1514220053, 1, 1),
+(6, 'aa', 1, 1, '2.4', '2017-12-03 00:00:00', 'male', '', 1514220109, 1, 1),
+(7, 'k11', 2, 3, '13', '2007-06-13 00:00:00', 'female', '', 1514220170, 5, 1),
+(8, 'has', 1, 1, '2.4', '2015-01-13 00:00:00', 'male', '', 1514220234, 1, 1),
+(9, 'karla', 2, 3, '2.4', '2014-06-26 00:00:00', 'female', '', 1514220342, 4, 1),
+(10, 'Nimo', 3, 4, '2.4', '2016-05-16 00:00:00', 'male', '', 1514274398, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblpettype`
+--
+
+CREATE TABLE `tblpettype` (
+  `pettype_id` int(11) NOT NULL,
+  `pet_type` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblpettype`
+--
+
+INSERT INTO `tblpettype` (`pettype_id`, `pet_type`) VALUES
+(1, 'Dog'),
+(2, 'Cat'),
+(3, 'Fish');
 
 -- --------------------------------------------------------
 
@@ -252,6 +359,12 @@ CREATE TABLE `tbproducts` (
 --
 
 --
+-- Indexes for table `tbladmins`
+--
+ALTER TABLE `tbladmins`
+  ADD PRIMARY KEY (`admin_id`);
+
+--
 -- Indexes for table `tblappointments`
 --
 ALTER TABLE `tblappointments`
@@ -288,6 +401,12 @@ ALTER TABLE `tblinstoreproducts`
   ADD PRIMARY KEY (`instoreproduct_id`);
 
 --
+-- Indexes for table `tblpetbreed`
+--
+ALTER TABLE `tblpetbreed`
+  ADD PRIMARY KEY (`breed_id`);
+
+--
 -- Indexes for table `tblpetcheckup`
 --
 ALTER TABLE `tblpetcheckup`
@@ -298,6 +417,12 @@ ALTER TABLE `tblpetcheckup`
 --
 ALTER TABLE `tblpets`
   ADD PRIMARY KEY (`pet_id`);
+
+--
+-- Indexes for table `tblpettype`
+--
+ALTER TABLE `tblpettype`
+  ADD PRIMARY KEY (`pettype_id`);
 
 --
 -- Indexes for table `tblproductinwarehouse`
@@ -334,6 +459,11 @@ ALTER TABLE `tbproducts`
 --
 
 --
+-- AUTO_INCREMENT for table `tbladmins`
+--
+ALTER TABLE `tbladmins`
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `tblappointments`
 --
 ALTER TABLE `tblappointments`
@@ -342,7 +472,7 @@ ALTER TABLE `tblappointments`
 -- AUTO_INCREMENT for table `tblcustomers`
 --
 ALTER TABLE `tblcustomers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `tbldrugprescribed`
 --
@@ -357,12 +487,17 @@ ALTER TABLE `tbldrugtype`
 -- AUTO_INCREMENT for table `tblemployees`
 --
 ALTER TABLE `tblemployees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tblinstoreproducts`
 --
 ALTER TABLE `tblinstoreproducts`
   MODIFY `instoreproduct_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tblpetbreed`
+--
+ALTER TABLE `tblpetbreed`
+  MODIFY `breed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tblpetcheckup`
 --
@@ -372,7 +507,12 @@ ALTER TABLE `tblpetcheckup`
 -- AUTO_INCREMENT for table `tblpets`
 --
 ALTER TABLE `tblpets`
-  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `tblpettype`
+--
+ALTER TABLE `tblpettype`
+  MODIFY `pettype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tblproductinwarehouse`
 --

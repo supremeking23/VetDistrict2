@@ -96,7 +96,7 @@ input:checked + .slider:before {
 }
   </style>
 </head>
-<body class="hold-transition skin-green sidebar-mini" id="customer">
+<body class="hold-transition skin-green sidebar-mini" id="employee">
 <div class="wrapper">
 
   <header class="main-header">
@@ -171,13 +171,13 @@ input:checked + .slider:before {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Customer 
+        Employee 
         <small>Details</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Customer</li>
-        <li class="active">Customer Details</li>
+        <li class="active">Employee</li>
+        <li class="active">Employee Details</li>
       </ol>
     </section>
 
@@ -189,36 +189,41 @@ input:checked + .slider:before {
         
         <div class="col-md-3">
 
-          <?php foreach($show_customer_details as $customer_details):?>
+          <?php foreach($show_employee_details as $employee_details):?>
 
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
 
-              <?php if(empty($customer_details->image)){ ?>
+              <?php if(empty($employee_details->image)){ ?>
                 <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/guest2.jpg" alt="User's Name">
               <?php }else{ ?>
-                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/customer_image/<?php echo $customer_details->image; ?>" alt="User's Name">
+                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/employee_image/<?php echo $employee_details->image; ?>" alt="User's Name">
               <?php } ?>
 
-              <h3 class="profile-username text-center"><?php echo $customer_details->first_name .' '. $customer_details->middle_name .' '. $customer_details->last_name;?></h3>
+              <h3 class="profile-username text-center"><?php echo $employee_details->first_name .' '. $employee_details->middle_name .' '. $employee_details->last_name;?></h3>
 
 
-            
-               
+              <?php if($employee_details->employee_type == "vet"){
+                  $emp_type = "Veterinarian";
+              }else{
+                  $emp_type = "Staff";
+
+              }
+                ?>
               
 
-              <p class="text-muted text-center"></p>
+              <p class="text-muted text-center"><?php echo $emp_type;?></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Customer ID</b> <a class="pull-right"><?php echo $customer_details->customer_id;?></a>
+                  <b>Employee ID</b> <a class="pull-right"><?php echo $employee_details->employee_id;?></a>
                 </li>
                 <li class="list-group-item">
                   <!--$dateadded = date("F j, Y, g:i a", $r["DateAdded"]);-->
 
                    <?php 
-                         $date =date_create($customer_details->date_birth);
+                         $date =date_create($employee_details->date_birth);
                          $birthdate= date_format($date,"F d Y");
 
                     ?>
@@ -234,10 +239,9 @@ input:checked + .slider:before {
               <?php endforeach;?>
 
 
-
-              <div class="row">
-              	
-              	 <div class="form-group">
+                            <div class="row">
+                
+                 <div class="form-group">
                     <div class="col-sm-6">
                       <div class="checkbox">
                         <label class="switch">
@@ -257,8 +261,8 @@ input:checked + .slider:before {
              
 
               <div class="row">
-              	
-              	<div class="form-group">
+                
+                <div class="form-group">
                     <div class="col-sm-6">
                       <div class="checkbox">
                         <label class="switch">
@@ -276,7 +280,6 @@ input:checked + .slider:before {
 
               </div>
 
-                
 
              <!-- <div class="form-group">
                     <div class="col-sm-12">
@@ -321,19 +324,35 @@ input:checked + .slider:before {
                 <fieldset>
 
                   <?php //beginning form
-                  echo form_open_multipart('admin/update_customer_details','class="form-horizontal"');
+                  echo form_open_multipart('admin/update_employee_details','class="form-horizontal"');
                   ?>
 
 
-                   <?php foreach($show_customer_details as $customer_details):?>
+                   <?php foreach($show_employee_details as $employee_details):?>
 
 
+                   <div class="form-group">
+                    <label for="account_type" class="col-sm-2 control-label">Account Type</label>
+
+                    <div class="col-sm-10">
+                       <?php //option for employee type
+                                $option = array(
+                                    "" => "Employee Type",
+                                    "vet" => "Veterinarian",
+                                    "staff" => "Staff",
+                                    
+                                );
+                        ?>
+
+                        <?php echo form_dropdown('employee_type',$option,$employee_details->employee_type,'class="form-control" required');?>
+                    </div>
+                  </div>
 
                   <div class="form-group">
                     <label for="first_name" class="col-sm-2 control-label">First Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $customer_details->first_name?>">
+                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $employee_details->first_name?>">
                     </div>
                   </div>
 
@@ -341,7 +360,7 @@ input:checked + .slider:before {
                     <label for="middle_name" class="col-sm-2 control-label">Middle Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $customer_details->middle_name?>">
+                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $employee_details->middle_name?>">
                     </div>
                   </div>
 
@@ -349,7 +368,7 @@ input:checked + .slider:before {
                     <label for="last_name" class="col-sm-2 control-label">Last Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $customer_details->last_name?>">
+                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $employee_details->last_name?>">
                     </div>
                   </div>
 
@@ -368,7 +387,7 @@ input:checked + .slider:before {
                             ?>
 
                       <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('gender',$option,$customer_details->gender,'class="form-control" required');?>
+                             <?php echo form_dropdown('gender',$option,$employee_details->gender,'class="form-control" required');?>
                     </div>
                   </div>
 
@@ -377,7 +396,7 @@ input:checked + .slider:before {
                     <label for="address" class="col-sm-2 control-label">Address</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $customer_details->address?>">
+                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $employee_details->address?>">
                     </div>
                   </div>
 
@@ -386,7 +405,7 @@ input:checked + .slider:before {
                     <label for="cellphone" class="col-sm-2 control-label">Cellphone Number</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $customer_details->cellphone?>">
+                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $employee_details->cellphone?>">
                     </div>
                   </div>
 
@@ -395,7 +414,7 @@ input:checked + .slider:before {
                     <label for="email" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $customer_details->email?>">
+                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $employee_details->email?>">
                     </div>
                   </div>
 
@@ -403,7 +422,7 @@ input:checked + .slider:before {
                     <label for="telephone" class="col-sm-2 control-label">Telephone Number</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $customer_details->telephone?>">
+                      <input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $employee_details->telephone?>">
                     </div>
                   </div>
 
@@ -413,7 +432,7 @@ input:checked + .slider:before {
                     <label for="date_birth" class="col-sm-2 control-label">Date of Birth</label>
 
                     <div class="col-sm-10">
-                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $customer_details->date_birth?>">
+                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $employee_details->date_birth?>">
                     </div>
                   </div>
 
@@ -426,15 +445,15 @@ input:checked + .slider:before {
                        <input type="hidden" value="" name="image_name">
 
 
-                      <?php if(empty($customer_details->image)){ ?>
+                      <?php if(empty($employee_details->image)){ ?>
                         <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>assets/dist/img/guest2.jpg" width="100" alt="User profile picture">
                       <?php }else { ?>
-                           <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/customer_image/<?php echo $customer_details->image; ?>" width="100" alt="User profile picture">
+                           <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/employee_image/<?php echo $employee_details->image; ?>" width="100" alt="User profile picture">
                       <?php } ?>
                     </div>
 
                     <?php //for employee_id?>
-                    <input type="hidden" name="customer_id" value="<?php echo $customer_details->customer_id;?>">
+                    <input type="hidden" name="employee_id" value="<?php echo $employee_details->employee_id;?>">
                   </div>
 
 
@@ -470,7 +489,7 @@ input:checked + .slider:before {
       <div class="row">
         <?php  //for messages?>
 
-              <?php if ($this->session->flashdata('update_customer_success')) { ?>
+              <?php if ($this->session->flashdata('update_employee_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -481,7 +500,7 @@ input:checked + .slider:before {
                         <h4 class="modal-title"></h4>
                       </div>
                       <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('update_customer_success'); ?> </p>
+                        <p> <?php echo $this->session->flashdata('update_employee_success'); ?> </p>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>

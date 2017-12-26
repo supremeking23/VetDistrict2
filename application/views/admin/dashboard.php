@@ -139,7 +139,7 @@
 
               <i class="ion ion-person" ></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+           <a href="#" class="small-box-footer"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -154,7 +154,7 @@
             <div class="icon">
               <i class="fa fa-firefox" style="padding-top: 15px"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -164,12 +164,12 @@
             <div class="inner">
               <h3>44</h3>
 
-              <p>Stocks</p>
+              <p>Products</p>
             </div>
             <div class="icon">
               <i class="fa fa-archive" style="padding-top: 15px"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+           <a href="#" class="small-box-footer"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -184,7 +184,7 @@
             <div class="icon">
               <i class="fa fa-users" style="padding-top: 15px"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer"></i></a>
           </div>
         </div>
         <!-- ./col -->

@@ -228,6 +228,27 @@ class Admin_Model extends CI_Model
 	}
 
 
+
+	public function get_count_all_item(){
+		$result_set = $this->db->query('SELECT COUNT(*) AS "count_all" FROM tblproductitems');
+		return $result_set->result_array();
+	}
+
+
+
+	public function get_item_details_by_id_from_tblproductitems($data){
+		$this->db->select('*');
+		$this->db->from('tblproductitems');
+		$this->db->where('prod_item_id',$data);
+
+		$query = $this->db->get();
+
+		$result_set = $query->result();
+
+		return $result_set;
+	}
+
+
 	//--------------------------END PRODUCT RELATED MODEL------------------//
 
 

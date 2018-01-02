@@ -288,11 +288,11 @@ class Admin extends CI_Controller {
 		$data['items'] = $this->admin_model->get_all_item();
 
 
-		$data['count_all_meds'] = $this->admin_model->get_count_all_meds();
+		$data['count_all_items'] = $this->admin_model->get_count_all_item();
 
 
 
-		$data['drug_type'] = $this->admin_model->get_all_drug_type();
+		
 
 
 		$this->load->view('admin/items',$data);
@@ -562,6 +562,61 @@ class Admin extends CI_Controller {
 
 
 
+	public function item_details(){
+
+		if(!$this->session->userdata('logged_in')){
+					redirect('admin/login');
+			}
+
+			$user_id = $this->session->userdata('user_id');
+
+			//get user_id via $user_id session
+			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+			//$data['id'] = $id;
+
+				/*
+				*	The segment numbers would be this:
+				*  	1 news
+					2 local
+					3 metro
+					4 crime_is_up
+				*/
+
+			$id = $this->uri->segment(3);
+
+			//get info from productitem table
+			$data['show_item_details'] = $this->admin_model->get_item_details_by_id_from_tblproductitems($id);
+
+			
+
+			
+
+			$this->load->view('admin/item_details',$data);
+			$this->load->view('admin/layouts/sidebar.php',$data);
+			//print_r($data);
+
+
+			/*foreach($data['pet_breeds'] as $d){
+				echo $pet_breed = $d->breed;
+			}*/
+			
+
+			/*foreach($data['pet_types'] as $d){
+				echo $d->pettype_id;
+			}*/
+			//echo  $this->uri->segment(3);
+
+
+
+	}
+
+
+
+
+
+
+
 
 	
 	//------------------------------------- END DETAILS PAGES -------------------------------------------//
@@ -756,7 +811,58 @@ class Admin extends CI_Controller {
 
 
 	public function create_new_item(){
-		print_r($this->input->post());
+		//print_r($this->input->post());
+
+		if(!$this->session->userdata('logged_in')){
+					redirect('admin/login');
+			}
+
+			$user_id = $this->session->userdata('user_id');
+
+			//get user_id via $user_id session
+			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+
+
+			$data = array(
+				'item_name' => $this->input->post('item_name'),
+				'item_price' => $this->input->post('item_price'),
+				'item_qty' => $this->input->post('item_qty'),
+				'is_active' => 1,
+			);
+
+
+			$this->create_model->create_prod_item($data);
+
+
+			//get the last inserted id
+			$insertId = $this->db->insert_id();
+
+
+			//table 2
+
+			$action = "Add Product";
+			$user_type="Admin";
+
+			$data = array(
+				
+				'user_type' => $user_type,
+				'user_id' => $user_id,
+				'action' => $action ,
+				'product_item_id' => $insertId,
+				'quantity' => $this->input->post('item_qty'),
+				'inventory_date' => time(),
+
+			);
+
+
+			$this->create_model->create_item_inventory($data);
+
+
+			$this->session->set_flashdata('add_item_success','Item product has been added');
+	      
+	      	redirect('admin/items');
+
 	}
 
 

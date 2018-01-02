@@ -41,7 +41,7 @@
 </script>
 
 </head>
-<body class="hold-transition skin-green sidebar-mini" id="products">
+<body class="hold-transition skin-green sidebar-mini" id="medicine">
 <div class="wrapper">
 
   <header class="main-header">

@@ -4,10 +4,16 @@ $(function(){
   $("#employee a:contains('Employees')").parent().addClass('active');
  
  //for product
-  $("#products a:contains('Products')").parent().addClass('active');
-  /*$("#products ul#prod_family a:contains('Medicines')").parent().addClass('active');
-  $("#products ul#prod_family a:contains('Items')").parent().addClass('active');
-  */
+  $("#medicine  a:contains('Products')").parent().addClass('active');
+  $("#item  a:contains('Products')").parent().addClass('active');
+
+  
+
+
+
+  $("#medicine ul li a:contains('Medicines')").parent().addClass('active');
+  $("#item ul li a:contains('Items')").parent().addClass('active');
+
   $("#customer a:contains('Customers')").parent().addClass('active');
   $("#pet a:contains('Pets')").parent().addClass('active');
   $("#administrator a:contains('Admins')").parent().addClass('active');

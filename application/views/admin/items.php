@@ -41,7 +41,7 @@
 </script>
 
 </head>
-<body class="hold-transition skin-green sidebar-mini" id="products">
+<body class="hold-transition skin-green sidebar-mini" id="item">
 <div class="wrapper">
 
   <header class="main-header">
@@ -254,8 +254,8 @@
                   </span>
                   
                  
-                 <?php foreach($count_all_meds as $total_count_all_med):?>
-                      <span class="info-box-number"><?php echo $total_count_all_med['count_all'];?></span>
+                 <?php foreach($count_all_items as $total_count_all_item):?>
+                      <span class="info-box-number"><?php echo $total_count_all_item['count_all'];?></span>
                   <?php endforeach?>
 
                   <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addItemModal">

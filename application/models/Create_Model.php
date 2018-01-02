@@ -43,6 +43,16 @@ class Create_Model extends CI_Model
   }
 
 
+  public function create_prod_item($data){
+     $this->db->insert('tblproductitems',$data);
+  }
+
+
+    public function create_item_inventory($data){
+     $this->db->insert('tblinventoryforitems',$data);
+  }
+
+
 
   public function create_pet($data){
     $this->db->insert('tblpets',$data);

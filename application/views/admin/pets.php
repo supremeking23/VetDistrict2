@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Vet District Clinic | Admin</title>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -74,20 +75,45 @@
           </li>
 
 
-          <!-- User Account: style can be found in dropdown.less -->
+           <?php 
+
+            foreach($current_admin_login as $admin_login){
+               $first_name = $admin_login->first_name;
+               $middle_name = $admin_login->middle_name;
+               $last_name = $admin_login->last_name;
+               $image = $admin_login->image;
+
+            }
+          ?>
+
+           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                      <span class="hidden-xs">Alexander Pierce</span>
+
+                      <?php if(empty($image)){ ?>
+                      <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
+                     <?php }else{ ?>
+                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <?php } ?>
+
+
+                      <span class="hidden-xs"><?php echo $first_name .' '. $middle_name .' '. $last_name;?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                        <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                          <?php if(empty($image)){ ?>
+                        <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
+                       <?php }else{ ?>
+                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <?php } ?>
+
+                        
 
                         <p>
-                          Alexander Pierce - Web Developer
-                          <small>Member since Nov. 2012</small>
+                         <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
+                          <small>Admin</small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -95,14 +121,15 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="#" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
-            </li>
+          </li>
+        
         </ul>
       </div>
     </nav>
@@ -224,7 +251,7 @@
 
                         <?php  //for customer name?>
                           <div class="form-group has-feedback">
-                               <select name="customer_id" class="form-control">
+                               <select name="customer_id" class="form-control" required="">
                                 <option value="">Customer Name</option>
                                 <?php foreach($customers as $customer):?>
                                   
@@ -240,7 +267,7 @@
                             <!-- end dropdown-->
 
                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Name"   name="pet_name">
+                            <input type="text"  class="form-control" placeholder="Pet Name"   name="pet_name" required="">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
@@ -257,14 +284,14 @@
                                 );
                             ?>
                             <div class="form-group has-feedback">
-                             <?php echo form_dropdown('gender',$option,'','class="form-control"');?>
+                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
                             </div>
 
                             <!-- end dropdown-->
 
 
                       <div class="form-group has-feedback">
-                        <select id="pet_type" name="pet_type" class="form-control">
+                        <select id="pet_type" name="pet_type" class="form-control" required="">
                                  <option value="">Pet Type</option>
                                 <?php foreach($pet_type as $type):?>
                                  
@@ -276,7 +303,7 @@
 
 
                         <div class="form-group has-feedback">
-                        <select id="breed" name="breed" class="form-control">
+                        <select id="breed" name="breed" class="form-control" required="">
                        </select>
                        </div>
 
@@ -284,14 +311,14 @@
 
 
                         <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Size in kg"   name="pet_size">
+                            <input type="text"  class="form-control" placeholder="Pet Size in kg"   name="pet_size" required="">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                         </div>
 
 
 
                         <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth">
+                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth" required="">
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
                         </div>
 
@@ -325,7 +352,7 @@
                       <?php echo form_open_multipart('admin/create_new_pettype');?>
 
                          <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Type"   name="new_pet_type">
+                            <input type="text"  class="form-control" placeholder="Pet Type"   name="new_pet_type" required="">
                             <span class="fa fa-firefox form-control-feedback"></span>
                           </div>
 
@@ -357,13 +384,13 @@
                        <?php echo form_open_multipart('admin/create_new_petbreed');?>
 
                          <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Breed"   name="new_petbreed">
+                            <input type="text"  class="form-control" placeholder="Pet Breed"   name="new_petbreed" required="">
                             <span class="fa fa-firefox form-control-feedback"></span>
                           </div>
 
 
                         <div class="form-group has-feedback">
-                          <select id="pet_type" name="pet_type" class="form-control">
+                          <select id="pet_type" name="pet_type" class="form-control" required="">
                                  <option value="">Pet Type</option>
                                 <?php foreach($pet_type as $type):?>
                                  
@@ -468,6 +495,7 @@
                    <th>Animal Type <?php //echo date('F d Y',31556926)?></th>
                   <th>Breed</th>
                   <th>Owner</th>
+                   <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -481,6 +509,12 @@
                   <td><?php echo $pet_info['pet_type'];?></td>
                   <td><?php echo $pet_info['breed'];?></td>
                   <td><?php echo $pet_info['first_name'] .' '. $pet_info['middle_name']. ' ' . $pet_info['last_name'];?></td>
+                   <td><?php if($pet_info['is_active'] == 1){ ?>
+                        Active 
+                  <?php  }else{ ?>
+
+                        Not Active 
+                  <?php   } ?></td>
                   <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary">View More Details</a></td>
                 </tr>
 
@@ -507,8 +541,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
   </footer>
 
  
@@ -601,6 +634,11 @@
             }
 
         });
+
+
+
+    //modal test
+     
 
     });
 

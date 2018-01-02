@@ -33,8 +33,15 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+<script>
+  
+ 
+</script>
+
 </head>
-<body class="hold-transition skin-green sidebar-mini" id="employee">
+<body class="hold-transition skin-green sidebar-mini" id="products">
 <div class="wrapper">
 
   <header class="main-header">
@@ -67,6 +74,7 @@
             </ul>
           </li>
 
+
            <?php 
 
             foreach($current_admin_login as $admin_login){
@@ -74,6 +82,7 @@
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+
             }
           ?>
 
@@ -93,16 +102,18 @@
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                       
-                        <?php if(empty($image)){ ?>
+
+                          <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
                        <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
+                        
+
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small></small>
+                          <small>Admin</small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -118,8 +129,7 @@
                       </li>
                     </ul>
           </li>
-
-       
+        
         </ul>
       </div>
     </nav>
@@ -132,12 +142,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Employee 
-        <small>Employee List</small>
+        Items 
+        <small>Item List</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Employee</li>
+        <li class="active">Item</li>
       </ol>
     </section>
 
@@ -145,13 +155,12 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
 
-
       <div class="row">
 
-            <div id="modal_section">
+          <div id="modal_section">
 
-              <!-- add customer message--> 
-               <?php if ($this->session->flashdata('add_employee_success')) { ?>
+              <!-- add pet message--> 
+               <?php if ($this->session->flashdata('add_item_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -162,7 +171,7 @@
                         <h4 class="modal-title"></h4>
                       </div>
                       <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('add_employee_success'); ?> </p>
+                        <p> <?php echo $this->session->flashdata('add_item_success'); ?> </p>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
@@ -174,105 +183,49 @@
                <?php } ?>
 
 
-
-
-                <!-- addCustomerModal-->  
-                <div class="modal fade" id="addEmployeeModal">
+                <!-- add Modal-->  
+                <div class="modal fade" id="addItemModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new customer</h4>
+                        <h4 class="modal-title">Add new Item</h4>
                       </div>
                       <div class="modal-body">
                         <?php //beginning form
-                          echo form_open_multipart('admin/create_new_employee');
+                          echo form_open_multipart('admin/create_new_item');
                         ?>
 
-                           <?php //option for employee type
-                                $option = array(
-                                    "" => "Employee Type",
-                                    "vet" => "Veterinarian",
-                                    "staff" => "Staff",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                              <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('employee_type',$option,'','class="form-control" required');?>
-                            </div>
-
 
                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="First Name"   name="first_name" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            <input type="text"  class="form-control" placeholder="Item Name"   name="item_name" required="">
+                            <span class="fa fa-sitemap form-control-feedback"></span>
                           </div>
 
-                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Middle Name"  name="middle_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Last Name" name="last_name" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-
-
-                          <?php //option for  gender
-                                $option = array(
-                                    "" => "Gender",
-                                    "male" => "Male",
-                                    "female" => "Female",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                              <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
-                            </div>
-
-                            <!-- end dropdown-->
-
-                          <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth" required="">
-                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Telephone"  name="telephone">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Cellphone"  name="cellphone" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Address"  name="address" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Email"  name="email" required="">
-                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="password"    class="form-control" placeholder="Password"  name="password" required="">
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                          </div>
                           
+
+                          <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Price"   name="item_price" required="">
+                            <span class="fa fa-sitemap form-control-feedback"></span>
+                        </div>
+
+
+
+                        <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Quantity"   name="item_qty" required="">
+                            <span class="fa fa-sitemap form-control-feedback"></span>
+                        </div>
+
+
+
+                     
+
 
 
                       </div><!-- end modal content-->
                       <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_employee', 'name' =>'add_employee', 'value' => 'Add Employee','class'=>'pull-right btn btn-primary')); ?>
+                        <?php echo form_submit(array('id' => 'add_item', 'name' =>'add_item', 'value' => 'Add Item','class'=>'pull-right btn btn-primary')); ?>
                         
                       </div>
 
@@ -285,56 +238,41 @@
                 <!-- /.modal -->
 
 
+
+
+
+
+
             </div>
+        
 
             <div class="col-md-4">
               <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+                <span class="info-box-icon bg-green"><i class="fa fa-sitemap"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Employee Count 
+                  <span class="info-box-text">Item Count 
                   </span>
                   
-                  <?php foreach($count_all_employee as $total_count_all_employee):?>
-                      <span class="info-box-number"><?php echo $total_count_all_employee['count_all'];?></span>
+                 
+                 <?php foreach($count_all_meds as $total_count_all_med):?>
+                      <span class="info-box-number"><?php echo $total_count_all_med['count_all'];?></span>
                   <?php endforeach?>
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addEmployeeModal">
-                    Add new Employee
+                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addItemModal">
+                    Add new Item
                   </button>
                  
                 </div>
               </div>
             </div>
 
-                <div class="col-md-4">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-user"></i></span>
-                    <div class="info-box-content">
-                      <span class="info-box-text">Staff</span>
 
-                     <?php foreach($count_staff as $total_count_staff):?>
-                      <span class="info-box-number"><?php echo $total_count_staff['count_staff'];?></span>
-                  <?php endforeach?>
 
-                    </div>
-                  </div>
-            </div>
-            <div class="col-md-4">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
-                    <div class="info-box-content">
-                      <span class="info-box-text">Veterinarian</span>
 
-                     <?php foreach($count_veterinarian as $total_count_veterinarian):?>
-                      <span class="info-box-number"><?php echo $total_count_veterinarian['count_veterinarian'];?></span>
-                     <?php endforeach?>
 
-                    </div>
-                  </div>
-            </div>
-        
+
+
       </div> <!-- end first row -->
-
 
 
       <div class="row">
@@ -342,52 +280,41 @@
        <div class="col-xs-12">
        <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Employee</h3>
+              <h3 class="box-title">Item</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Admin ID</th>
-                  <th>Name</th>
-                  <th>Employee Type</th>
-                  <th>Cellphone Number</th>
+                  <th>Item Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                
 
-                <?php foreach($employees as $employee):?>
+              <?php foreach($items as $item_info):?>
+
                 <tr>
-                  <td><?php echo $employee['employee_id'];?></td>
-                  <td><?php echo $employee['first_name'] .' '. $employee['middle_name'] .' '.$employee['last_name'] ;?></td>
-                  <td><?php  
-
-                  if($employee['employee_type'] == 'staff'){
-                            echo "Staff";
-                  }else{
-                            echo "Veterinarian";
-                  }?></td>
-
-                  <td><?php echo $employee['cellphone'];?></td>
-
-                   <td><?php if($employee['is_active'] == 1){ ?>
-                        Active
+                 
+                  <td><?php echo $item_info['item_name'];?></td>
+                  <td><?php echo $item_info['item_price'];?></td>
+                  <td><?php echo $item_info['item_qty'];?></td>
+                   <td><?php if($item_info['is_active'] == 1){ ?>
+                        Active 
                   <?php  }else{ ?>
 
-                        Not Active
+                        Not Active 
                   <?php   } ?></td>
-                 
-                  
-                  
-                  <td><a href="<?php echo site_url()?>admin/employee_details/<?php echo $employee['employee_id']; ?>" class="btn btn-primary">View More Details</a></td>
+                  <td><a href="<?php echo site_url()?>admin/item_details/<?php echo $item_info['prod_item_id'];?>" class="btn btn-primary">View More Details</a></td>
                 </tr>
-               <?php endforeach;?>
 
 
+                <?php endforeach; ?>
+               
                 </tbody>
                 
               </table>
@@ -409,7 +336,6 @@
       <b>Version</b> 2.4.0
     </div>
     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
-   
   </footer>
 
  
@@ -461,6 +387,11 @@
       'autoWidth'   : false
     })
   })
+
+
+  
+
+   
   </script>
 </body>
 </html>

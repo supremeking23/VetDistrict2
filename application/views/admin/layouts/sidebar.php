@@ -4,10 +4,42 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+
+           <?php 
+
+            foreach($current_admin_login as $admin_login){
+               $first_name = $admin_login->first_name;
+               $middle_name = $admin_login->middle_name;
+               $last_name = $admin_login->last_name;
+               $image = $admin_login->image;
+            }
+          ?>
+
+           <?php if(empty($image)){ ?>
+                    <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                     <?php }else{ ?>
+                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                     <?php } ?>
+
+         
         </div>
+
+
+        <?php //temporary
+
+                      function limit_text($text, $limit) {
+                          if (str_word_count($text, 0) > $limit) {
+                              $words = str_word_count($text, 2);
+                              $pos = array_keys($words);
+                              $text = substr($text, 0, $pos[$limit]) . '...';
+                          }
+                          return $text;
+                     }
+                     ?>
+
         <div class="pull-left info">
-          <p>Admin</p>
+          <p><?php echo limit_text($first_name . " " . $last_name,3);?></p>
           
         </div>
       </div>
@@ -21,7 +53,7 @@
         <li><a href="<?php echo site_url();?>admin/employees"><i class="fa fa-user"></i> <span>Employees</span></a></li>
         
        <!-- <li><a href="<?php echo site_url();?>admin/products"><i class="fa  fa-th-list"></i> <span>Products</span></a></li> -->
-        <li class="treeview">
+        <li class="treeview" id="prod_family">
           <a href="#">
             <i class="fa fa-th-list"></i> <span>Products</span>
             <span class="pull-right-container">
@@ -29,8 +61,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Medicines</a></li>
-            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Items</a></li>
+            <li id="med"><a href="<?php echo site_url();?>admin/medicines"><i class="fa fa-circle-o"></i> Medicines</a></li>
+            <li id="item"><a href="<?php echo site_url();?>admin/items"><i class="fa fa-circle-o"></i> Items</a></li>
           </ul>
         </li>
 

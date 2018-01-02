@@ -14,8 +14,32 @@ class Create_Model extends CI_Model
 
 
 
-    public function create_employee($data){
+  public function create_admin($data){
+      $this->db->insert('tbladmins',$data);
+  }
+
+
+
+  public function create_employee($data){
       $this->db->insert('tblemployees',$data);
+  }
+
+
+
+
+  //for PRODUCTS
+
+  public function create_drugtype($data){
+    $this->db->insert('tbldrugtype',$data);
+  }
+
+  public function create_prod_medicine($data){
+    $this->db->insert('tblproductmedicines',$data);
+  }
+
+
+  public function create_med_inventory($data){
+     $this->db->insert('tblinventoryformedicines',$data);
   }
 
 

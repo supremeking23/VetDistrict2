@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Vet District Clinic | Admin</title>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -130,20 +131,43 @@ input:checked + .slider:before {
           </li>
 
 
-          <!-- User Account: style can be found in dropdown.less -->
+           <?php 
+
+            foreach($current_admin_login as $admin_login){
+               $first_name = $admin_login->first_name;
+               $middle_name = $admin_login->middle_name;
+               $last_name = $admin_login->last_name;
+               $image = $admin_login->image;
+            }
+          ?>
+
+           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                      <span class="hidden-xs">Alexander Pierce</span>
+
+                      <?php if(empty($image)){ ?>
+                      <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
+                     <?php }else{ ?>
+                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <?php } ?>
+
+
+                      <span class="hidden-xs"><?php echo $first_name .' '. $middle_name .' '. $last_name;?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                        <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                       
+
+                        <?php if(empty($image)){ ?>
+                        <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
+                       <?php }else{ ?>
+                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <?php } ?>
 
                         <p>
-                          Alexander Pierce - Web Developer
-                          <small>Member since Nov. 2012</small>
+                         <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
+                          <small></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -151,14 +175,15 @@ input:checked + .slider:before {
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="#" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
-            </li>
+          </li>
+         
         </ul>
       </div>
     </nav>
@@ -260,23 +285,31 @@ input:checked + .slider:before {
 
              
 
+              <br />
+
               <div class="row">
                 
                 <div class="form-group">
-                    <div class="col-sm-6">
-                      <div class="checkbox">
-                        <label class="switch">
-
-                          <input type="checkbox" id="check_active" checked=""> 
-                          <span class="slider round"></span>
-                        </label>
-                      </div>
-
+                    <div class="col-sm-12">
                       
+                      <?php 
+
+                        $state;
+                        if($employee_details->is_active == 1){
+                          $state = "Active";
+                        }else{
+                          $state = "Not Active";
+                        }
+
+                      ?>
+                      <button title="Click to change state. Current state is <?php echo $state;?>" class="btn btn-success btn-block" data-tooltip="tooltip" data-toggle="modal" data-target="#access_confirmation" data-placement="bottom"> <?php echo $state; //echo $admin_details->is_active;?></button>
                     </div>
-                    <div class="col-sm-6">Toggle to change active state</div>
+                    
                 </div>
 
+
+
+              
 
               </div>
 
@@ -352,7 +385,7 @@ input:checked + .slider:before {
                     <label for="first_name" class="col-sm-2 control-label">First Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $employee_details->first_name?>">
+                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $employee_details->first_name?>" required="">
                     </div>
                   </div>
 
@@ -360,7 +393,7 @@ input:checked + .slider:before {
                     <label for="middle_name" class="col-sm-2 control-label">Middle Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $employee_details->middle_name?>">
+                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $employee_details->middle_name?>" >
                     </div>
                   </div>
 
@@ -368,7 +401,7 @@ input:checked + .slider:before {
                     <label for="last_name" class="col-sm-2 control-label">Last Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $employee_details->last_name?>">
+                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $employee_details->last_name?>" required="">
                     </div>
                   </div>
 
@@ -396,7 +429,7 @@ input:checked + .slider:before {
                     <label for="address" class="col-sm-2 control-label">Address</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $employee_details->address?>">
+                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $employee_details->address?>" required="">
                     </div>
                   </div>
 
@@ -405,7 +438,7 @@ input:checked + .slider:before {
                     <label for="cellphone" class="col-sm-2 control-label">Cellphone Number</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $employee_details->cellphone?>">
+                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $employee_details->cellphone?>" required="">
                     </div>
                   </div>
 
@@ -414,7 +447,7 @@ input:checked + .slider:before {
                     <label for="email" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $employee_details->email?>">
+                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $employee_details->email?>" required="">
                     </div>
                   </div>
 
@@ -432,7 +465,7 @@ input:checked + .slider:before {
                     <label for="date_birth" class="col-sm-2 control-label">Date of Birth</label>
 
                     <div class="col-sm-10">
-                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $employee_details->date_birth?>">
+                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $employee_details->date_birth?>" required="">
                     </div>
                   </div>
 
@@ -467,7 +500,7 @@ input:checked + .slider:before {
                     </div>
                   </div>
                 
-                <?php form_close();?>
+                <?php echo form_close();?>
 
                 </fieldset> <?php //end fieldset?>
 
@@ -510,6 +543,92 @@ input:checked + .slider:before {
                   </div>
 
                <?php } ?>
+
+
+                <?php if ($this->session->flashdata('change_state')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('change_state'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+
+               <?php if ($this->session->flashdata('incorrect_password')) { ?>
+         
+                   <div class="modal modal-danger" id="dangermodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('incorrect_password'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+
+               <div class="modal fade modal-danger" id="access_confirmation">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"  aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title">Access Confirmation</h4>
+                                </div>
+
+                                 <?php //beginning form
+                                    echo form_open_multipart('admin/update_employee_state','class="form-horizontal"');
+                              ?>
+                                <div class="modal-body">
+                                  <input type="hidden" name="current_state" value="<?php echo  $employee_details->is_active;?>">
+                                  <input type="hidden" name="employee_id" value="<?php echo  $employee_details->employee_id;?>">
+                                  <p>Please enter your password to continue </p>
+                                  <div class="has-feedback">
+                                      <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
+                                    
+                                  </div>
+
+
+                                  
+                                </div>
+
+                                <div class="modal-footer">
+                                   <?php echo form_submit(array('id' => 'change_state', 'name' =>'change_state', 'value' => 'Proceed','class'=>'pull-right btn btn-primary')); ?>
+                                 
+                                </div> 
+                                <?php echo form_close();?>
+                              </div>
+                              <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+              </div>
+
 
       </div>
 

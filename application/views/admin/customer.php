@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Vet District Clinic | Admin</title>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -66,21 +67,44 @@
             </ul>
           </li>
 
+          
 
-          <!-- User Account: style can be found in dropdown.less -->
+           <?php 
+
+            foreach($current_admin_login as $admin_login){
+               $first_name = $admin_login->first_name;
+               $middle_name = $admin_login->middle_name;
+               $last_name = $admin_login->last_name;
+               $image = $admin_login->image;
+            }
+          ?>
+
+           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                      <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
-                      <span class="hidden-xs">Alexander Pierce</span>
+                     <?php }else{ ?>
+                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <?php } ?>
+
+
+                      <span class="hidden-xs"><?php echo $first_name .' '. $middle_name .' '. $last_name;?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                        <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        
+                         <?php if(empty($image)){ ?>
+                        <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
+                       <?php }else{ ?>
+                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <?php } ?>
 
                         <p>
-                          Alexander Pierce - Web Developer
-                          <small>Member since Nov. 2012</small>
+                         <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
+                          <small></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -88,14 +112,16 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="#" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
-            </li>
+          </li>
+
+        
         </ul>
       </div>
     </nav>
@@ -238,7 +264,7 @@
                         
                       </div>
 
-                      <?php form_close();//endform?>
+                      <?php echo form_close();//endform?>
                     </div>
                     <!-- /.modal-content -->
                   </div>
@@ -310,13 +336,13 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped table-hover">
                 <thead>
                 <tr>
                   <th>Customer ID</th>
                   <th>Name</th>
                   <th>Gender</th>
-                  <th>Telephone Number</th>
+                  
                   <th>Cellphone Number</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -329,7 +355,7 @@
                     <td><?php echo $customer['customer_id'];?></td>
                     <td><?php echo $customer['first_name'] .' ' . $customer['middle_name'] .' ' . $customer['last_name'];?></td>
                     <td><?php echo $customer['gender'];?></td>
-                    <td><?php echo $customer['telephone'];?></td>
+                    
                     <td><?php echo $customer['cellphone'];?></td>
                     <td><?php if($customer['is_active'] == 1){ ?>
                         Active
@@ -361,8 +387,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
   </footer>
 
  
@@ -411,7 +436,9 @@
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : false
+      'autoWidth'   : false,
+
+
     })
   })
 
@@ -420,6 +447,9 @@
     $(document).ready(function(){
     $('#successmodal').modal('show');
   });
+
+
+
 
 
 

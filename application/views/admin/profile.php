@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html>
-
 <head>
  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -100,6 +98,7 @@ input:checked + .slider:before {
 
 </head>
 
+
 <body class="hold-transition skin-green sidebar-mini" id="administrator">
 <div class="wrapper">
 
@@ -168,7 +167,7 @@ input:checked + .slider:before {
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small>Admin</small>
+                          <small></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -365,7 +364,7 @@ input:checked + .slider:before {
                     <label for="first_name" class="col-sm-2 control-label">First Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $admin_details->first_name?>" required="">
+                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $admin_details->first_name?>">
                     </div>
                   </div>
 
@@ -373,7 +372,7 @@ input:checked + .slider:before {
                     <label for="middle_name" class="col-sm-2 control-label">Middle Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $admin_details->middle_name?>" required="">
+                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $admin_details->middle_name?>">
                     </div>
                   </div>
 
@@ -381,7 +380,7 @@ input:checked + .slider:before {
                     <label for="last_name" class="col-sm-2 control-label">Last Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $admin_details->last_name?>" required="">
+                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $admin_details->last_name?>">
                     </div>
                   </div>
 
@@ -409,7 +408,7 @@ input:checked + .slider:before {
                     <label for="address" class="col-sm-2 control-label">Address</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $admin_details->address?>" required="">
+                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $admin_details->address?>">
                     </div>
                   </div>
 
@@ -418,7 +417,7 @@ input:checked + .slider:before {
                     <label for="cellphone" class="col-sm-2 control-label">Cellphone Number</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $admin_details->cellphone?>" required="">
+                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $admin_details->cellphone?>">
                     </div>
                   </div>
 
@@ -427,7 +426,7 @@ input:checked + .slider:before {
                     <label for="email" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $admin_details->email?>" required="">
+                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $admin_details->email?>">
                     </div>
                   </div>
 
@@ -445,7 +444,7 @@ input:checked + .slider:before {
                     <label for="date_birth" class="col-sm-2 control-label">Date of Birth</label>
 
                     <div class="col-sm-10">
-                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $admin_details->date_birth?>" required="">
+                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $admin_details->date_birth?>">
                     </div>
                   </div>
 
@@ -621,8 +620,8 @@ input:checked + .slider:before {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
-    
+    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    reserved.
   </footer>
 
  

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Vet Disctrict | Admin</title>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -73,20 +74,43 @@
           </li>
 
 
+
+          <?php 
+
+            foreach($current_admin_login as $admin_login){
+               $first_name = $admin_login->first_name;
+               $middle_name = $admin_login->middle_name;
+               $last_name = $admin_login->last_name;
+               $image = $admin_login->image;
+            }
+          ?>
+
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                      <span class="hidden-xs">Alexander Pierce</span>
+
+                      <?php if(empty($image)){ ?>
+                      <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
+                     <?php }else{ ?>
+                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <?php } ?>
+
+
+                      <span class="hidden-xs"><?php echo $first_name .' '. $middle_name .' '. $last_name;?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                        <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                       
+                        <?php if(empty($image)){ ?>
+                        <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
+                       <?php }else{ ?>
+                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <?php } ?>
 
                         <p>
-                          Alexander Pierce - Web Developer
-                          <small>Member since Nov. 2012</small>
+                         <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
+                          <small></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -94,19 +118,24 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="#" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
-            </li>
+          </li>
+
+          
         </ul>
       </div>
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar  included in the controller admin-->
+  
+
+  <!-- testing-->
   
 
   <!-- Content Wrapper. Contains page content -->
@@ -131,8 +160,10 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
-
+              
+              <?php foreach($count_all_customer as $customer_count):?>
+                <h3><?php echo $customer_count['count_all']?></h3>
+            <?php endforeach;?>
               <p>Customers</p>
             </div>
             <div class="icon">
@@ -147,7 +178,12 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px"></sup></h3>
+
+
+              <?php foreach($count_all_pet as $pet_count):?>
+
+              <h3><?php echo $pet_count['count_all']?></h3>
+            <?php endforeach;?>
 
               <p>Pets</p>
             </div>
@@ -177,8 +213,13 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+            
+            <?php foreach($count_all_employee as $employee_count):?>
 
+              <h3><?php echo $employee_count['count_all']?></h3>
+
+
+            <?php endforeach;?>
               <p>Employees</p>
             </div>
             <div class="icon">
@@ -205,6 +246,11 @@
             <div class="box-header">
               <i class="fa fa-comments-o"></i>
               <h3 class="box-title">Customer Feedback</h3>
+              <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+  
+              </div><!-- /.box-header -->
             </div>
             <div class="box-body" id="">
               <hr><br>
@@ -222,14 +268,26 @@
 
         <div class="col-lg-6 col-xs-12">
 
-          <div class="box box-primary">
-            <div class="box-body no-padding">
-              <!-- THE CALENDAR -->
-              calendar
-              <div id="calendar"></div>
-            </div>
-            <!-- /.box-body -->
-          </div>
+                     <div class="box box-danger">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Calendar</h3>
+                      <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+  
+                      </div><!-- /.box-header -->
+                    
+               
+                          <div class="box-body">
+                              <div id='calendar' style="max-width: 900px; margin: 0 auto;"></div>
+
+                          </div><!-- /.box-body -->
+                         
+                          <div class="box-footer">
+                           
+                        </div>                                       
+             </div>
+           </div>  <!-- /.box -->
 
         </div>
 
@@ -242,9 +300,9 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.4.0
+      <b></b>
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
     reserved.
   </footer>
 

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Vet District Clinic | Admin</title>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -67,20 +68,42 @@
           </li>
 
 
-          <!-- User Account: style can be found in dropdown.less -->
+             <?php 
+
+            foreach($current_admin_login as $admin_login){
+               $first_name = $admin_login->first_name;
+               $middle_name = $admin_login->middle_name;
+               $last_name = $admin_login->last_name;
+               $image = $admin_login->image;
+            }
+          ?>
+
+           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                      <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
-                      <span class="hidden-xs">Alexander Pierce</span>
+                     <?php }else{ ?>
+                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <?php } ?>
+
+
+                      <span class="hidden-xs"><?php echo $first_name .' '. $middle_name .' '. $last_name;?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                        <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                       
+                        <?php if(empty($image)){ ?>
+                        <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
+                       <?php }else{ ?>
+                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <?php } ?>
 
                         <p>
-                          Alexander Pierce - Web Developer
-                          <small>Member since Nov. 2012</small>
+                         <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
+                          <small>Admin</small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -88,14 +111,16 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="#" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
-            </li>
+          </li>
+
+
         </ul>
       </div>
     </nav>
@@ -127,7 +152,7 @@
 
             <div id="modal_section">
 
-              <!-- add customer message--> 
+              <!-- add empoyee message--> 
                <?php if ($this->session->flashdata('add_admin_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
@@ -168,17 +193,17 @@
                         ?>
 
                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="First Name"   name="first_name">
+                            <input type="text"  class="form-control" placeholder="First Name"   name="first_name" required="">
+                            <span class="glyphicon glyphicon-user form-control-feedback" required=""></span>
+                          </div>
+
+                           <div class="form-group has-feedback">
+                            <input type="text"    class="form-control" placeholder="Middle Name"  name="middle_name" >
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                            <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Middle Name"  name="middle_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Last Name" name="last_name">
+                            <input type="text"  class="form-control" placeholder="Last Name" name="last_name" required="">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
@@ -193,13 +218,13 @@
                                 );
                             ?>
                             <div class="form-group has-feedback">
-                             <?php echo form_dropdown('gender',$option,'','class="form-control"');?>
+                             <?php echo form_dropdown('gender',$option,'','class="form-control"','required');?>
                             </div>
 
                             <!-- end dropdown-->
 
                           <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth">
+                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth" required="">
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
                           </div>
 
@@ -214,19 +239,19 @@
                           </div>
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Address"  name="address">
+                            <input type="text"    class="form-control" placeholder="Address"  name="address" required="">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
 
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Email"  name="email">
+                            <input type="text"    class="form-control" placeholder="Email"  name="email" required="">
                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                           </div>
 
                            <div class="form-group has-feedback">
-                            <input type="password"    class="form-control" placeholder="Password"  name="password">
+                            <input type="password"   required="" class="form-control" placeholder="Password"  name="password">
                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                           </div>
                           
@@ -361,8 +386,8 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
+    
   </footer>
 
  

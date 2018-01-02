@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+ <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Vet District Clinic | Admin</title>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -95,7 +96,9 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
   </style>
+
 </head>
+
 <body class="hold-transition skin-green sidebar-mini" id="pet">
 <div class="wrapper">
 
@@ -130,20 +133,44 @@ input:checked + .slider:before {
           </li>
 
 
-          <!-- User Account: style can be found in dropdown.less -->
+          <?php 
+
+            foreach($current_admin_login as $admin_login){
+               $first_name = $admin_login->first_name;
+               $middle_name = $admin_login->middle_name;
+               $last_name = $admin_login->last_name;
+               $image = $admin_login->image;
+            }
+          ?>
+
+           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                      <span class="hidden-xs">Alexander Pierce</span>
+
+                      <?php if(empty($image)){ ?>
+                      <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
+                     <?php }else{ ?>
+                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <?php } ?>
+
+
+                      <span class="hidden-xs"><?php echo $first_name .' '. $middle_name .' '. $last_name;?></span>
                     </a>
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                        <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                          <?php if(empty($image)){ ?>
+                        <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
+                       <?php }else{ ?>
+                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <?php } ?>
+
+                        
 
                         <p>
-                          Alexander Pierce - Web Developer
-                          <small>Member since Nov. 2012</small>
+                         <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
+                         <small>Admin</small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -151,14 +178,16 @@ input:checked + .slider:before {
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="#" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
-            </li>
+          </li>
+
+         
         </ul>
       </div>
     </nav>
@@ -196,18 +225,24 @@ input:checked + .slider:before {
             <div class="box-body box-profile">
 
               <?php if(empty($pet_details->pet_image)){ ?>
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/guest2.jpg" alt="User's Name">
+                <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/stock-vector-paw-print-205756207.jpg" alt="User's Name">
               <?php }else{ ?>
                     <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/employee_image/<?php echo $pet_details->image; ?>" alt="User's Name">
               <?php } ?>
 
               <h3 class="profile-username text-center"><?php echo $pet_details->pet_name;?></h3>
 
-              <p class="text-muted text-center"><?php echo $pet_details->pet_type;?></p>
+              <p class="text-muted text-center"></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Employee ID</b> <a class="pull-right"><?php echo $pet_details->pet_id;?></a>
+                  <b>Pet ID</b> <a class="pull-right"><?php echo $pet_details->pet_id;?></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Pet Type</b> <a class="pull-right"><?php echo $pet_details->pet_type;?></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Pet Breed</b> <a class="pull-right"><?php echo $pet_details->breed;?></a>
                 </li>
                 <li class="list-group-item">
                   <!--$dateadded = date("F j, Y, g:i a", $r["DateAdded"]);-->
@@ -230,7 +265,7 @@ input:checked + .slider:before {
               <?php endforeach;?>
 
 
-                            <div class="row">
+            <div class="row">
                 
                  <div class="form-group">
                     <div class="col-sm-6">
@@ -251,26 +286,33 @@ input:checked + .slider:before {
 
              
 
+             <br />
+
               <div class="row">
                 
                 <div class="form-group">
-                    <div class="col-sm-6">
-                      <div class="checkbox">
-                        <label class="switch">
-
-                          <input type="checkbox" id="check_active" checked=""> 
-                          <span class="slider round"></span>
-                        </label>
-                      </div>
-
+                    <div class="col-sm-12">
                       
+                      <?php 
+
+                        $state;
+                        if($pet_details->is_active == 1){
+                          $state = "Active";
+                        }else{
+                          $state = "Not Active";
+                        }
+
+                      ?>
+                      <button title="Click to change state. Current state is <?php echo $state;?>" class="btn btn-success btn-block" data-tooltip="tooltip" data-toggle="modal" data-target="#access_confirmation" data-placement="bottom"> <?php echo $state; //echo $admin_details->is_active;?></button>
                     </div>
-                    <div class="col-sm-6">Toggle to change active state</div>
+                    
                 </div>
 
 
-              </div>
 
+              
+
+              </div>
 
              <!-- <div class="form-group">
                     <div class="col-sm-12">
@@ -315,55 +357,68 @@ input:checked + .slider:before {
                 <fieldset>
 
                   <?php //beginning form
-                  echo form_open_multipart('admin/update_employee_details','class="form-horizontal"');
+                  echo form_open_multipart('admin/update_pet_details','class="form-horizontal"');
                   ?>
 
 
-                   <?php foreach($show_employee_details as $employee_details):?>
+                    <?php foreach($show_pet_details as $pet_details):?>
 
 
-                   <div class="form-group">
-                    <label for="account_type" class="col-sm-2 control-label">Account Type</label>
+                   <div class="form-group has-feedback">
+                    <label for="customer" class="col-sm-2 control-label">Owner's Name</label>
 
                     <div class="col-sm-10">
-                       <?php //option for employee type
-                                $option = array(
-                                    "" => "Employee Type",
-                                    "vet" => "Veterinarian",
-                                    "staff" => "Staff",
-                                    
-                                );
-                        ?>
+                      <select class="form-control" name="customer" id="customer">
+                        <?php foreach($customers as $customer):?>
+                            <option value="<?php echo $customer['customer_id'];?>"
+                              <?php if($customer['customer_id'] == $pet_details->customer_id){echo "selected";} ?> ><?php echo $customer['first_name'].' '.$customer['middle_name'].''.$customer['last_name'];?></option>
 
-                        <?php echo form_dropdown('employee_type',$option,$employee_details->employee_type,'class="form-control" required');?>
+                        <?php endforeach;?>
+                      </select>
                     </div>
                   </div>
+
 
                   <div class="form-group">
-                    <label for="first_name" class="col-sm-2 control-label">First Name</label>
+                    <label for="pet_name" class="col-sm-2 control-label">Pet Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $employee_details->first_name?>">
+                      <input type="text" class="form-control" id="pet_name" name="pet_name" value="<?php echo $pet_details->pet_name?>">
                     </div>
                   </div>
+
+
+                   <div class="form-group has-feedback">
+                    <label for="pet_type" class="col-sm-2 control-label">Pet Type</label>
+
+                    <div class="col-sm-10">
+                      <select class="form-control" name="pet_type" id="pet_type">
+                        <?php foreach($pet_types as $type):?>
+                            <option value="<?php echo $type->pettype_id;?>"
+                              <?php if($type->pet_type == $pet_details->pet_type){echo "selected";} ?> ><?php echo $type->pet_type;?></option>
+                        <?php endforeach;?>
+                      </select>
+                    </div>
+                  </div>
+
+
+
+                  <div class="form-group has-feedback">
+                    <label for="breed" class="col-sm-2 control-label">Breed Type</label>
+
+                    <div class="col-sm-10">
+                      <select id="breed" name="breed" class="form-control">
+
+                       </select>
+
+
+                    </div>
+                    <input type="hidden" name="breed_init" value="<?php echo $pet_details->breed; ?>">
+                  </div>
+
+
 
                   <div class="form-group">
-                    <label for="middle_name" class="col-sm-2 control-label">Middle Name</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $employee_details->middle_name?>">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="last_name" class="col-sm-2 control-label">Last Name</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $employee_details->last_name?>">
-                    </div>
-                  </div>
-
-                   <div class="form-group">
                     <label for="gender" class="col-sm-2 control-label">Gender</label>
 
                     <div class="col-sm-10">
@@ -378,57 +433,33 @@ input:checked + .slider:before {
                             ?>
 
                       <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('gender',$option,$employee_details->gender,'class="form-control" required');?>
+                             <?php echo form_dropdown('gender',$option,$pet_details->gender,'class="form-control" required');?>
                     </div>
                   </div>
 
 
-                  <div class="form-group">
-                    <label for="address" class="col-sm-2 control-label">Address</label>
+                 
 
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $employee_details->address?>">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <label for="cellphone" class="col-sm-2 control-label">Cellphone Number</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $employee_details->cellphone?>">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">Email</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $employee_details->email?>">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="telephone" class="col-sm-2 control-label">Telephone Number</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $employee_details->telephone?>">
-                    </div>
-                  </div>
-
-
-
-                  <div class="form-group">
+                   <div class="form-group">
                     <label for="date_birth" class="col-sm-2 control-label">Date of Birth</label>
 
                     <div class="col-sm-10">
-                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $employee_details->date_birth?>">
+                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $pet_details->date_birth?>">
                     </div>
                   </div>
 
 
                   <div class="form-group">
+                    <label for="pet_size" class="col-sm-2 control-label">Pet Size (in KG)</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="pet_size" name="pet_size" value="<?php echo $pet_details->pet_size?>">
+                    </div>
+                  </div>
+
+
+
+                     <div class="form-group">
                     <label for="image" class="col-sm-2 control-label">Profile Picture</label>
 
                     <div class="col-sm-2">
@@ -436,29 +467,34 @@ input:checked + .slider:before {
                        <input type="hidden" value="" name="image_name">
 
 
-                      <?php if(empty($employee_details->image)){ ?>
-                        <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>assets/dist/img/guest2.jpg" width="100" alt="User profile picture">
+                   <?php if(empty($pet_details->pet_image)){ ?>
+                        <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>assets/dist/img/stock-vector-paw-print-205756207.jpg" width="100" alt="User profile picture">
                       <?php }else { ?>
-                           <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/employee_image/<?php echo $employee_details->image; ?>" width="100" alt="User profile picture">
+                           <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/pet_image/<?php echo $pet_details->pet_image; ?>" width="100" alt="User profile picture">
                       <?php } ?>
                     </div>
 
                     <?php //for employee_id?>
-                    <input type="hidden" name="employee_id" value="<?php echo $employee_details->employee_id;?>">
+                    <input type="hidden" name="pet_id" value="<?php echo $pet_details->pet_id;?>">
                   </div>
+                 
 
 
-
+                    <?php
+                      //testing
+                       //$test2 = $pet_details->pet_breed;
+                    ///echo "<script>alert(". $pet_details->pet_type .")</script>";
+                     ?>
                    <?php endforeach;?>
                   
 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Update</button>
+                      <button type="submit" class="btn btn-danger">Update<?php //echo $test2;?></button>
                     </div>
                   </div>
                 
-                <?php form_close();?>
+                <?php echo form_close();?>
 
                 </fieldset> <?php //end fieldset?>
 
@@ -480,7 +516,7 @@ input:checked + .slider:before {
       <div class="row">
         <?php  //for messages?>
 
-              <?php if ($this->session->flashdata('update_employee_success')) { ?>
+              <?php if ($this->session->flashdata('update_pet_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -491,7 +527,7 @@ input:checked + .slider:before {
                         <h4 class="modal-title"></h4>
                       </div>
                       <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('update_employee_success'); ?> </p>
+                        <p> <?php echo $this->session->flashdata('update_pet_success'); ?> </p>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
@@ -501,6 +537,89 @@ input:checked + .slider:before {
                   </div>
 
                <?php } ?>
+
+                <?php if ($this->session->flashdata('change_state')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('change_state'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+
+               <?php if ($this->session->flashdata('incorrect_password')) { ?>
+         
+                   <div class="modal modal-danger" id="dangermodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('incorrect_password'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+                <div class="modal fade modal-danger" id="access_confirmation">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"  aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title">Access Confirmation</h4>
+                                </div>
+
+                                 <?php //beginning form
+                                    echo form_open_multipart('admin/update_pet_state','class="form-horizontal"');
+                              ?>
+                                <div class="modal-body">
+                                  <input type="hidden" name="current_state" value="<?php echo  $pet_details->is_active;?>">
+                                  <input type="hidden" name="pet_id" value="<?php echo  $pet_details->pet_id;?>">
+                                  <p>Please enter your password to continue </p>
+                                  <div class="has-feedback">
+                                      <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
+                                    
+                                  </div>
+
+
+                                  
+                                </div>
+
+                                <div class="modal-footer">
+                                   <?php echo form_submit(array('id' => 'change_state', 'name' =>'change_state', 'value' => 'Proceed','class'=>'pull-right btn btn-primary')); ?>
+                                 
+                                </div> 
+                                <?php echo form_close();?>
+                              </div>
+                              <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+              </div>
 
       </div>
 
@@ -512,8 +631,7 @@ input:checked + .slider:before {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
   </footer>
 
  
@@ -560,6 +678,9 @@ input:checked + .slider:before {
 
   $(document).ready(function() {
       $("fieldset").attr('disabled','disabled');
+      //console.log('sssssss');
+      //alert('session');
+
   });
 
 
@@ -571,6 +692,111 @@ input:checked + .slider:before {
   $('#check_edit').change(function(){
    $("fieldset").prop("disabled", !$(this).is(':checked'));
 });
+
+
+    $(document).ready(function() {
+
+      
+      var hidden_init = $('input[name="breed_init"]').val();
+      console.log(hidden_init);
+      //$('#breed').hide();
+      //var stateID = $(this).val();
+        var typeID = $('select[name="pet_type"]').val();
+        //alert('session' + typeID);
+
+
+
+         if(typeID) {
+
+                
+                $.ajax({
+
+                    url: '<?php echo base_url('admin/pet_breed/')?>'+typeID,
+
+                    type: "GET",
+
+                    dataType: "json",
+
+                    success:function(data) {
+
+                        $('select[name="breed"]').empty();
+                         $.each(data, function(key, value) {
+
+                              var added_att = "";
+                              if(hidden_init == value.breed){
+                                  added_att = "selected";
+                              }else{
+                                  added_att = "";
+                              }
+
+                            $('select[name="breed"]').append('<option value="'+ value.breed_id +'" '+ added_att +'>'+ value.breed +'</option>');
+
+                        });
+
+                    }
+
+                });
+
+            }
+
+      
+         // $('#test').hide(); 
+
+        $('select[name="pet_type"]').on('change', function() {
+         // $('#test').show(); 
+           // $('#breed').show();
+           // $('#breed_intro').hide();
+            var stateID = $(this).val();
+            //alert('session' + stateID);
+
+            if(stateID) {
+
+                
+                $.ajax({
+
+                    url: '<?php echo base_url('admin/pet_breed/')?>'+stateID,
+
+                    type: "GET",
+
+                    dataType: "json",
+
+                    success:function(data) {
+
+                        $('select[name="breed"]').empty();
+                         $.each(data, function(key, value) {
+
+                            $('select[name="breed"]').append('<option value="'+ value.breed_id +'"  <?php echo "selected"; ?>>'+ value.breed +'</option>');
+
+                        });
+
+                    }
+
+                });
+
+            }else{
+
+                $('select[name="breed"]').empty();
+
+            }
+
+        });
+
+
+
+       /* $('select[name="pet_type"]').on('load', function() {
+            var stateID = $(this).val();
+            console.log(stateID);
+         });*/
+
+
+
+    //modal test
+     
+
+    });
+
+
+
 
 /*$( "input" ).change(function() {
     var $input = $( this );

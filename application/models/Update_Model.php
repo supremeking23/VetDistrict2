@@ -8,12 +8,6 @@ class Update_Model extends CI_Model
        //$this->db = $this->load->database('default', TRUE);
    }
 
-  public function create_customer($data){
-      $this->db->insert('tblcustomers',$data);
-  }
-
-
-
 
 
 
@@ -39,6 +33,18 @@ class Update_Model extends CI_Model
   public function update_pet($pet_id,$data){
       $this->db->where('pet_id', $pet_id);
       $this->db->update('tblpets', $data);
+  }
+
+
+  public function update_product_item($item_id,$data){
+      $this->db->where('prod_item_id', $item_id);
+      $this->db->update('tblproductitems', $data);
+  }
+
+
+  public function update_product_med($med_id,$data){
+      $this->db->where('prod_med_id', $med_id);
+      $this->db->update('tblproductmedicines', $data);
   }
 
 
@@ -73,5 +79,29 @@ class Update_Model extends CI_Model
      $this->db->where('pet_id', $pet_id);
       $this->db->update('tblpets', $data);
   }
+
+
+  //change state for : item
+  public function update_state_for_item($item_id,$data){
+     $this->db->where('prod_item_id', $item_id);
+      $this->db->update('tblproductitems', $data);
+  }
+
+
+
+    //change state for : item
+  public function update_state_for_med($med_id,$data){
+     $this->db->where('prod_med_id', $med_id);
+      $this->db->update('tblproductmedicines', $data);
+  }
+
+
+
+
+
+
+
+
+
    
 }

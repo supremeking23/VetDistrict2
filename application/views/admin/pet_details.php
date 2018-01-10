@@ -227,7 +227,7 @@ input:checked + .slider:before {
               <?php if(empty($pet_details->pet_image)){ ?>
                 <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/stock-vector-paw-print-205756207.jpg" alt="User's Name">
               <?php }else{ ?>
-                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/employee_image/<?php echo $pet_details->image; ?>" alt="User's Name">
+                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/pet_image/<?php echo $pet_details->pet_image; ?>" alt="User's Name">
               <?php } ?>
 
               <h3 class="profile-username text-center"><?php echo $pet_details->pet_name;?></h3>
@@ -243,6 +243,9 @@ input:checked + .slider:before {
                 </li>
                 <li class="list-group-item">
                   <b>Pet Breed</b> <a class="pull-right"><?php echo $pet_details->breed;?></a>
+                </li>
+                <li class="list-group-item">
+                  <b>Gender</b> <a class="pull-right"><?php echo ucfirst($pet_details->gender);?></a>
                 </li>
                 <li class="list-group-item">
                   <!--$dateadded = date("F j, Y, g:i a", $r["DateAdded"]);-->

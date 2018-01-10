@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2018 at 04:45 PM
+-- Generation Time: Jan 10, 2018 at 05:47 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -50,8 +50,8 @@ CREATE TABLE `tbladmins` (
 --
 
 INSERT INTO `tbladmins` (`admin_id`, `first_name`, `middle_name`, `last_name`, `gender`, `date_birth`, `cellphone`, `telephone`, `address`, `date_added`, `email`, `password`, `is_active`, `image`) VALUES
-(1, 'Ernestus', 'Lupiticus', 'Mercadus', 'male', '1923-11-11', '90093343434', '09111', 'Makait', 1514096346, 'kers@gmail.com', '1234', 1, '21740072_758328241017235_7088747667943620100_n.png'),
-(2, 'Renato', 'Solidum', 'Meneses', 'male', '1960-01-12', '09871213342', '090911', 'Tagaytay', 1514610430, 'renato@gmail.com', 'renato', 1, '22550721_1533619290038053_1199251616_o.jpg'),
+(1, 'Ernestus', 'Lupiticus', 'Mercadus', 'male', '1923-11-11', '90093343434', '09111', 'Makait', 1514096346, 'kers@gmail.com', '1234', 0, '21740072_758328241017235_7088747667943620100_n.png'),
+(2, 'Renato', 'Solidum', 'Meneses', 'male', '1960-01-12', '09871213342', '0909112', 'Tagaytay', 1514610430, 'renato@gmail.com', 'renato', 1, '22550721_1533619290038053_1199251616_o.jpg'),
 (3, 'Melissa', 'Mercado', 'Benoist', 'female', '1988-11-16', '90093343434', '09111', 'National City', 1514623663, 'mellisabenoist@gmail.com', 'mellisabenoist', 0, '');
 
 -- --------------------------------------------------------
@@ -62,13 +62,16 @@ INSERT INTO `tbladmins` (`admin_id`, `first_name`, `middle_name`, `last_name`, `
 
 CREATE TABLE `tblappointments` (
   `appointment_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
   `customer_name` text NOT NULL,
-  `pet_name` varchar(45) NOT NULL,
-  `appointment_date` date NOT NULL,
-  `appointment_time` time NOT NULL,
-  `date_created` datetime NOT NULL,
+  `telephone` text NOT NULL,
+  `cellphone` text NOT NULL,
+  `text` text NOT NULL,
+  `prefered_date` date NOT NULL,
+  `prefered_time_of_day` varchar(45) NOT NULL,
   `appointment_reason` text NOT NULL,
-  `is_cancelled` int(11) NOT NULL,
+  `date_requested` datetime NOT NULL,
+  `status` varchar(45) NOT NULL,
   `cancellation_reason` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -100,12 +103,12 @@ CREATE TABLE `tblcustomers` (
 --
 
 INSERT INTO `tblcustomers` (`customer_id`, `first_name`, `middle_name`, `last_name`, `address`, `cellphone`, `telephone`, `email`, `image`, `gender`, `is_active`, `password`, `date_added`, `date_birth`) VALUES
-(1, 'IVan', '', 'Johnson', 'Makait', '4343', '343', '4343', 'Capture_11.PNG', 'male', 1, '', 1513793545, '2003-01-06'),
+(1, 'IVan', '', 'Johnson', 'Makait', '4343', '343', 'ivanjohnson@gmail.com', 'avatar5.png', 'male', 1, 'ijohnson', 1513793545, '2003-01-06'),
 (2, 'ivan', 'ivan', 'ivan', '6464646', '666', '66', 'ivanchristianjayfuncion@yahoo.com.ph', '', 'male', 1, '123', 1513793634, '1991-06-18'),
 (3, 'Lordes\'s', 'dsds', 'dsds', '444', '444', '44', '44', '', 'male', 1, '4', 1513794430, '1979-02-14'),
 (4, 'wewe', 'wewe', 'wew', '343', '343', 'wew', '343', '', 'male', 0, '33', 1513794478, '2017-12-08'),
 (5, 'rere', 'er', 'ere', '454', '454', '454', '545', '', 'female', 0, '454', 1513794573, '2017-12-13'),
-(6, 'Diana', 'Wright', 'Prince', 'Temuskira', '09121212121', '09021211', 'dianaprince_09@gmail.com', '', 'female', 1, '', 1513834391, '1976-01-11'),
+(6, 'Diana', 'Wright', 'Prince', 'Temuskira', '09121212121', '09021211', 'dianaprince_09@gmail.com', '', 'female', 1, 'wonder', 1513834391, '1976-01-11'),
 (7, 'rereerer', 'erereeerer', '', '', '', '', '', '', '', 1, '', 1513835373, '0000-00-00'),
 (8, '\'/dsdsere', 'dsds', 'dsds', '2323', '2323', '<?script>alert(\'haha\');</script>', 'ivanchristianjayfuncion@yahoo.com.ph', 'AGAIN.PNG', 'male', 1, '233', 1513854612, '2017-12-05'),
 (9, 'hehehehhe', 'Sdsd', 'dsd', '', '', 'ss', '', '', 'male', 1, '', 1513945682, '2017-12-04'),
@@ -205,7 +208,9 @@ CREATE TABLE `tblinventoryforitems` (
 --
 
 INSERT INTO `tblinventoryforitems` (`inv_item_id`, `user_type`, `user_id`, `action`, `product_item_id`, `quantity`, `inventory_date`) VALUES
-(1, 'Admin', 2, 'Add Product', 2, 101, 1514904600);
+(1, 'Admin', 2, 'Add Product', 2, 101, 1514904600),
+(2, 'Admin', 2, 'Update Quantity', 1, 102, 1514914567),
+(3, 'Admin', 2, 'Update Quantity', 2, 110, 1514914605);
 
 -- --------------------------------------------------------
 
@@ -228,7 +233,8 @@ CREATE TABLE `tblinventoryformedicines` (
 --
 
 INSERT INTO `tblinventoryformedicines` (`inv_med_id`, `user_type`, `user_id`, `action`, `product_med_id`, `quantity`, `inventory_date`) VALUES
-(1, 'Admin', 2, 'Add Product', 3, 41, 1514822057);
+(1, 'Admin', 2, 'Add Product', 3, 41, 1514822057),
+(2, 'Admin', 2, 'Update Quantity', 1, 11, 1514974347);
 
 -- --------------------------------------------------------
 
@@ -295,7 +301,7 @@ CREATE TABLE `tblpets` (
 --
 
 INSERT INTO `tblpets` (`pet_id`, `pet_name`, `pet_type`, `pet_breed`, `pet_size`, `date_birth`, `gender`, `pet_image`, `date_added`, `customer_id`, `is_active`) VALUES
-(1, 'Rica', 1, 2, '2', '2015-05-11', 'female', '', 1514184327, 1, 0),
+(1, 'Rica', 1, 2, '2', '2015-05-11', 'female', 'user7-128x128.jpg', 1514184327, 1, 0),
 (2, 'Bash', 1, 1, '3', '2013-02-12', 'male', '', 1514184327, 1, 1),
 (3, 'Ashley', 2, 3, '2.4', '2013-01-15', 'female', '', 1514215656, 3, 1),
 (4, 'hahahhaasdsdsda', 1, 2, '13', '2016-06-15', 'male', '', 1514220010, 5, 1),
@@ -346,8 +352,8 @@ CREATE TABLE `tblproductitems` (
 --
 
 INSERT INTO `tblproductitems` (`prod_item_id`, `item_name`, `item_price`, `item_qty`, `image`, `is_active`) VALUES
-(1, 'Dog lace', '50.00', 101, '', 1),
-(2, 'Dog lace 2', '50.00', 101, '', 1);
+(1, 'Dog Lace', '50.00', 102, 'g4.jpg', 1),
+(2, 'Dog Lace 2', '50.00', 110, '', 1);
 
 -- --------------------------------------------------------
 
@@ -370,9 +376,36 @@ CREATE TABLE `tblproductmedicines` (
 --
 
 INSERT INTO `tblproductmedicines` (`prod_med_id`, `drugtype_id`, `med_name`, `med_price`, `med_qty`, `image`, `is_active`) VALUES
-(1, 1, 'Antibiotic A', '300.00', 41, '', 1),
+(1, 1, 'Antibiotic A\'ss', '51.00', 11, 'carousel-exoticanimals.jpg', 1),
 (2, 1, 'Antibiotic B', '444.00', 41, '', 1),
 (3, 1, 'Antibiotic C', '444.00', 41, '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblserviceoffered`
+--
+
+CREATE TABLE `tblserviceoffered` (
+  `service_id` int(11) NOT NULL,
+  `service_name` varchar(45) NOT NULL,
+  `service_fee` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblserviceprovided`
+--
+
+CREATE TABLE `tblserviceprovided` (
+  `serviceprovided_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `pet_id` varchar(45) NOT NULL,
+  `service_date_provided` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -474,6 +507,18 @@ ALTER TABLE `tblproductmedicines`
   ADD PRIMARY KEY (`prod_med_id`);
 
 --
+-- Indexes for table `tblserviceoffered`
+--
+ALTER TABLE `tblserviceoffered`
+  ADD PRIMARY KEY (`service_id`);
+
+--
+-- Indexes for table `tblserviceprovided`
+--
+ALTER TABLE `tblserviceprovided`
+  ADD PRIMARY KEY (`serviceprovided_id`);
+
+--
 -- Indexes for table `tblservices`
 --
 ALTER TABLE `tblservices`
@@ -517,12 +562,12 @@ ALTER TABLE `tblemployees`
 -- AUTO_INCREMENT for table `tblinventoryforitems`
 --
 ALTER TABLE `tblinventoryforitems`
-  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tblinventoryformedicines`
 --
 ALTER TABLE `tblinventoryformedicines`
-  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tblpetbreed`
 --
@@ -553,6 +598,16 @@ ALTER TABLE `tblproductitems`
 --
 ALTER TABLE `tblproductmedicines`
   MODIFY `prod_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `tblserviceoffered`
+--
+ALTER TABLE `tblserviceoffered`
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tblserviceprovided`
+--
+ALTER TABLE `tblserviceprovided`
+  MODIFY `serviceprovided_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tblservices`
 --

@@ -481,47 +481,47 @@
       <div class="row">
        
        <div class="col-xs-12">
-       <div class="box">
+       <div class="box ">
             <div class="box-header">
               <h3 class="box-title">Pet</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                   <th>Animal Type <?php //echo date('F d Y',31556926)?></th>
-                  <th>Breed</th>
-                  <th>Owner</th>
-                   <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div class="box-body table-responsive" style="">
+              <table id="example1" class="table table-bordered table-striped" >
+                    <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                       <th>Animal Type <?php //echo date('F d Y',31556926)?></th>
+                      <th>Breed</th>
+                      <th>Owner</th>
+                       <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-              <?php foreach($pets as $pet_info):?>
+                  <?php foreach($pets as $pet_info):?>
 
-                <tr>
-                  <td><?php echo $pet_info['pet_id'];?></td>
-                  <td><?php echo $pet_info['pet_name'];?></td>
-                  <td><?php echo $pet_info['pet_type'];?></td>
-                  <td><?php echo $pet_info['breed'];?></td>
-                  <td><?php echo $pet_info['first_name'] .' '. $pet_info['middle_name']. ' ' . $pet_info['last_name'];?></td>
-                   <td><?php if($pet_info['is_active'] == 1){ ?>
-                        Active 
-                  <?php  }else{ ?>
+                    <tr>
+                      <td><?php echo $pet_info['pet_id'];?></td>
+                      <td><?php echo $pet_info['pet_name'];?></td>
+                      <td><?php echo $pet_info['pet_type'];?></td>
+                      <td><?php echo $pet_info['breed'];?></td>
+                      <td><?php echo $pet_info['first_name'] .' '. $pet_info['middle_name']. ' ' . $pet_info['last_name'];?></td>
+                       <td><?php if($pet_info['is_active'] == 1){ ?>
+                            Active 
+                      <?php  }else{ ?>
 
-                        Not Active 
-                  <?php   } ?></td>
-                  <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary">View More Details</a></td>
-                </tr>
+                            Not Active 
+                      <?php   } ?></td>
+                      <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary">View More Details</a></td>
+                    </tr>
 
 
-                <?php endforeach; ?>
-               
-                </tbody>
+                    <?php endforeach; ?>
+                   
+                    </tbody>
                 
               </table>
             </div>
@@ -532,6 +532,11 @@
           </div>
       </div>
       <!-- /.row (main row) -->
+
+
+      <div class="row">
+        
+      </div>
 
     </section>
     <!-- /.content -->
@@ -590,7 +595,9 @@
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : false
+      'autoWidth'   : false,
+      'scrollY': 200,
+      'scrollX': true
     })
   })
 

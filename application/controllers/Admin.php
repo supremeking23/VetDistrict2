@@ -25,6 +25,22 @@ class Admin extends CI_Controller {
 
 
 
+	//-------------------LEGEND------------------//
+
+
+	/*
+		NAVIGATION MAIN 
+		AJAX REQUEST
+		DETAILS PAGES
+		CREATE PAGES
+		UPDATE PAGES
+		UPDATE STATE PAGES 
+
+
+
+	*/
+
+
 
 	public function login(){
 		//$this->load->view('admin/login');
@@ -137,12 +153,88 @@ class Admin extends CI_Controller {
 
 		
 		
-		$this->load->view('admin/admin_details',$data);
+		$this->load->view('admin/profile',$data);
 		$this->load->view('admin/layouts/sidebar.php',$data);
 		
 
+	}
 
 
+
+	public function change_profile(){
+
+		if(!$this->session->userdata('logged_in')){
+					redirect('admin/login');
+		}
+		
+			    //config for upload image
+			$config['upload_path']          = './uploads/admin_image/';
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        //$config['max_size']             = 100;
+	       // $config['max_width']            = 1024;
+	       // $config['max_height']           = 768;
+			$this->load->library('upload', $config);
+
+
+			$admin_id = $this->input->post('admin_id');
+
+
+			if($this->upload->do_upload('upload_image')){
+		    	//get the file name of the uploaded file
+		        $uploadData = $this->upload->data();
+		        $image = $uploadData['file_name'];
+		        //echo 1;
+		        //echo "ivan";
+		        }else{
+		        	//echo 'wala laman';
+		        	//set the image name to the previously upload image
+		        	$default_image_name = $this->admin_model->get_admin_by_id($admin_id);
+		           	foreach ($default_image_name as $default_image) {
+		           			   $image = $default_image->image; 
+					
+		           }
+					
+
+
+		           //$image ='';
+		           			 
+		           echo 12;		 
+		           echo "dsds";	
+
+
+		           //check for errors
+		          /* $error = array('error' => $this->upload->display_errors());
+
+	                $this->load->view('file_view', $error);*/
+		        }
+
+
+	        	 
+	        	//preparing the data to be uploaded to database
+				//key value pair key is the column name value is the input type value
+	        	$data = array(
+	        		
+	        		'first_name' => $this->input->post('first_name'),
+	        		'middle_name' => $this->input->post('middle_name'),
+	        		'last_name' => $this->input->post('last_name'),
+	        		'email' => $this->input->post('email'),
+	        		'cellphone' => $this->input->post('cellphone'),
+	        		'telephone' => $this->input->post('telephone'),
+	        		'address' => $this->input->post('address'),
+	        		'image' =>  $image,
+	        		'gender' => $this->input->post('gender'),
+	        		'date_birth' => $this->input->post('date_birth'),
+
+	        	);
+
+
+
+	        			//Transfering data to Model
+					$this->update_model->update_admin($admin_id,$data);
+					$this->session->set_flashdata('update_admin_success','Admin information has been updated');
+					
+	        		
+	        		redirect('admin/profile');
 
 	}
 
@@ -166,6 +258,12 @@ class Admin extends CI_Controller {
 
 		$data['count_all_employee'] = $this->admin_model->get_count_all_employee();
 
+		//total count of medicine and item in product tbl not in inventory
+		$data['count_all_items'] = $this->admin_model->get_count_all_item();
+
+		$data['count_all_meds'] = $this->admin_model->get_count_all_meds();
+
+
 		$data['count_all_customer'] = $this->admin_model->get_count_all_customer();
 
 		$data['count_all_pet'] = $this->admin_model->get_count_all_pet();
@@ -174,7 +272,6 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/dashboard',$data);
 		$this->load->view('admin/layouts/sidebar.php',$data);
 
-		
 	}
 
 	
@@ -555,8 +652,6 @@ class Admin extends CI_Controller {
 			}*/
 			//echo  $this->uri->segment(3);
 
-
-
 	}
 
 
@@ -606,6 +701,52 @@ class Admin extends CI_Controller {
 				echo $d->pettype_id;
 			}*/
 			//echo  $this->uri->segment(3);
+
+
+
+	}
+
+
+	public function med_details(){
+
+		if(!$this->session->userdata('logged_in')){
+					redirect('admin/login');
+			}
+
+			$user_id = $this->session->userdata('user_id');
+
+			//get user_id via $user_id session
+			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+			//$data['id'] = $id;
+
+				/*
+				*	The segment numbers would be this:
+				*  	1 news
+					2 local
+					3 metro
+					4 crime_is_up
+				*/
+
+			$id = $this->uri->segment(3);
+
+			//get info from productitem table
+			$data['show_med_details'] = $this->admin_model->get_med_details_by_id_from_tblproductmedicines($id);
+
+
+
+
+
+			//print_r($data['show_med_details']);
+
+			$data['drug_type'] = $this->admin_model->get_all_drug_type();
+
+			$this->load->view('admin/med_details',$data);
+			$this->load->view('admin/layouts/sidebar.php',$data);
+			//print_r($data);
+
+
+		
 
 
 
@@ -1288,6 +1429,9 @@ class Admin extends CI_Controller {
 					redirect('admin/login');
 		}
 
+
+		$user_id = $this->session->userdata('user_id');
+
 				//print_r($this->input->post());
 
 
@@ -1316,7 +1460,7 @@ class Admin extends CI_Controller {
 		           	foreach ($default_image_name as $default_image) {
 		           			   $image = $default_image->pet_image; 
 					
-		           }
+		           	}
 					
 
 
@@ -1362,6 +1506,264 @@ class Admin extends CI_Controller {
 	        		echo $pet_id;
 	        		redirect('admin/pet_details/'.$pet_id);
     
+    }
+
+
+
+
+
+
+    //UPDATE PRODUCTS
+    //ITEM
+    public function update_item_details(){
+
+    	if(!$this->session->userdata('logged_in')){
+					redirect('admin/login');
+		}
+
+
+		$user_id = $this->session->userdata('user_id');
+
+				//print_r($this->input->post());
+
+
+	       		 //config for upload image
+			$config['upload_path']          = './uploads/item_image/';
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        //$config['max_size']             = 100;
+	       // $config['max_width']            = 1024;
+	       // $config['max_height']           = 768;
+			$this->load->library('upload', $config);
+
+
+			$item_id = $this->input->post('item_id');
+			$inputed_qty = $this->input->post('item_qty');
+
+
+			if($this->upload->do_upload('upload_image')){
+		    	//get the file name of the uploaded file
+		        $uploadData = $this->upload->data();
+		        $image = $uploadData['file_name'];
+		        //echo 1;
+		        //echo "ivan";
+		    }else{
+		        	//echo 'wala laman';
+		        	//set the image name to the previously upload image
+		        	$default_image_name = $this->admin_model->get_item_details_by_id_from_tblproductitems($item_id);
+		           	foreach ($default_image_name as $default_image) {
+		           			   $image = $default_image->image; 
+					
+		           	}
+					
+
+
+		           //$image ='';
+		           			 
+		           echo 12;		 
+		           echo "dsds";	
+
+
+		           //check for errors
+		          /* $error = array('error' => $this->upload->display_errors());
+
+	                $this->load->view('file_view', $error);*/
+		        }
+
+
+
+		    //get quantity
+		    $get_quantity = $this->admin_model->get_item_details_by_id_from_tblproductitems($item_id);
+
+		    foreach ($get_quantity as $item_qty) {
+		           			   $item_qty_in_db = $item_qty->item_qty; 
+					
+		           	}
+
+
+
+		    //echo $get_quantity->item_qty;
+
+
+		    //preparing the data to be uploaded to database
+			//key value pair key is the column name value is the input type value
+        	$data = array(
+        		
+        		'item_name' => $this->input->post('item_name'),
+
+        		'item_price' => $this->input->post('item_price'),
+        		'item_qty' => $this->input->post('item_qty'),	
+        		'image' =>  $image,
+
+        	);
+
+
+		//Transfering data to Model
+		$this->update_model->update_product_item($item_id,$data);
+
+		if($inputed_qty != $item_qty_in_db){
+    		//echo "run second query";
+			//mysqli_query($conn,"insert into inventory (userid,action,productid,quantity,inventory_date) values ('".$_SESSION['id']."','Update Quantity', '$id', '$qty', NOW())");
+
+			//for item inventory table
+
+			$user_type = "Admin";
+			$action = "Update Quantity";
+			$inventory_date = time();
+
+
+			$data = array(
+        		
+        		'user_type' => $user_type,
+        		'user_id' => $user_id,
+        		'action' => $action,
+        		'product_item_id' => $item_id,
+        		'quantity' => $this->input->post('item_qty'),	
+        		'inventory_date' => $inventory_date,
+
+        	);
+
+
+
+        	//add row to item inventory
+
+			$this->create_model->create_item_inventory($data);
+
+	    }
+
+	    $this->session->set_flashdata('update_item_success','Product information has been updated');
+	    redirect('admin/item_details/'.$item_id);
+
+        //print_r($this->input->post());
+    
+
+
+    }
+
+
+    //MED
+    public function update_med_details(){
+
+    	if(!$this->session->userdata('logged_in')){
+					redirect('admin/login');
+		}
+
+
+		$user_id = $this->session->userdata('user_id');
+
+				//print_r($this->input->post());
+
+
+	       	//config for upload image
+			$config['upload_path']          = './uploads/med_image/';
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        //$config['max_size']             = 100;
+	       // $config['max_width']            = 1024;
+	       // $config['max_height']           = 768;
+			$this->load->library('upload', $config);
+
+
+			$med_id = $this->input->post('med_id');
+			$inputed_qty = $this->input->post('item_qty');
+
+
+			if($this->upload->do_upload('upload_image')){
+		    	//get the file name of the uploaded file
+		        $uploadData = $this->upload->data();
+		        $image = $uploadData['file_name'];
+		        //echo 1;
+		        //echo "ivan";
+		    }else{
+		        	//echo 'wala laman';
+		        	//set the image name to the previously upload image
+		        	$default_image_name = $this->admin_model->get_item_details_by_id_from_tblproductitems($med_id);
+		           	foreach ($default_image_name as $default_image) {
+		           			   $image = $default_image->image; 
+					
+		           	}
+					
+
+
+		           //$image ='';
+		           			 
+		           echo 12;		 
+		           echo "dsds";	
+
+
+		           //check for errors
+		          /* $error = array('error' => $this->upload->display_errors());
+
+	                $this->load->view('file_view', $error);*/
+		        }
+
+
+
+		    //get quantity
+		    $get_quantity = $this->admin_model->get_med_details_by_id_from_tblproductmedicines($med_id);
+
+		    foreach ($get_quantity as $med_qty) {
+		           			   $med_qty_in_db = $med_qty->med_qty; 
+					
+		           	}
+
+
+
+		    //echo $get_quantity->item_qty;
+
+
+		    //preparing the data to be uploaded to database
+			//key value pair key is the column name value is the input type value
+        	$data = array(
+        		
+        		'med_name' => $this->input->post('med_name'),
+        		'drugtype_id' => $this->input->post('drugtype_id'),
+
+        		'med_price' => $this->input->post('item_price'),
+        		'med_qty' => $this->input->post('item_qty'),	
+        		'image' =>  $image,
+
+        	);
+
+
+		//Transfering data to Model
+		$this->update_model->update_product_med($med_id,$data);
+
+		if($inputed_qty != $med_qty_in_db){
+    		//echo "run second query";
+			//mysqli_query($conn,"insert into inventory (userid,action,productid,quantity,inventory_date) values ('".$_SESSION['id']."','Update Quantity', '$id', '$qty', NOW())");
+
+			//for item inventory table
+
+			$user_type = "Admin";
+			$action = "Update Quantity";
+			$inventory_date = time();
+
+
+			$data = array(
+        		
+        		'user_type' => $user_type,
+        		'user_id' => $user_id,
+        		'action' => $action,
+        		'product_med_id' => $med_id,
+        		'quantity' => $this->input->post('item_qty'),	
+        		'inventory_date' => $inventory_date,
+
+        	);
+
+
+
+        	//add row to item inventory
+
+			$this->create_model->create_med_inventory($data);
+
+	    }
+
+	    $this->session->set_flashdata('update_med_success','Product information has been updated');
+	    redirect('admin/med_details/'.$med_id);
+
+        //print_r($this->input->post());
+    
+
+
     }
 
 
@@ -1701,6 +2103,169 @@ class Admin extends CI_Controller {
 	       			redirect('admin/pet_details/'.$pet_id);
 
     }
+
+
+
+    public function update_item_state(){
+
+    
+
+
+      	if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+			//get user_id via $user_id session
+			//$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+
+
+       			//id that you want to change state
+       			$item_id = $this->input->post('item_id');
+
+       			//password of the currently login user
+       			$password_confirmation = $this->input->post('password_confirmation');
+
+       			$current_state = $this->input->post('current_state');
+
+       			//check to see if the admin and password are match
+       			$check_password = $this->admin_model->get_admin_by_id_and_password($user_id,$password_confirmation);
+
+
+       			if($check_password){
+       				//change the state of the selected admin
+       				if($current_state ==  1){
+       					//echo "change it to 0";
+       					$state_data = array(
+
+       						'is_active' => 0,
+       					);
+
+
+       					$this->update_model->update_state_for_item($item_id,$state_data);
+
+       					$this->session->set_flashdata('change_state','Item State has been successfully updated');
+
+       				
+
+       				}else{
+       					//echo "change it to 1";
+
+       					$state_data = array(
+
+       						'is_active' => 1,
+       					);
+
+
+       				$this->update_model->update_state_for_item($item_id,$state_data);
+
+       					$this->session->set_flashdata('change_state','Item State has been successfully updated');
+       					
+       				}
+
+
+
+
+       			}else{ 
+       				//echo "mali password";
+
+       				$this->session->set_flashdata('incorrect_password','Incorrect  Password');
+       				
+
+       			}
+
+
+	       			redirect('admin/item_details/'.$item_id);
+
+    }
+
+
+
+
+    public function update_med_state(){
+
+    
+
+
+      	if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+			//get user_id via $user_id session
+			//$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+
+
+       			//id that you want to change state
+       			$med_id = $this->input->post('med_id');
+
+       			//password of the currently login user
+       			$password_confirmation = $this->input->post('password_confirmation');
+
+       			$current_state = $this->input->post('current_state');
+
+       			//check to see if the admin and password are match
+       			$check_password = $this->admin_model->get_admin_by_id_and_password($user_id,$password_confirmation);
+
+
+       			if($check_password){
+       				//change the state of the selected admin
+       				if($current_state ==  1){
+       					//echo "change it to 0";
+       					$state_data = array(
+
+       						'is_active' => 0,
+       					);
+
+
+       					$this->update_model->update_state_for_med($med_id,$state_data);
+
+       					$this->session->set_flashdata('change_state','Product State has been successfully updated');
+
+       				
+
+       				}else{
+       					//echo "change it to 1";
+
+       					$state_data = array(
+
+       						'is_active' => 1,
+       					);
+
+
+       				$this->update_model->update_state_for_med($med_id,$state_data);
+
+       					$this->session->set_flashdata('change_state','Product State has been successfully updated');
+       					
+       				}
+
+
+
+
+       			}else{ 
+       				//echo "mali password";
+
+       				$this->session->set_flashdata('incorrect_password','Incorrect  Password');
+       				
+
+       			}
+
+
+	       			redirect('admin/med_details/'.$med_id);
+
+    }
+
+
+
+
 
 
 	//------------------------------------- END UPDATE STATE PAGES -------------------------------------------//

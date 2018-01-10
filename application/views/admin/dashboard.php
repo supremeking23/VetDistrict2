@@ -198,7 +198,21 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+
+              <?php foreach($count_all_items as $item_count){
+                      $itemCount = $item_count['count_all'];
+              }?>
+
+              <?php foreach($count_all_meds as $med_count){
+                      $medCount = $med_count['count_all'];
+              }?>
+
+
+
+
+              <h3><?php $product_count = $itemCount + $medCount;
+                  echo $product_count;
+              ?></h3>
 
               <p>Products</p>
             </div>

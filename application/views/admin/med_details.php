@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -98,8 +99,7 @@ input:checked + .slider:before {
 
 </head>
 
-
-<body class="hold-transition skin-green sidebar-mini" id="administrator">
+<body class="hold-transition skin-green sidebar-mini" id="medicine">
 <div class="wrapper">
 
   <header class="main-header">
@@ -132,7 +132,8 @@ input:checked + .slider:before {
             </ul>
           </li>
 
-            <?php 
+
+          <?php 
 
             foreach($current_admin_login as $admin_login){
                $first_name = $admin_login->first_name;
@@ -158,16 +159,18 @@ input:checked + .slider:before {
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                       
-                        <?php if(empty($image)){ ?>
+
+                          <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
                        <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
+                        
+
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small></small>
+                         <small>Admin</small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -183,7 +186,8 @@ input:checked + .slider:before {
                       </li>
                     </ul>
           </li>
-        
+
+         
         </ul>
       </div>
     </nav>
@@ -196,13 +200,13 @@ input:checked + .slider:before {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Admin 
+        Medicine 
         <small>Details</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Admin</li>
-        <li class="active">Admin Details</li>
+        <li class="active">Medicine</li>
+        <li class="active">Medicine Details</li>
       </ol>
     </section>
 
@@ -214,55 +218,38 @@ input:checked + .slider:before {
         
         <div class="col-md-3">
 
-          <?php foreach($show_admin_details as $admin_details):?>
+          <?php foreach($show_med_details as $med_details):?>
 
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
 
-              <?php if(empty($admin_details->image)){ ?>
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/guest2.jpg" alt="User's Name">
+              <?php if(empty($med_details->image)){ ?>
+                <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/vet.png" alt="image">
               <?php }else{ ?>
-                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/admin_image/<?php echo $admin_details->image; ?>" alt="User's Name">
+                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/med_image/<?php echo $med_details->image; ?>" alt="image">
               <?php } ?>
 
-              <h3 class="profile-username text-center"><?php echo $admin_details->first_name .' '. $admin_details->middle_name .' '. $admin_details->last_name;?></h3>
-
-
-            
-               
-              
+              <h3 class="profile-username text-center"><?php echo $med_details->med_name;?></h3>
 
               <p class="text-muted text-center"></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Admin ID</b> <a class="pull-right"><?php echo $admin_details->admin_id;?></a>
+                  <b>Product Type</b> <a class="pull-right">Medicine</a>
                 </li>
-                <li class="list-group-item">
-                  <!--$dateadded = date("F j, Y, g:i a", $r["DateAdded"]);-->
-
-                   <?php 
-                         $date =date_create($admin_details->date_birth);
-                         $birthdate= date_format($date,"F d Y");
-
-                    ?>
-                  <b>Date of Birth</b> <a class="pull-right"><?php echo $birthdate;?></a>
-                </li>
-                <li class="list-group-item">
-                  <?php $age = floor((time() - strtotime($birthdate)) / 31556926);?>
-                  <b>Age</b> <a class="pull-right"><?php echo $age;?></a>
-                </li>
+                
+               
               </ul>
+
 
              
               <?php endforeach;?>
 
 
-
-              <div class="row">
-              	
-              	 <div class="form-group">
+            <div class="row">
+                
+                 <div class="form-group">
                     <div class="col-sm-6">
                       <div class="checkbox">
                         <label class="switch">
@@ -274,16 +261,40 @@ input:checked + .slider:before {
 
                       
                     </div>
-                    <div class="col-sm-6">Toggle to edit information</div>
+                    <div class="col-sm-6">Toggle to edit information </div>
                 </div>
 
               </div>
 
+             
+
              <br />
 
-
-
+              <div class="row">
                 
+                <div class="form-group">
+                    <div class="col-sm-12">
+                      
+                      <?php 
+
+                        $state;
+                        if($med_details->is_active == 1){
+                          $state = "Active";
+                        }else{
+                          $state = "Not Active";
+                        }
+
+                      ?>
+                      <button title="Click to change state. Current state is <?php echo $state;?>" class="btn btn-success btn-block" data-tooltip="tooltip" data-toggle="modal" data-target="#access_confirmation" data-placement="bottom"> <?php echo $state; //echo $admin_details->is_active;?></button>
+                    </div>
+                    
+                </div>
+
+
+
+              
+
+              </div>
 
              <!-- <div class="form-group">
                     <div class="col-sm-12">
@@ -315,7 +326,7 @@ input:checked + .slider:before {
       <div class="col-md-9">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#settings" data-toggle="tab">Account Settings</a></li>
+              <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li>
             </ul>
             <div class="tab-content">
              
@@ -328,130 +339,91 @@ input:checked + .slider:before {
                 <fieldset>
 
                   <?php //beginning form
-                  echo form_open_multipart('admin/change_profile','class="form-horizontal"');
+                  echo form_open_multipart('admin/update_med_details','class="form-horizontal"');
                   ?>
 
 
-                   <?php foreach($show_admin_details as $admin_details):?>
-
-
+                <?php foreach($show_med_details as $med_details):?>
 
                   <div class="form-group">
-                    <label for="first_name" class="col-sm-2 control-label">First Name</label>
+                    <label for="med_name" class="col-sm-2 control-label">Medicine Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $admin_details->first_name?>">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="middle_name" class="col-sm-2 control-label">Middle Name</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $admin_details->middle_name?>">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="last_name" class="col-sm-2 control-label">Last Name</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $admin_details->last_name?>">
-                    </div>
-                  </div>
-
-                   <div class="form-group">
-                    <label for="gender" class="col-sm-2 control-label">Gender</label>
-
-                    <div class="col-sm-10">
-
-                      <?php //option for  gender
-                                $option = array(
-                                    "" => "Gender",
-                                    "male" => "Male",
-                                    "female" => "Female",
-                                    
-                                );
-                            ?>
-
-                      <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('gender',$option,$admin_details->gender,'class="form-control" required');?>
+                      <input type="text" class="form-control" id="med_name" name="med_name" value="<?php echo $med_details->med_name?>">
                     </div>
                   </div>
 
 
-                  <div class="form-group">
-                    <label for="address" class="col-sm-2 control-label">Address</label>
+
+                   <div class="form-group has-feedback">
+                    <label for="drugtype_id" class="col-sm-2 control-label">Medicine Type</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $admin_details->address?>">
+                      <select class="form-control" name="drugtype_id" id="drugtype_id">
+                        <?php foreach($drug_type as $d_type):?>
+                            <option value="<?php echo $d_type['drugtype_id'];?>"
+                              <?php if($d_type['drugtype_id'] == $med_details->drugtype_id){echo "selected";} ?> ><?php echo $d_type['drug_type'];?></option>
+
+                        <?php endforeach;?>
+                      </select>
                     </div>
                   </div>
 
 
-                  <div class="form-group">
-                    <label for="cellphone" class="col-sm-2 control-label">Cellphone Number</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $admin_details->cellphone?>">
-                    </div>
-                  </div>
 
 
                   <div class="form-group">
-                    <label for="email" class="col-sm-2 control-label">Email</label>
+                    <label for="item_price" class="col-sm-2 control-label">Item Price</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $admin_details->email?>">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="telephone" class="col-sm-2 control-label">Telephone Number</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $admin_details->telephone?>">
+                      <input type="text" class="form-control" id="item_price" name="item_price" value="<?php echo $med_details->med_price?>">
                     </div>
                   </div>
 
 
 
                   <div class="form-group">
-                    <label for="date_birth" class="col-sm-2 control-label">Date of Birth</label>
+                    <label for="item_qty" class="col-sm-2 control-label">Item Quantity</label>
 
                     <div class="col-sm-10">
-                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $admin_details->date_birth?>">
+                      <input type="text" class="form-control" id="item_qty" name="item_qty" value="<?php echo $med_details->med_qty?>">
                     </div>
                   </div>
 
 
-                  <div class="form-group">
-                    <label for="image" class="col-sm-2 control-label">Profile Picture</label>
+                    <div class="form-group">
+                        <label for="image" class="col-sm-2 control-label">Item Picture</label>
 
-                    <div class="col-sm-2">
-                      <input type="file" name="upload_image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])" >
-                       <input type="hidden" value="" name="image_name">
+                        <div class="col-sm-2">
+                          <input type="file" name="upload_image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])" >
+
+                           <input type="hidden" value="" name="image_name">
 
 
-                      <?php if(empty($admin_details->image)){ ?>
-                        <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>assets/dist/img/guest2.jpg" width="100" alt="User profile picture">
-                      <?php }else { ?>
-                           <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/admin_image/<?php echo $admin_details->image; ?>" width="100" alt="User profile picture">
-                      <?php } ?>
-                    </div>
+                       <?php if(empty($med_details->image)){ ?>
+                            <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>assets/dist/img/vet.png" width="100" alt="User profile picture">
+                          <?php }else { ?>
+                               <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/med_image/<?php echo $med_details->image; ?>" width="100" alt="User profile picture">
+                          <?php } ?>
+                        </div>
 
-                    <?php //for employee_id?>
-                    <input type="hidden" name="admin_id" value="<?php echo $admin_details->admin_id;?>">
+                        <?php //for employee_id?>
+                        <input type="hidden" name="med_id" value="<?php echo $med_details->prod_med_id?>">
                   </div>
+                 
 
 
-
+                    <?php
+                      //testing
+                       //$test2 = $pet_details->pet_breed;
+                    ///echo "<script>alert(". $pet_details->pet_type .")</script>";
+                     ?>
                    <?php endforeach;?>
                   
 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Update</button>
+                      <button type="submit" class="btn btn-danger">Update<?php //echo $test2;?></button>
                     </div>
                   </div>
                 
@@ -477,7 +449,7 @@ input:checked + .slider:before {
       <div class="row">
         <?php  //for messages?>
 
-              <?php if ($this->session->flashdata('update_admin_success')) { ?>
+              <?php if ($this->session->flashdata('update_med_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -488,7 +460,29 @@ input:checked + .slider:before {
                         <h4 class="modal-title"></h4>
                       </div>
                       <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('update_admin_success'); ?> </p>
+                        <p> <?php echo $this->session->flashdata('update_med_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+                <?php if ($this->session->flashdata('change_state')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('change_state'); ?> </p>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
@@ -500,6 +494,66 @@ input:checked + .slider:before {
                <?php } ?>
 
 
+
+               <?php if ($this->session->flashdata('incorrect_password')) { ?>
+         
+                   <div class="modal modal-danger" id="dangermodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('incorrect_password'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+                <div class="modal fade modal-danger" id="access_confirmation">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal"  aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title">Access Confirmation</h4>
+                                </div>
+
+                                 <?php //beginning form
+                                    echo form_open_multipart('admin/update_med_state','class="form-horizontal"');
+                              ?>
+                                <div class="modal-body">
+                                  <input type="hidden" name="current_state" value="<?php echo  $med_details->is_active;?>">
+                                  <input type="hidden" name="med_id" value="<?php echo  $med_details->prod_med_id;?>">
+                                  <p>Please enter your password to continue </p>
+                                  <div class="has-feedback">
+                                      <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
+                                    
+                                  </div>
+
+
+                                  
+                                </div>
+
+                                <div class="modal-footer">
+                                   <?php echo form_submit(array('id' => 'change_state', 'name' =>'change_state', 'value' => 'Proceed','class'=>'pull-right btn btn-primary')); ?>
+                                 
+                                </div> 
+                                <?php echo form_close();?>
+                              </div>
+                              <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+              </div>
+
       </div>
 
     </section>
@@ -510,8 +564,7 @@ input:checked + .slider:before {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
   </footer>
 
  
@@ -553,24 +606,15 @@ input:checked + .slider:before {
 <!-- page script -->
 <script>
 
-   /* function myFunc(){
-      alert(1);
-    }*/
-
 
 
 
   $(document).ready(function() {
       $("fieldset").attr('disabled','disabled');
-
-
+      //console.log('sssssss');
+      //alert('session');
 
   });
-
-
-
-
-  
 
 
   /*$('#check_edit').change(function() {
@@ -578,27 +622,15 @@ input:checked + .slider:before {
   });*/
 
 
-  //confirmation for changing the state
-  $('#check_active').change(function()  {
-      $('#import_csv').modal('show');
-  });
-
-
-  var check_active = $('#check_active');
-
-
-   //change back to previous
-  $('#ex').click(function(){
-        alert('s');
-
-           location.reload();
-  });
-
-
   $('#check_edit').change(function(){
-    //alert('s');
    $("fieldset").prop("disabled", !$(this).is(':checked'));
 });
+
+
+
+
+
+
 
 /*$( "input" ).change(function() {
     var $input = $( this );

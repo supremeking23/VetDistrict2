@@ -56,7 +56,7 @@ class Admin_Model extends CI_Model
 	}
 
 
-		//get admin detail by id
+	//get admin detail by id
 	public function get_admin_by_id($data){
 		$this->db->select('*');
 		$this->db->from('tbladmins');
@@ -240,6 +240,21 @@ class Admin_Model extends CI_Model
 		$this->db->select('*');
 		$this->db->from('tblproductitems');
 		$this->db->where('prod_item_id',$data);
+
+		$query = $this->db->get();
+
+		$result_set = $query->result();
+
+		return $result_set;
+	}
+
+
+	//FOR MEDICINE
+	public function get_med_details_by_id_from_tblproductmedicines($data){
+		$this->db->select('a.prod_med_id,a.med_name, a.med_price, a.med_qty, a.image, a.is_active, a.drugtype_id, b.drug_type');
+		$this->db->from('tblproductmedicines a');
+		$this->db->join('tbldrugtype b','a.drugtype_id = b.drugtype_id');
+		$this->db->where('prod_med_id',$data);
 
 		$query = $this->db->get();
 

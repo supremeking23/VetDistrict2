@@ -297,7 +297,7 @@
                       <?php echo form_open_multipart('admin/create_new_medtype');?>
 
                          <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Type"   name="new_drug_type" required="">
+                            <input type="text"  class="form-control" placeholder="Medicine Type"   name="new_drug_type" required="">
                             <span class="fa fa-sitemap form-control-feedback"></span>
                           </div>
 
@@ -375,7 +375,7 @@
               <h3 class="box-title">Medicine</h3>
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>

@@ -349,7 +349,7 @@ class Customer extends CI_Controller {
 
 		$data['appointments'] = $this->customer_model->get_appointments_by_customer_id($user_id);
 
-		$this->load->view('customer/appointments',$data);
+		//$this->load->view('customer/appointments',$data);
 		$this->load->view('customer/layouts/sidebar.php',$data);
 	}
 

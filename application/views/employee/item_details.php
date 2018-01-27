@@ -3,7 +3,7 @@
 <head>
  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet District Clinic | Customer</title>
+  <title>Vet District Clinic | Admin</title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -99,7 +99,7 @@ input:checked + .slider:before {
 
 </head>
 
-<body class="hold-transition skin-green sidebar-mini" id="pet">
+<body class="hold-transition skin-green sidebar-mini" id="item">
 <div class="wrapper">
 
   <header class="main-header">
@@ -135,12 +135,11 @@ input:checked + .slider:before {
 
           <?php 
 
-            foreach($current_customer_login as $customer_login){
-               $first_name = $customer_login->first_name;
-               $middle_name = $customer_login->middle_name;
-               $last_name = $customer_login->last_name;
-               $image = $customer_login->image;
-               $user_email = $customer_login->email;
+            foreach($current_admin_login as $admin_login){
+               $first_name = $admin_login->first_name;
+               $middle_name = $admin_login->middle_name;
+               $last_name = $admin_login->last_name;
+               $image = $admin_login->image;
             }
           ?>
 
@@ -151,7 +150,7 @@ input:checked + .slider:before {
                       <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -160,16 +159,18 @@ input:checked + .slider:before {
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                       
-                        <?php if(empty($image)){ ?>
+
+                          <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
+
+                        
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small><?php echo $user_email;?></small>
+                         <small>Admin</small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -177,10 +178,10 @@ input:checked + .slider:before {
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>customer/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>customer/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
@@ -199,13 +200,13 @@ input:checked + .slider:before {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Pet 
+        Item 
         <small>Details</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Customer</a></li>
-        <li class="active">Pet Details</li>
-        <li class="active">Pet Service Record</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li class="active">Item</li>
+        <li class="active">Item Details</li>
       </ol>
     </section>
 
@@ -217,54 +218,99 @@ input:checked + .slider:before {
         
         <div class="col-md-3">
 
-          <?php foreach($show_pet_details as $pet_details):?>
+          <?php foreach($show_item_details as $item_details):?>
 
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
 
-              <?php if(empty($pet_details->pet_image)){ ?>
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/stock-vector-paw-print-205756207.jpg" alt="User's Name">
+              <?php if(empty($item_details->image)){ ?>
+                <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/vet.png" alt="image">
               <?php }else{ ?>
-                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/pet_image/<?php echo $pet_details->pet_image; ?>" alt="User's Name">
+                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/item_image/<?php echo $item_details->image; ?>" alt="image">
               <?php } ?>
 
-              <h3 class="profile-username text-center"><?php echo ucfirst($pet_details->pet_name);?></h3>
+              <h3 class="profile-username text-center"><?php echo $item_details->item_name;?></h3>
 
               <p class="text-muted text-center"></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Pet ID</b> <a class="pull-right"><?php echo $pet_details->pet_id;?></a>
+                  <b>Product Type</b> <a class="pull-right">Item</a>
                 </li>
-                <li class="list-group-item">
-                  <b>Pet Type</b> <a class="pull-right"><?php echo $pet_details->pet_type;?></a>
-                </li>
-                <li class="list-group-item">
-                  <b>Pet Breed</b> <a class="pull-right"><?php echo $pet_details->breed;?></a>
-                </li>
-                <li class="list-group-item">
-                  <b>Gender</b> <a class="pull-right"><?php echo ucfirst($pet_details->gender);?></a>
-                </li>
-                <li class="list-group-item">
-                  <!--$dateadded = date("F j, Y, g:i a", $r["DateAdded"]);-->
-
-                   <?php 
-                         $date =date_create($pet_details->date_birth);
-                         $birthdate= date_format($date,"F d Y");
-
-                    ?>
-                  <b>Date of Birth</b> <a class="pull-right"><?php echo $birthdate;?></a>
-                </li>
-                <li class="list-group-item">
-                  <?php $age = floor((time() - strtotime($birthdate)) / 31556926);?>
-                  <b>Age</b> <a class="pull-right"><?php echo $age;?></a>
-                </li>
+                
+               
               </ul>
 
 
              
               <?php endforeach;?>
+
+
+            <div class="row">
+                
+                 <div class="form-group">
+                    <div class="col-sm-6">
+                      <div class="checkbox">
+                        <label class="switch">
+
+                          <input type="checkbox" id="check_edit"> 
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+
+                      
+                    </div>
+                    <div class="col-sm-6">Toggle to edit information </div>
+                </div>
+
+              </div>
+
+             
+
+             <br />
+
+              <div class="row">
+                
+                <div class="form-group">
+                    <div class="col-sm-12">
+                      
+                      <?php 
+
+                        $state;
+                        if($item_details->is_active == 1){
+                          $state = "Active";
+                        }else{
+                          $state = "Not Active";
+                        }
+
+                      ?>
+                      <button title="Click to change state. Current state is <?php echo $state;?>" class="btn btn-success btn-block" data-tooltip="tooltip" data-toggle="modal" data-target="#access_confirmation" data-placement="bottom"> <?php echo $state; //echo $admin_details->is_active;?></button>
+                    </div>
+                    
+                </div>
+
+
+
+              
+
+              </div>
+
+             <!-- <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="checkbox">
+                          <label class="switch">
+                          <input type="checkbox">
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                </div> -->
+
+          <!-- Rounded switch -->
+
+
+
 
             </div>
             <!-- /.box-body -->
@@ -278,38 +324,102 @@ input:checked + .slider:before {
 
 
       <div class="col-md-9">
-            
-          <div class="box box-primary">
-            <div class="box-header">
-              <h3 class="box-title">Service Record For : <?php echo ucfirst($pet_details->pet_name);?></h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Veterinarian</th>
-                  <th>Service Type</th>
-                  <th>Fee</th>
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li>
+            </ul>
+            <div class="tab-content">
+             
+
+              <div class="active tab-pane" id="settings">
+
+
+                <?php //fieldset disable?>
+               
+                <fieldset>
+
+                  <?php //beginning form
+                  echo form_open_multipart('admin/update_item_details','class="form-horizontal"');
+                  ?>
+
+
+                    <?php foreach($show_item_details as $item_details):?>
+
+                  <div class="form-group">
+                    <label for="item_name" class="col-sm-2 control-label">Item Name</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="item_name" name="item_name" value="<?php echo $item_details->item_name?>">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="item_price" class="col-sm-2 control-label">Item Price</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="item_price" name="item_price" value="<?php echo $item_details->item_price?>">
+                    </div>
+                  </div>
+
+
+
+                  <div class="form-group">
+                    <label for="item_qty" class="col-sm-2 control-label">Item Quantity</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="item_qty" name="item_qty" value="<?php echo $item_details->item_qty?>">
+                    </div>
+                  </div>
+
+
+                    <div class="form-group">
+                        <label for="image" class="col-sm-2 control-label">Item Picture</label>
+
+                        <div class="col-sm-2">
+                          <input type="file" name="upload_image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])" >
+
+                           <input type="hidden" value="" name="image_name">
+
+
+                       <?php if(empty($item_details->image)){ ?>
+                            <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>assets/dist/img/vet.png" width="100" alt="User profile picture">
+                          <?php }else { ?>
+                               <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/item_image/<?php echo $item_details->image; ?>" width="100" alt="User profile picture">
+                          <?php } ?>
+                        </div>
+
+                        <?php //for employee_id?>
+                        <input type="hidden" name="item_id" value="<?php echo $item_details->prod_item_id?>">
+                  </div>
+                 
+
+
+                    <?php
+                      //testing
+                       //$test2 = $pet_details->pet_breed;
+                    ///echo "<script>alert(". $pet_details->pet_type .")</script>";
+                     ?>
+                   <?php endforeach;?>
                   
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>December 30 2017</td>
-                  <td>Emelda Suyom
-                  </td>
-                  <td>Cleaning</td>
-                  <td>Php 400.00</td>
-                  
-                </tr>
-              </tbody>
-              </table>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-danger">Update<?php //echo $test2;?></button>
+                    </div>
+                  </div>
+                
+                <?php echo form_close();?>
+
+                </fieldset> <?php //end fieldset?>
+
+
+              </div>
+              <!-- /.tab-pane -->
             </div>
-            <!-- /.box-body -->
+            <!-- /.tab-content -->
           </div>
-          <!-- /.box -->
+          <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->
 
@@ -321,7 +431,7 @@ input:checked + .slider:before {
       <div class="row">
         <?php  //for messages?>
 
-              <?php if ($this->session->flashdata('update_pet_success')) { ?>
+              <?php if ($this->session->flashdata('update_item_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -332,7 +442,7 @@ input:checked + .slider:before {
                         <h4 class="modal-title"></h4>
                       </div>
                       <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('update_pet_success'); ?> </p>
+                        <p> <?php echo $this->session->flashdata('update_item_success'); ?> </p>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
@@ -400,11 +510,11 @@ input:checked + .slider:before {
                                 </div>
 
                                  <?php //beginning form
-                                    echo form_open_multipart('admin/update_pet_state','class="form-horizontal"');
+                                    echo form_open_multipart('admin/update_item_state','class="form-horizontal"');
                               ?>
                                 <div class="modal-body">
-                                  <input type="hidden" name="current_state" value="<?php echo  $pet_details->is_active;?>">
-                                  <input type="hidden" name="pet_id" value="<?php echo  $pet_details->pet_id;?>">
+                                  <input type="hidden" name="current_state" value="<?php echo  $item_details->is_active;?>">
+                                  <input type="hidden" name="item_id" value="<?php echo  $item_details->prod_item_id;?>">
                                   <p>Please enter your password to continue </p>
                                   <div class="has-feedback">
                                       <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
@@ -473,25 +583,44 @@ input:checked + .slider:before {
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/customerjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
 
 <!-- page script -->
 <script>
 
-    $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false,
-      'scrollY': 200,
-      'scrollX': true
-    })
-  })
 
+
+
+  $(document).ready(function() {
+      $("fieldset").attr('disabled','disabled');
+      //console.log('sssssss');
+      //alert('session');
+
+  });
+
+
+  /*$('#check_edit').change(function() {
+     $("fieldset").removeAttr('disabled');
+  });*/
+
+
+  $('#check_edit').change(function(){
+   $("fieldset").prop("disabled", !$(this).is(':checked'));
+});
+
+
+
+
+
+
+
+/*$( "input" ).change(function() {
+    var $input = $( this );
+    $( "p" ).html( ".attr( 'checked' ): <b>" + $input.attr( "checked" ) + "</b><br>" +
+      ".prop( 'checked' ): <b>" + $input.prop( "checked" ) + "</b><br>" +
+      ".is( ':checked' ): <b>" + $input.is( ":checked" ) + "</b>" );
+  }).change();*/
+ 
 </script>
 </body>
 </html>

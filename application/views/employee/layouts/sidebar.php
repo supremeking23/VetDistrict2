@@ -8,18 +8,18 @@
 
            <?php 
 
-            foreach($current_admin_login as $admin_login){
-               $first_name = $admin_login->first_name;
-               $middle_name = $admin_login->middle_name;
-               $last_name = $admin_login->last_name;
-               $image = $admin_login->image;
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
            <?php if(empty($image)){ ?>
                     <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                      <?php } ?>
 
          
@@ -48,12 +48,10 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li><a href="<?php echo site_url();?>admin/dashboard"> <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-       
-        <li><a href="<?php echo site_url();?>admin/appointments"><i class="fa fa-calendar"></i> <span>Appointments</span></a></li>
-
-        <li><a href="<?php echo site_url();?>admin/customers"><i class="fa fa-users"></i> <span>Customers</span></a></li>
-        <li><a href="<?php echo site_url();?>admin/pets"><i class="fa fa-user"></i> <span>Pets</span></a></li>
+        <li><a href="<?php echo site_url();?>employee/dashboard"> <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li><a href="<?php echo site_url();?>employee/appointments"><i class="fa fa-calendar"></i> <span>Appointments</span></a></li>
+         <li><a href="<?php echo site_url();?>employee/customers"><i class="fa fa-users"></i> <span>Customers</span></a></li>
+        <li><a href="<?php echo site_url();?>employee/pets"><i class="fa fa-user"></i> <span>Pets</span></a></li>
         
        <!-- <li><a href="<?php echo site_url();?>admin/products"><i class="fa  fa-th-list"></i> <span>Products</span></a></li> -->
         <li class="treeview" id="prod_family">
@@ -64,15 +62,13 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="med"><a href="<?php echo site_url();?>admin/medicines"><i class="fa fa-circle-o"></i> Medicines</a></li>
-            <li id="item"><a href="<?php echo site_url();?>admin/items"><i class="fa fa-circle-o"></i> Items</a></li>
+            <li id="med"><a href="<?php echo site_url();?>employee/medicines"><i class="fa fa-circle-o"></i> Medicines</a></li>
+            <li id="item"><a href="<?php echo site_url();?>employee/items"><i class="fa fa-circle-o"></i> Items</a></li>
           </ul>
         </li>
 
 
-        
-
-
+       
         <li class="treeview" id="report_family">
           <a href="#">
             <i class="fa fa-file-o"></i> <span>Reports</span>
@@ -86,9 +82,6 @@
           </ul>
         </li>
 
-
-         <li><a href="<?php echo site_url();?>admin/admins"><i class="fa fa-user-secret"></i> <span>Admins</span></a></li>
-        <li><a href="<?php echo site_url();?>admin/employees"><i class="fa fa-user"></i> <span>Employees</span></a></li>
        
       </ul>
     </section>

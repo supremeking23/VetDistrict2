@@ -70,6 +70,11 @@ class Create_Model extends CI_Model
 
 
 
+  //for appointments
+
+  public function create_appointment(){
+      $this->db->insert('tblappointments',$data);
+  }
 
    
 }

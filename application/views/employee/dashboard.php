@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet Disctrict | Admin</title>
+  <title>Vet Disctrict | <?php
+  //comes frome the session
+   echo ucfirst($employee_type);?> </title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -77,11 +79,11 @@
 
           <?php 
 
-            foreach($current_admin_login as $admin_login){
-               $first_name = $admin_login->first_name;
-               $middle_name = $admin_login->middle_name;
-               $last_name = $admin_login->last_name;
-               $image = $admin_login->image;
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
@@ -92,7 +94,7 @@
                       <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -105,12 +107,12 @@
                         <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small></small>
+                          <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -118,10 +120,10 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>employee/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>employee/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
@@ -147,7 +149,7 @@
         <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Employee</a></li>
         <li class="active">Dashboard</li>
       </ol>
     </section>
@@ -266,47 +268,10 @@
   
               </div><!-- /.box-header -->
             </div>
-            <div class="box-body chat" id="chat-box">
-                <div class="box-body" id="">
-                  <hr><br>
-                 
-                  <div class="item">
-                      <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" alt="" class="offline img-circle">
-                      
-                      <p class="message">
-                        <a href="" class="name"> 
-                          <small class="text-muted pull-right"><i class="fa fa-clock-o"></i>December 30 2017, 8:01 am</small>
-                            Jun Saybayton
-                        </a>
-                        Lorem Ipsom delor
-                        <br />
-
-                      </p>
-
-                      
-                        <button class="btn btn-default btn-small pull-right" data-toggle="modal" data-target="#modal-danger">Delete</button>
-                      
-                    </div>
-
-                    <div class="item">
-                        <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" alt="" class="offline img-circle">
-                        
-                        <p class="message">
-                          <a href="" class="name"> 
-                            <small class="text-muted pull-right"><i class="fa fa-clock-o"></i>December 30 2017, 8:01 am</small>
-                              Juana Saybayton
-                          </a>
-                          Definitely One of the best clinic in this town
-                          <br />
-
-                        </p>
-
-                        
-                          <button class="btn btn-default btn-small pull-right" data-toggle="modal" data-target="#modal-danger">Delete</button>
-                    
-                    </div>
-                
-                </div>
+            <div class="box-body" id="">
+              <hr><br>
+             
+            
             </div>
             <!-- /.chat -->
             <div class="box-footer">
@@ -397,8 +362,8 @@
 <script src="<?php echo site_url()?>assets/bower_components/moment/moment.js"></script>
 <script src="<?php echo site_url()?>assets/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 
-<!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<!--scripts -->
+<script src="<?php echo site_url()?>assets/js/employeejs.js"></script>
 
 <!-- Page specific script -->
 <script>

@@ -2,7 +2,9 @@
 <head>
  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet District Clinic | Customer</title>
+  <title>Vet Disctrict | <?php
+  //comes frome the session
+   echo ucfirst($employee_type);?> </title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -132,14 +134,13 @@ input:checked + .slider:before {
             </ul>
           </li>
 
-            <?php 
+          <?php 
 
-            foreach($current_customer_login as $customer_login){
-               $first_name = $customer_login->first_name;
-               $middle_name = $customer_login->middle_name;
-               $last_name = $customer_login->last_name;
-               $image = $customer_login->image;
-               $user_email = $customer_login->email;
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
@@ -150,7 +151,7 @@ input:checked + .slider:before {
                       <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -163,12 +164,12 @@ input:checked + .slider:before {
                         <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small><?php echo $user_email;?></small>
+                          <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -176,10 +177,10 @@ input:checked + .slider:before {
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>customer/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>employee/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>customer/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>employee/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
@@ -197,13 +198,13 @@ input:checked + .slider:before {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Customer 
+        Employee 
         <small>Details</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Customer</a></li>
-        <li class="active">Customer</li>
-        <li class="active">Customer Details</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Employee</a></li>
+        <li class="active">Employee</li>
+        <li class="active">Employee Details</li>
       </ol>
     </section>
 
@@ -353,8 +354,8 @@ input:checked + .slider:before {
 
               <div class="box-body">
                 <center>
-                  <?php foreach($show_customer_details as $customer_details):?>
-                      <img class="img-responsive" src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" alt="Admin Picture" >
+                  <?php foreach($show_employee_details as $employee_details):?>
+                      <img class="img-responsive" src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" alt="Employee Picture" >
 
                   <?php endforeach;?>
                  </center>
@@ -377,7 +378,7 @@ input:checked + .slider:before {
 
                                   <!-- form for updating of profile picture -->
                                    <?php //beginning form
-                                  echo form_open_multipart('customer/update_profile_pic','class="form-horizontal"');
+                                  echo form_open_multipart('employee/update_profile_pic','class="form-horizontal"');
                                   ?>
                                         <div class="modal-body">
                                           <label>Profile Picture</label>
@@ -429,7 +430,7 @@ input:checked + .slider:before {
                     
                     
                      <?php 
-                            echo form_open_multipart('customer/update_email','class="form-horizontal"');
+                            echo form_open_multipart('employee/update_email','class="form-horizontal"');
                                   ?>
                           <div class="box-body">
                             <p>New Email</p>
@@ -472,7 +473,7 @@ input:checked + .slider:before {
                     
                     
                     <?php 
-                          echo form_open_multipart('customer/update_password','class="form-horizontal"');
+                          echo form_open_multipart('employee/update_password','class="form-horizontal"');
                                   ?>
                           <div class="box-body">
                             

@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
- <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet District Clinic | Customer</title>
+   <title>Vet Disctrict | <?php
+  //comes frome the session
+   echo ucfirst($employee_type);?> </title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -96,10 +98,8 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
   </style>
-
 </head>
-
-<body class="hold-transition skin-green sidebar-mini" id="pet">
+<body class="hold-transition skin-green sidebar-mini" id="customer">
 <div class="wrapper">
 
   <header class="main-header">
@@ -132,15 +132,13 @@ input:checked + .slider:before {
             </ul>
           </li>
 
+            <?php 
 
-          <?php 
-
-            foreach($current_customer_login as $customer_login){
-               $first_name = $customer_login->first_name;
-               $middle_name = $customer_login->middle_name;
-               $last_name = $customer_login->last_name;
-               $image = $customer_login->image;
-               $user_email = $customer_login->email;
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
@@ -151,7 +149,7 @@ input:checked + .slider:before {
                       <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -161,15 +159,16 @@ input:checked + .slider:before {
                       <!-- User image -->
                       <li class="user-header">
                        
+
                         <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small><?php echo $user_email;?></small>
+                          <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -177,16 +176,16 @@ input:checked + .slider:before {
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>customer/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>employee/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>customer/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>employee/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
           </li>
 
-         
+
         </ul>
       </div>
     </nav>
@@ -199,13 +198,13 @@ input:checked + .slider:before {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Pet 
+        Customer 
         <small>Details</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Customer</a></li>
-        <li class="active">Pet Details</li>
-        <li class="active">Pet Service Record</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li class="active">Customer</li>
+        <li class="active">Customer Details</li>
       </ol>
     </section>
 
@@ -217,40 +216,36 @@ input:checked + .slider:before {
         
         <div class="col-md-3">
 
-          <?php foreach($show_pet_details as $pet_details):?>
+          <?php foreach($show_customer_details as $customer_details):?>
 
           <!-- Profile Image -->
           <div class="box box-primary">
             <div class="box-body box-profile">
 
-              <?php if(empty($pet_details->pet_image)){ ?>
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/stock-vector-paw-print-205756207.jpg" alt="User's Name">
+              <?php if(empty($customer_details->image)){ ?>
+                <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>assets/dist/img/guest2.jpg" alt="User's Name">
               <?php }else{ ?>
-                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/pet_image/<?php echo $pet_details->pet_image; ?>" alt="User's Name">
+                    <img class="profile-user-img img-responsive img-circle" src="<?php echo site_url()?>uploads/customer_image/<?php echo $customer_details->image; ?>" alt="User's Name">
               <?php } ?>
 
-              <h3 class="profile-username text-center"><?php echo ucfirst($pet_details->pet_name);?></h3>
+              <h3 class="profile-username text-center"><?php echo $customer_details->first_name .' '. $customer_details->middle_name .' '. $customer_details->last_name;?></h3>
+
+
+            
+               
+              
 
               <p class="text-muted text-center"></p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Pet ID</b> <a class="pull-right"><?php echo $pet_details->pet_id;?></a>
-                </li>
-                <li class="list-group-item">
-                  <b>Pet Type</b> <a class="pull-right"><?php echo $pet_details->pet_type;?></a>
-                </li>
-                <li class="list-group-item">
-                  <b>Pet Breed</b> <a class="pull-right"><?php echo $pet_details->breed;?></a>
-                </li>
-                <li class="list-group-item">
-                  <b>Gender</b> <a class="pull-right"><?php echo ucfirst($pet_details->gender);?></a>
+                  <b>Customer ID</b> <a class="pull-right"><?php echo $customer_details->customer_id;?></a>
                 </li>
                 <li class="list-group-item">
                   <!--$dateadded = date("F j, Y, g:i a", $r["DateAdded"]);-->
 
                    <?php 
-                         $date =date_create($pet_details->date_birth);
+                         $date =date_create($customer_details->date_birth);
                          $birthdate= date_format($date,"F d Y");
 
                     ?>
@@ -262,9 +257,77 @@ input:checked + .slider:before {
                 </li>
               </ul>
 
-
              
               <?php endforeach;?>
+
+
+
+              <div class="row">
+              	
+              	 <div class="form-group">
+                    <div class="col-sm-6">
+                      <div class="checkbox">
+                        <label class="switch">
+
+                          <input type="checkbox" id="check_edit"> 
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+
+                      
+                    </div>
+                    <div class="col-sm-6">Toggle to edit information</div>
+                </div>
+
+              </div>
+
+             
+
+              <br />
+
+              <div class="row">
+                
+                <div class="form-group">
+                    <div class="col-sm-12">
+                      
+                      <?php 
+
+                        $state;
+                        if($customer_details->is_active == 1){
+                          $state = "Active";
+                        }else{
+                          $state = "Not Active";
+                        }
+
+                      ?>
+                      <button title="Click to change state. Current state is <?php echo $state;?>" class="btn btn-success btn-block" data-tooltip="tooltip" data-toggle="modal" data-target="#access_confirmation" data-placement="bottom"> <?php echo $state; //echo $admin_details->is_active;?></button>
+                    </div>
+                    
+                </div>
+
+
+
+              
+
+              </div>
+
+                
+
+             <!-- <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="checkbox">
+                          <label class="switch">
+                          <input type="checkbox">
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                </div> -->
+
+          <!-- Rounded switch -->
+
+
+
 
             </div>
             <!-- /.box-body -->
@@ -278,38 +341,159 @@ input:checked + .slider:before {
 
 
       <div class="col-md-9">
-            
-          <div class="box box-primary">
-            <div class="box-header">
-              <h3 class="box-title">Service Record For : <?php echo ucfirst($pet_details->pet_name);?></h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Veterinarian</th>
-                  <th>Service Type</th>
-                  <th>Fee</th>
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#settings" data-toggle="tab">Account Settings</a></li>
+            </ul>
+            <div class="tab-content">
+             
+
+              <div class="active tab-pane" id="settings">
+
+
+                <?php //fieldset disable?>
+               
+                <fieldset>
+
+                  <?php //beginning form
+                  echo form_open_multipart('admin/update_customer_details','class="form-horizontal"');
+                  ?>
+
+
+                   <?php foreach($show_customer_details as $customer_details):?>
+
+
+
+                  <div class="form-group">
+                    <label for="first_name" class="col-sm-2 control-label">First Name</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $customer_details->first_name?>">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="middle_name" class="col-sm-2 control-label">Middle Name</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $customer_details->middle_name?>">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="last_name" class="col-sm-2 control-label">Last Name</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $customer_details->last_name?>">
+                    </div>
+                  </div>
+
+                   <div class="form-group">
+                    <label for="gender" class="col-sm-2 control-label">Gender</label>
+
+                    <div class="col-sm-10">
+
+                      <?php //option for  gender
+                                $option = array(
+                                    "" => "Gender",
+                                    "male" => "Male",
+                                    "female" => "Female",
+                                    
+                                );
+                            ?>
+
+                      <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
+                             <?php echo form_dropdown('gender',$option,$customer_details->gender,'class="form-control" required');?>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">Address</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="address" name="address" value="<?php echo $customer_details->address?>">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="cellphone" class="col-sm-2 control-label">Cellphone Number</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="cellphone" name="cellphone" value="<?php echo $customer_details->cellphone?>">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="email" class="col-sm-2 control-label">Email</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="email" name="email" value="<?php echo $customer_details->email?>">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="telephone" class="col-sm-2 control-label">Telephone Number</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $customer_details->telephone?>">
+                    </div>
+                  </div>
+
+
+
+                  <div class="form-group">
+                    <label for="date_birth" class="col-sm-2 control-label">Date of Birth</label>
+
+                    <div class="col-sm-10">
+                      <input type="date" class="form-control" id="date_birth" name="date_birth" value="<?php echo $customer_details->date_birth?>">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label for="image" class="col-sm-2 control-label">Profile Picture</label>
+
+                    <div class="col-sm-2">
+                      <input type="file" name="upload_image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])" >
+                       <input type="hidden" value="" name="image_name">
+
+
+                      <?php if(empty($customer_details->image)){ ?>
+                        <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>assets/dist/img/guest2.jpg" width="100" alt="User profile picture">
+                      <?php }else { ?>
+                           <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/customer_image/<?php echo $customer_details->image; ?>" width="100" alt="User profile picture">
+                      <?php } ?>
+                    </div>
+
+                    <?php //for employee_id?>
+                    <input type="hidden" name="customer_id" value="<?php echo $customer_details->customer_id;?>">
+                  </div>
+
+
+
+                   <?php endforeach;?>
                   
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>December 30 2017</td>
-                  <td>Emelda Suyom
-                  </td>
-                  <td>Cleaning</td>
-                  <td>Php 400.00</td>
-                  
-                </tr>
-              </tbody>
-              </table>
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button type="submit" class="btn btn-danger">Update</button>
+                    </div>
+                  </div>
+                
+                <?php echo form_close();?>
+
+                </fieldset> <?php //end fieldset?>
+
+
+              </div>
+              <!-- /.tab-pane -->
             </div>
-            <!-- /.box-body -->
+            <!-- /.tab-content -->
           </div>
-          <!-- /.box -->
+          <!-- /.nav-tabs-custom -->
         </div>
         <!-- /.col -->
 
@@ -321,7 +505,7 @@ input:checked + .slider:before {
       <div class="row">
         <?php  //for messages?>
 
-              <?php if ($this->session->flashdata('update_pet_success')) { ?>
+              <?php if ($this->session->flashdata('update_customer_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -332,7 +516,7 @@ input:checked + .slider:before {
                         <h4 class="modal-title"></h4>
                       </div>
                       <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('update_pet_success'); ?> </p>
+                        <p> <?php echo $this->session->flashdata('update_customer_success'); ?> </p>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
@@ -343,7 +527,9 @@ input:checked + .slider:before {
 
                <?php } ?>
 
-                <?php if ($this->session->flashdata('change_state')) { ?>
+
+
+                                   <?php if ($this->session->flashdata('change_state')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -390,7 +576,7 @@ input:checked + .slider:before {
                <?php } ?>
 
 
-                <div class="modal fade modal-danger" id="access_confirmation">
+               <div class="modal fade modal-danger" id="access_confirmation">
                             <div class="modal-dialog">
                               <div class="modal-content">
                                 <div class="modal-header">
@@ -400,11 +586,11 @@ input:checked + .slider:before {
                                 </div>
 
                                  <?php //beginning form
-                                    echo form_open_multipart('admin/update_pet_state','class="form-horizontal"');
+                                    echo form_open_multipart('admin/update_customer_state','class="form-horizontal"');
                               ?>
                                 <div class="modal-body">
-                                  <input type="hidden" name="current_state" value="<?php echo  $pet_details->is_active;?>">
-                                  <input type="hidden" name="pet_id" value="<?php echo  $pet_details->pet_id;?>">
+                                  <input type="hidden" name="current_state" value="<?php echo  $customer_details->is_active;?>">
+                                  <input type="hidden" name="customer_id" value="<?php echo  $customer_details->customer_id;?>">
                                   <p>Please enter your password to continue </p>
                                   <div class="has-feedback">
                                       <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
@@ -473,25 +659,35 @@ input:checked + .slider:before {
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/customerjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
 
 <!-- page script -->
 <script>
 
-    $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false,
-      'scrollY': 200,
-      'scrollX': true
-    })
-  })
 
+
+
+  $(document).ready(function() {
+      $("fieldset").attr('disabled','disabled');
+  });
+
+
+  /*$('#check_edit').change(function() {
+     $("fieldset").removeAttr('disabled');
+  });*/
+
+
+  $('#check_edit').change(function(){
+   $("fieldset").prop("disabled", !$(this).is(':checked'));
+});
+
+/*$( "input" ).change(function() {
+    var $input = $( this );
+    $( "p" ).html( ".attr( 'checked' ): <b>" + $input.attr( "checked" ) + "</b><br>" +
+      ".prop( 'checked' ): <b>" + $input.prop( "checked" ) + "</b><br>" +
+      ".is( ':checked' ): <b>" + $input.is( ":checked" ) + "</b>" );
+  }).change();*/
+ 
 </script>
 </body>
 </html>

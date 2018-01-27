@@ -320,7 +320,7 @@ class Customer extends CI_Controller {
 
 		//total number of pets
 
-		$data['count_pets'] =  $this->customer_model->get_count_all_pet_by_customer_id($user_id);
+		//$data['count_pets'] =  $this->customer_model->get_count_all_pet_by_customer_id($user_id);
 
 		//total number of purchase product
 		
@@ -328,6 +328,29 @@ class Customer extends CI_Controller {
 		$this->load->view('customer/dashboard',$data);
 		$this->load->view('customer/layouts/sidebar.php',$data);
 
+	}
+
+
+
+	public function appointments(){
+
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('customer/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_customer_login'] = $this->customer_model->get_customer_by_id($user_id);
+
+
+		$data['appointments'] = $this->customer_model->get_appointments_by_customer_id($user_id);
+
+		$this->load->view('customer/appointments',$data);
+		$this->load->view('customer/layouts/sidebar.php',$data);
 	}
 
 
@@ -391,7 +414,46 @@ class Customer extends CI_Controller {
 
 			$this->load->view('customer/pet_details',$data);
 			$this->load->view('customer/layouts/sidebar.php',$data);
-			//print_r($data);
+			//print_r($this->input->post());
+	}
+
+
+
+	public function book_appointment(){
+		
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('customer/login');
+		}
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_customer_login'] = $this->customer_model->get_customer_by_id($user_id);
+
+
+
+		//print_r($this->input->post());
+
+		$data = array(
+				'customer_id' => $this->input->post('customer_id'),
+				'customer_name' => $this->input->post('customer_name'),
+				'cellphone' => $this->input->post('contact_number'),
+				'telephone' => $this->input->post('telephone_number'),
+				'preferred_date' => $this->input->post('preferred_date'),
+				'preferred_time_of_day' => $this->input->post('preferred_time'),
+				'appointment_reason' => $this->input->post('appointment_reason'),
+				'status' => 'pending',
+				'date_requested' => 'now()',
+			);
+
+
+		//Transfering data to Model
+			$this->create_model->create_appointment($data);
+		
+
+			$this->session->set_flashdata('add_employee_success','Employee has been added');
+	      	redirect('admin/employees');
 	}
 
 

@@ -121,4 +121,18 @@ class Customer_Model extends CI_Model
 		return $result_set;
 	}
 
+
+	public function get_appointments_by_customer_id(){
+
+		$this->db->select('*');
+		$this->db->from('tblappointments');
+		$this->db->where('customer_id',$data);
+
+		$query = $this->db->get();
+
+		$result_set = $query->result();
+
+		return $result_set;
+	}
+
 }

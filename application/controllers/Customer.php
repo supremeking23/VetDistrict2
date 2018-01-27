@@ -433,7 +433,7 @@ class Customer extends CI_Controller {
 
 
 
-		//print_r($this->input->post());
+		///print_r($this->input->post());
 
 		$data = array(
 				'customer_id' => $this->input->post('customer_id'),

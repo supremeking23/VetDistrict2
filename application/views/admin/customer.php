@@ -444,9 +444,6 @@
 
 
 
-    $(document).ready(function(){
-    $('#successmodal').modal('show');
-  });
 
 
 

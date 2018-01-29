@@ -48,7 +48,7 @@ class Create_Model extends CI_Model
   }
 
 
-    public function create_item_inventory($data){
+  public function create_item_inventory($data){
      $this->db->insert('tblinventoryforitems',$data);
   }
 
@@ -64,7 +64,7 @@ class Create_Model extends CI_Model
   }
 
 
-    public function create_petbreed($data){
+  public function create_petbreed($data){
     $this->db->insert('tblpetbreed',$data);
   }
 
@@ -72,7 +72,7 @@ class Create_Model extends CI_Model
 
   //for appointments
 
-  public function create_appointment(){
+  public function create_appointment($data){
       $this->db->insert('tblappointments',$data);
   }
 

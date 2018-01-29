@@ -81,7 +81,7 @@ class Customer extends CI_Controller {
 	public function sign_out(){
 		//$this->login();
 		$this->session->sess_destroy();
-		redirect('admin/login');
+		redirect('customer/login');
 	}
 
 
@@ -349,7 +349,13 @@ class Customer extends CI_Controller {
 
 		$data['appointments'] = $this->customer_model->get_appointments_by_customer_id($user_id);
 
-		//$this->load->view('customer/appointments',$data);
+		
+
+		/*foreach($data['appointments'] as $d){
+			echo $d->appointment_id;
+		}*/
+
+		$this->load->view('customer/appointments',$data);
 		$this->load->view('customer/layouts/sidebar.php',$data);
 	}
 
@@ -435,6 +441,8 @@ class Customer extends CI_Controller {
 
 		///print_r($this->input->post());
 
+		$now = date('Y-m-d H:i:s'); # output the exact date on your time
+
 		$data = array(
 				'customer_id' => $this->input->post('customer_id'),
 				'customer_name' => $this->input->post('customer_name'),
@@ -444,16 +452,20 @@ class Customer extends CI_Controller {
 				'preferred_time_of_day' => $this->input->post('preferred_time'),
 				'appointment_reason' => $this->input->post('appointment_reason'),
 				'status' => 'pending',
-				'date_requested' => 'now()',
+				'date_requested' => $now,
 			);
+
+
+
+		//print_r($data);
 
 
 		//Transfering data to Model
 			$this->create_model->create_appointment($data);
 		
 
-			$this->session->set_flashdata('add_employee_success','Employee has been added');
-	      	redirect('admin/employees');
+			$this->session->set_flashdata('book_appointment_success','Your appointment request has been send');
+	      	redirect('customer/appointments');
 	}
 
 

@@ -53,16 +53,16 @@
         <li><a href="<?php echo site_url();?>customer/pets"><i class="fa fa-firefox"></i> <span>Pets</span></a></li>
        <!-- <li><a href="<?php echo site_url();?>admin/products"><i class="fa  fa-th-list"></i> <span>Products</span></a></li> -->
         
-        <li class="treeview" id="prod_family">
+        <li class="treeview" id="history_family">
           <a href="#">
-            <i class="fa fa-th-list"></i> <span>Products</span>
+            <i class="fa fa-th-list"></i> <span>History</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="med"><a href="<?php echo site_url();?>customer/medicines"><i class="fa fa-circle-o"></i> Medicines</a></li>
-            <li id="item"><a href="<?php echo site_url();?>customer/items"><i class="fa fa-circle-o"></i> Items</a></li>
+            <li id="med"><a href="<?php echo site_url();?>customer/pet_checkup_history"><i class="fa fa-circle-o"></i> Pet Checkup History</a></li>
+            <li id="item"><a href="<?php echo site_url();?>customer/purchase_history"><i class="fa fa-circle-o"></i> Purchase History</a></li>
           </ul>
         </li>
         

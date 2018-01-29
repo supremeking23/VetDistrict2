@@ -17,8 +17,24 @@ $(function(){
   $("#customer a:contains('Customers')").parent().addClass('active');
   $("#pet a:contains('Pets')").parent().addClass('active');
   $("#administrator a:contains('Admins')").parent().addClass('active');
- 
-})
+    $("#appointment a:contains('Appointments')").parent().addClass('active');
+});
+
+
+
+  $(function () {
+   $('.data-table').DataTable( {
+      "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
+      'paging'      : true,
+      //'lengthChange': false,
+      //'searching'   : false,
+      'ordering'    : false,
+      'info'        : true,
+      //'autoWidth'   : false,
+
+
+    });
+  });
 
 
 $('[data-tooltip="tooltip"]').tooltip();
@@ -41,3 +57,8 @@ $('[data-tooltip="tooltip"]').tooltip();
             }
         });*/
   });
+
+
+
+
+

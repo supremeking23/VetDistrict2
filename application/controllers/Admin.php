@@ -274,6 +274,32 @@ class Admin extends CI_Controller {
 
 	}
 
+
+
+	public function appointments(){
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+
+
+		 $data['appointments'] = $this->admin_model->get_all_appointments();
+		
+
+		 $data['customers'] = $this->admin_model->get_all_customer();
+
+		$this->load->view('admin/appointments',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
+	}
+
 	
 
 	public function admins(){
@@ -1003,6 +1029,65 @@ class Admin extends CI_Controller {
 			$this->session->set_flashdata('add_item_success','Item product has been added');
 	      
 	      	redirect('admin/items');
+
+	}
+
+
+
+
+
+	public function book_appointment(){
+
+		if(!$this->session->userdata('logged_in')){
+					redirect('admin/login');
+			}
+
+			$user_id = $this->session->userdata('user_id');
+
+			//get user_id via $user_id session
+			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+
+			//get customer detail by their id
+
+			$customer_details = $this->admin_model->get_customer_by_id($this->input->post('customer_id'));
+
+
+			foreach ($customer_details as $customer) {
+				$full_name =  $customer->first_name .' '. $customer->middle_name .' '. $customer->last_name;
+
+				$telephone = $customer->telephone;
+				$cellphone = $customer->cellphone;
+			}
+
+			$appointment_reason = "---------- WALK IN ----------";
+			$now = date('Y-m-d H:i:s');
+			$data = array(
+				'customer_id' => $this->input->post('customer_id'),
+				'customer_name' => $full_name,
+				'telephone' => $telephone,
+				'cellphone' => $cellphone,
+				'preferred_time_of_day' => $this->input->post('preferred_time'),
+				'appointment_reason' => $appointment_reason,
+				'status' => 'approved',
+				'preferred_date' => $now,
+
+			);
+
+
+
+
+				//Transfering data to Model
+			$this->create_model->create_appointment($data);
+		
+
+			$this->session->set_flashdata('book_appointment_success','Appointment has been scheduled successfully');
+
+
+	      	redirect('admin/appointments');
+
+
+		//print_r($this->input->post());
 
 	}
 

@@ -27,7 +27,10 @@
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
 
-
+     <!-- DataTables -->
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
 
 
@@ -41,6 +44,10 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <style type="text/css">
+    
+  </style>
 </head>
 <body class="hold-transition skin-green sidebar-mini" id="appointment">
 <div class="wrapper">
@@ -166,25 +173,32 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-          <div class="col-lg-4 col-xs-12">
-          <!-- change email -->
-            <div class="box box-success">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Book an appointment </h3>
-                      <div class="box-tools pull-right">
-                      
-                      </div><!-- /.box-tools -->
-                    </div><!-- /.box-header -->
-                    
-                    
-                     <?php 
+          
+      </div>
+      <!-- /.row -->
+
+
+      <!-- row for modals -->
+
+      <div class="row">
+
+            <!-- mpdal for booking -->
+              <div class="modal fade" id="bookAppointment">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Book an appointment </h4>
+                    </div>
+
+                      <?php 
                             echo form_open_multipart('customer/book_appointment','class="form-horizontal"');
                                   ?>
-                          <div class="box-body">
-                            
 
-
-                            <p>Preferred Date</p>
+                    <div class="modal-body">
+                      
+                           <p>Preferred Date</p>
                             <div class=" has-feedback">
                               <input  required  type="date" class="form-control"  name="preferred_date" value="">
                               <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
@@ -210,7 +224,7 @@
 
                             <p>Reason</p>
                             <div class=" has-feedback">
-                                <textarea class="textarea" name="appointment_reason">
+                                <textarea  class="" name="appointment_reason" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;border-radius: 4px">
                                   
                                 </textarea>
                             </div>
@@ -225,19 +239,45 @@
                            <input type="hidden" name="customer_id" value="<?php echo $customer_id;?>">
 
 
-                          </div><!-- /.box-body -->
-                         
-                          <div class="box-footer">
-                              <input type="submit" name="send__appointment_request" value="Send Appointment Request" class="btn btn-primary pull-right">
-                          </div><!-- box-footer -->
-                    
+                    </div>
 
-                    <?php echo form_close(); ?>
+                    <div class="modal-footer">
+                       <input type="submit" name="send_appointment_request" value="Send Appointment Request" class="btn btn-primary pull-right">
+                    </div>
 
-                </div><!-- /.box -->
-        </div>
+                     <?php echo form_close(); ?>
+
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+
+
+                          
+               <?php if ($this->session->flashdata('book_appointment_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('book_appointment_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
       </div>
-      <!-- /.row -->
 
 
 
@@ -248,13 +288,24 @@
            <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Appointment Record</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                      
+                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#bookAppointment"><i class="fa fa-calendar" data-tooltip="tooltip" title="Book an Appointment"></i></button>
+                      </div>
+
+
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive">
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table  class="data-table table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Date</th>
+                      
+                      <th>Date Requested</th>
+                      <th>Appointment Date</th>
                       <th>Time</th>
                       <th>Status</th>
                       <th>View Details</th>
@@ -264,21 +315,120 @@
                     <tbody>
                     
 
-                    <?php foreach($appointnments as $appointnment):?>
-                    <tr>
-                      <td><?php echo $appointnment['preferred_date'];?></td>
-                      <td><?php echo $appointnment['preferred_time_of_day'];?></td>
-                      <td><?php echo $appointnment['status']?></td>
-
-                      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewDetail<?php echo $appointnment['appointment_id']?>">View Details</button></td>
 
 
-                      
+                    <?php foreach($appointments as $appointment):?>
+                   
+                      <tr>
+                        <?php $date_req =date_create($appointment->date_requested);
+                         $date_requested= date_format($date_req,"F j, Y, g:i a");?>
 
-                      
-                      
-                      <td><a href="<?php echo site_url()?>admin/employee_details/<?php echo $employee['employee_id']; ?>" class="btn btn-primary">View More Details</a></td>
+                        <td><?php echo $date_requested;?></td>
+                        <?php $date =date_create($appointment->preferred_date);
+                         $preferred_date= date_format($date,"F d, Y");?>
+
+                        <td><?php echo $preferred_date;?></td>
+                        <td><?php echo ucfirst($appointment->preferred_time_of_day);?></td>
+
+                        <td>
+                          <?php if($appointment->status == "pending"){
+                                  $label_type = "warning";
+                          }else if($appointment->status == "approved"){
+                                  $label_type = "info";
+                          }else if($appointment->status == "cancelled"){
+                                  $label_type = "danger";
+                          }else{
+                             $label_type = "success";
+                          }?>
+                            
+                            
+                          <span class="label label-<?php echo $label_type;?>"><?php echo ucfirst($appointment->status)?></span>
+                          </td>
+
+                        <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewDetail<?php echo $appointment->appointment_id?>">View Details</button>
+
+
+                               <div class="modal fade" id="viewDetail<?php echo $appointment->appointment_id?>">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Appointment Detail</h4>
+                                      </div>
+                                      <div class="modal-body text-center">
+
+                                      <div class="row">
+                                        <div class="col-lg-9 col-md-12 col-xs-12">
+                                          
+                                          <div class="form-group row" style="margin-bottom: 15px">
+                                              <label for="date" class="col-sm-5 col-form-label"><b>Date</b></label>
+                                              <div class="col-sm-7">
+                                                
+                                                <input style="border-radius: 5px" type="text" class="form-control" name="date" id="date" disabled="" value ="<?php echo $preferred_date?>" />
+                                              </div>
+                                            </div>
+
+                                             <div class="form-group row" style="margin-bottom: 15px">
+                                              <label for="time" class="col-sm-5 col-form-label"><b>Time</b></label>
+                                              <div class="col-sm-7">
+                                                
+                                                <input style="border-radius: 5px" type="text" class="form-control" name="time" id="time" disabled="" value ="<?php echo ucfirst($appointment->preferred_time_of_day);?>" />
+                                              </div>
+                                            </div>
+
+
+
+                                              <div class="form-group row" style="margin-bottom: 15px">
+                                              <label for="status" class="col-sm-5 col-form-label"><b>Status</b></label>
+                                              <div class="col-sm-7">
+                                                
+                                                <input style="border-radius: 5px" type="text" class="form-control" name="status" id="status" disabled="" value ="<?php echo ucfirst($appointment->status);?>" />
+                                              </div>
+                                            </div>
+
+
+                                            <div class="form-group row" style="margin-bottom: 15px">
+                                              <label for="reason" class="col-sm-5 col-form-label"><b>Reason</b></label>
+                                              <div class="col-sm-7">
+                                                
+                                               <textarea name="reason" disabled="" class="form-control"  cols="25" rows="10"><?php echo $appointment->appointment_reason;?></textarea>
+                                              </div>
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                      </div>
+
+                                       
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                       
+                                      </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                  </div>
+                                  <!-- /.modal-dialog -->
+                                </div>
+                                 <!-- /.modal -->
+
+                        </td>
+
+
+                        
+
+                               
+
+                        
+                        
+                        <td><button  class="btn btn-danger btn-sm">Cancel Appointment</button></td>
                     </tr>
+
+
                    <?php endforeach;?>
 
 
@@ -333,6 +483,11 @@
 <script src="<?php echo site_url()?>assets/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?php echo site_url()?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
+<!-- DataTables -->
+<script src="<?php echo site_url()?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo site_url()?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
 <!-- Slimscroll -->
 <script src="<?php echo site_url()?>assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
@@ -362,6 +517,10 @@
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
   })
+
+
+
+
 </script>
 
 </body>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2018 at 04:32 PM
+-- Generation Time: Jan 29, 2018 at 04:30 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -66,14 +66,25 @@ CREATE TABLE `tblappointments` (
   `customer_name` text NOT NULL,
   `telephone` text NOT NULL,
   `cellphone` text NOT NULL,
-  `text` text NOT NULL,
-  `prefered_date` date NOT NULL,
-  `prefered_time_of_day` varchar(45) NOT NULL,
+  `preferred_date` date NOT NULL,
+  `preferred_time_of_day` varchar(45) NOT NULL,
   `appointment_reason` text NOT NULL,
   `date_requested` datetime NOT NULL,
   `status` varchar(45) NOT NULL,
   `cancellation_reason` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblappointments`
+--
+
+INSERT INTO `tblappointments` (`appointment_id`, `customer_id`, `customer_name`, `telephone`, `cellphone`, `preferred_date`, `preferred_time_of_day`, `appointment_reason`, `date_requested`, `status`, `cancellation_reason`) VALUES
+(1, 1, 'IVan  Johnson', '343', '09103211335', '2018-01-29', 'moring', '<p>hahhaha</p><p><br></p>', '2017-01-28 23:41:40', 'pending', ''),
+(2, 1, 'IVan  Johnson', '343', '09103211335', '2018-01-30', 'afternoon', '<p>pa request ng afternoon appointment....</p>', '2017-01-28 23:41:40', 'pending', ''),
+(3, 1, 'IVan  Johnson', '343', '09103211335', '2018-01-31', 'moring', '                                  \r\n                           may sakit ung aso ko     ', '2018-01-28 23:41:40', 'pending', ''),
+(4, 1, 'IVan  Johnson', '343', '09103211335', '2018-02-01', 'moring', '                                 may sakit ako \r\n                                ', '2018-01-28 23:42:51', 'pending', ''),
+(5, 11, 'Roman Martinez Dela Vega', '09111', '090911212112', '2018-01-29', 'evening', '---------- WALK IN ----------', '0000-00-00 00:00:00', 'approved', ''),
+(6, 1, 'IVan  Johnson', '343', '09103211335', '2018-01-29', 'evening', '---------- WALK IN ----------', '0000-00-00 00:00:00', 'approved', '');
 
 -- --------------------------------------------------------
 
@@ -103,7 +114,7 @@ CREATE TABLE `tblcustomers` (
 --
 
 INSERT INTO `tblcustomers` (`customer_id`, `first_name`, `middle_name`, `last_name`, `address`, `cellphone`, `telephone`, `email`, `image`, `gender`, `is_active`, `password`, `date_added`, `date_birth`) VALUES
-(1, 'IVan', '', 'Johnson', 'Makait', '4343', '343', 'ivanjohnson@gmail.com', 'avatar5.png', 'male', 1, 'ijohnson', 1513793545, '2003-01-06'),
+(1, 'IVan', '', 'Johnson', 'Makait', '09103211335', '343', 'ivanjohnson@gmail.com', 'avatar5.png', 'male', 1, 'ijohnson', 1513793545, '2003-01-06'),
 (2, 'ivan', 'ivan', 'ivan', '6464646', '666', '66', 'ivanchristianjayfuncion@yahoo.com.ph', '', 'male', 1, '123', 1513793634, '1991-06-18'),
 (3, 'Lordes\'s', 'dsds', 'dsds', '444', '444', '44', '44', '', 'male', 1, '4', 1513794430, '1979-02-14'),
 (4, 'wewe', 'wewe', 'wew', '343', '343', 'wew', '343', '', 'male', 0, '33', 1513794478, '2017-12-08'),
@@ -537,7 +548,7 @@ ALTER TABLE `tbladmins`
 -- AUTO_INCREMENT for table `tblappointments`
 --
 ALTER TABLE `tblappointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tblcustomers`
 --

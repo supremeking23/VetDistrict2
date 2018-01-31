@@ -13,6 +13,17 @@ class Admin_Model extends CI_Model
    //--------------------------ADMIN RELATED MODEL------------------//
 
 
+
+   //FOR SYSTEM SETTINGS
+
+   public function get_all_color_skin(){
+
+   		$result_set = $this->db->get('tbladmins');
+
+		return $result_set->result();
+   }
+
+
 	//login admin
 
 

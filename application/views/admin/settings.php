@@ -191,7 +191,7 @@
                                                       <div class="form-group has-feedback">
                                                           <select required=""  class="form-control" name="css_skin">
                                                           <option value="">Please choose your prefered skin color</option>
-                                                              
+                                                                
                                                           </select>
                                                       </div>
 

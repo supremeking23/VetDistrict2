@@ -62,7 +62,7 @@ class Admin extends CI_Controller {
 
 
 		
-
+		
 		$this->load->view('admin/settings',$data);
 		$this->load->view('admin/layouts/sidebar.php',$data);
 	}

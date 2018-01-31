@@ -29,6 +29,8 @@ class Admin extends CI_Controller {
 
 
 	/*
+
+		PREFERENCES(UPDATE WEBSITE)
 		NAVIGATION MAIN 
 		AJAX REQUEST
 		DETAILS PAGES
@@ -40,6 +42,30 @@ class Admin extends CI_Controller {
 
 	*/
 
+
+
+	//-------------------PREFERENCES(UPDATE WEBSITE)------------------//
+
+	public function settings(){
+
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+
+		
+
+		$this->load->view('admin/settings',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
+	}
 
 
 	public function login(){

@@ -17,7 +17,10 @@ $(function(){
   $("#customer a:contains('Customers')").parent().addClass('active');
   $("#pet a:contains('Pets')").parent().addClass('active');
   $("#administrator a:contains('Admins')").parent().addClass('active');
-    $("#appointment a:contains('Appointments')").parent().addClass('active');
+  $("#appointment a:contains('Appointments')").parent().addClass('active');
+  $("#settings a:contains('Settings')").parent().addClass('active');
+
+
 });
 
 

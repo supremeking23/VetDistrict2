@@ -89,6 +89,9 @@
 
          <li><a href="<?php echo site_url();?>admin/admins"><i class="fa fa-user-secret"></i> <span>Admins</span></a></li>
         <li><a href="<?php echo site_url();?>admin/employees"><i class="fa fa-user"></i> <span>Employees</span></a></li>
+
+
+        <li><a href="<?php echo site_url();?>admin/settings"><i class="fa fa-gear"></i> <span>Settings</span></a></li>        
        
       </ul>
     </section>

@@ -20,6 +20,9 @@ class Employee extends CI_Controller {
 
 		//library
 		$this->load->library('form_validation');
+
+		//for system settings
+		$this->load->model('system_settings_model');
 	}
 
 
@@ -32,7 +35,9 @@ class Employee extends CI_Controller {
 
 			if($this->form_validation->run() === FALSE){
 				//beginning of the load
-				$this->load->view('employee/login');
+				//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+				$this->load->view('employee/login',$data);
 
 				
 
@@ -337,6 +342,8 @@ class Employee extends CI_Controller {
 		//get user_id via $user_id session
 		$data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
 
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
 
 		$data['count_all_employee'] = $this->employee_model->get_count_all_employee();
 
@@ -370,6 +377,8 @@ class Employee extends CI_Controller {
 			//get user_id via $user_id session
 			$data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
 
+			
+			$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 			$data['customers'] = $this->employee_model->get_all_customer();

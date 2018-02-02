@@ -14,14 +14,68 @@ class Admin_Model extends CI_Model
 
 
 
+
+
+  //////////////STRICTLY FOR ADMIN//////////////////////
+
    //FOR SYSTEM SETTINGS
 
    public function get_all_color_skin(){
 
-   		$result_set = $this->db->get('tbladmins');
+   		$result_set = $this->db->get('tblcolorskins');
 
 		return $result_set->result();
    }
+
+
+    public function get_color_skin_by_id($data){
+
+   		$this->db->select('*');
+		$this->db->from('tblcolorskins');
+		$this->db->where('colorskin_id',$data);
+
+		$query = $this->db->get();
+
+		$result_set = $query->result();
+
+		return $result_set;
+
+		
+   }
+
+
+   
+
+   //////////////STRICTLY FOR ADMIN//////////////////////
+
+   //for company logo used
+
+    public function get_system_settings_by_id($data){
+   		$this->db->select('*');
+		$this->db->from('tblsystemsettings');
+		$this->db->where('systemsetting_id',$data);
+
+		$query = $this->db->get();
+
+		$result_set = $query->result();
+
+		return $result_set;
+   }
+
+
+
+   public function update_settings($systemsetting_id,$data){
+   	  $this->db->where('systemsetting_id', $systemsetting_id);
+      $this->db->update('tblsystemsettings', $data);
+   }
+
+
+
+
+
+
+
+   //////////////STRICTLY FOR ADMIN//////////////////////
 
 
 	//login admin

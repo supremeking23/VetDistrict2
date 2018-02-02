@@ -1,13 +1,44 @@
+ <?php 
+
+            //for system preferences
+            foreach($get_system_settings as $system_settings){
+                $system_name = $system_settings->system_name;
+                $system_color_skin = $system_settings->color_skin;
+                $system_logo = $system_settings->system_logo;
+                $system_background_color = $system_settings->background_color;
+
+
+                $system_id = $system_settings->systemsetting_id;
+           }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>Vet Distric Clinic</title>
+  <title><?php echo $system_name;?></title>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>uploads/system_images/<?php echo $system_logo;?>">
   <link rel="stylesheet" href="<?php echo site_url();?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo site_url();?>assets/css/style.css">
   <script src="<?php echo site_url()?>assets/js/prefixfree.min.js "></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style type="text/css">
+    
+    /*in body style*/
+    header .inbody {
+      background: <?php echo $system_background_color ?>;/*light green*/
+    }
+
+    header .navbar-brand {
+      background: url(<?php echo site_url(); ?>uploads/system_images/<?php echo $system_logo;?>);
+      background-repeat: no-repeat;
+      background-position: 15px 0;
+      height: auto;
+    }
+  </style>
+
 </head>
 
 <body>
@@ -22,7 +53,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#featured"><h1>Vet Distric Clinic<span class="subhead"></span></h1></a>
+        <a class="navbar-brand" href="#featured"><h1><?php echo $system_name;?><span class="subhead"></span></h1></a>
       </div><!-- navbar-header -->
       <div class="collapse navbar-collapse" id="collapse" >
         <ul class="nav navbar-nav navbar-right" >

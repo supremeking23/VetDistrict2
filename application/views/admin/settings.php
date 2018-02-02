@@ -1,10 +1,24 @@
+ <?php 
+
+            //for system preferences
+            foreach($get_system_settings as $system_settings){
+                $system_name = $system_settings->system_name;
+                $system_color_skin = $system_settings->color_skin;
+                $system_logo = $system_settings->system_logo;
+                $system_background_color = $system_settings->background_color;
+
+
+                $system_id = $system_settings->systemsetting_id;
+           }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet District Clinic | Admin</title>
-  <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
+  <title><?php echo $system_name;?> | Admin</title>
+  <link rel="shortcut icon" href="<?php echo site_url(); ?>uploads/system_images/<?php echo $system_logo;?>">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -17,7 +31,7 @@
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/skins/skin-green.css">
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/skins/<?php echo $system_color_skin?>.css">
    
      <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
@@ -38,16 +52,16 @@
 
   </style>
 </head>
-<body class="hold-transition skin-green sidebar-mini" id="settings">
+<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="settings">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Vet </b></span>
+      <span class="logo-mini"><b></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Vet District</b></span>
+      <span class="logo-lg"><b><?php echo $system_name;?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -151,6 +165,34 @@
       <!-- Small boxes (Stat box) -->
 
       <div class="row">
+        
+
+
+         <?php if ($this->session->flashdata('update_system_setting_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('update_system_setting_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+          
+      </div>
+
+      <div class="row">
             
         <div class="col-md-12">
           <!-- Widget: user widget style 1 -->
@@ -171,43 +213,57 @@
                               </div>
                               
 
+                              <?php //beginning form
+                                  echo form_open_multipart('admin/update_system_settings');
+                            ?>
                                  
                                         <div class="modal-body">
                                               <div class="row">
+
+                                               
+
                                                   <div class="col-md-12">
                                                     
                                                       <div class="form-group has-feedback">
-                                                        <input type="text"   required="" class="form-control" placeholder="Company Name"  name="company_name">
+                                                        <input type="text"   required="" class="form-control" placeholder="Company Name"  name="company_name" value="<?php echo $system_name;?>">
                                                       </div>
 
                                                       <div class="form-group has-feedback">
                                                         <p>Company Logo</p>
-                                                        <input type="file"   class="form-control"  name="company_logo" onchange="document.getElementById('company_Logo').src = window.URL.createObjectURL(this.files[0])">
+                                                        <input type="file"   class="form-control"  name="company_logo" onchange="document.getElementById('company_Logo').src = window.URL.createObjectURL(this.files[0])" >
                                                         <br />
                                                         <img  id="company_Logo" class="img-rounded" alt="" width="100%" height="200" src="" />
                                                       </div>
                                                   
 
                                                       <div class="form-group has-feedback">
-                                                          <select required=""  class="form-control" name="css_skin">
+                                                          <select required=""  class="form-control" name="skin_color">
                                                           <option value="">Please choose your prefered skin color</option>
-                                                                
+                                                               <?php foreach($skin_colors as $skin_color):?>
+
+                                                                <option value="<?php echo $skin_color->colorskin_id;?>" <?php if($system_color_skin == $skin_color->color_skin){ echo "selected"; } ?> >
+                                                                  <?php echo $skin_color->color_skin;?>
+                                                                </option>
+                                                          <?php endforeach;?>
                                                           </select>
                                                       </div>
 
 
                                                   </div>
+
+                                                
                                               </div>
                                         </div>
 
-                                    
-
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                          <input type="submit" name="modify_banner" value="Save Changes"  class="btn btn-primary pull-right">
+
+
+                                          <input type="hidden" name="system_id" value="<?php echo $system_id;?>">
+                                          <input type="submit" name="update_system_settings" value="Save Changes"  class="btn btn-primary pull-right">
                                         </div>
 
-                               
+                                <?php echo form_close();//endform?>
 
                             </div>
                             <!-- /.modal-content -->
@@ -222,12 +278,12 @@
 
 
             <!-- Add the bg color to the header using any of the bg-* classes -->
-            <div class="widget-user-header" style="background: #008d4c">
-              <h2 class="widget-user-username" style="background:rgba(0,0,0,0.3);text-align: center;font-size: 50px;color: #ffffff">Alexander Pierce</h2>
+            <div class="widget-user-header" style="background:<?php echo $system_background_color;?>">
+              <h2 class="widget-user-username" style="background:rgba(0,0,0,0.3);text-align: center;font-size: 50px;color: #ffffff"><?php echo $system_name;?></h2>
              
             </div>
             <div class="widget-user-image">
-              <img class="img-circle" src="<?php echo site_url(); ?>assets/dist/img/vet.png" alt="User Avatar">
+              <img class="img-circle" src="<?php echo site_url(); ?>uploads/system_images/<?php echo $system_logo;?>" alt="logo">
             </div>
             <div class="box-footer">
               <div class="row">
@@ -255,7 +311,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
+     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#"><?php echo $system_name;?></a>.</strong> All rights reserved.
     
   </footer>
 

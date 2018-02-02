@@ -20,6 +20,9 @@ class Customer extends CI_Controller {
 		$this->load->model('update_model');
 		//library
 		$this->load->library('form_validation');
+
+		//for system settings
+		$this->load->model('system_settings_model');
 	}
 
 
@@ -32,8 +35,10 @@ class Customer extends CI_Controller {
 
 		if($this->form_validation->run() === FALSE){
 			
+			$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
-			$this->load->view('customer/login');
+
+			$this->load->view('customer/login',$data);
 
 		}else{
 			$email = $this->input->post('email');
@@ -97,6 +102,7 @@ class Customer extends CI_Controller {
 		$data['current_customer_login'] = $this->customer_model->get_customer_by_id($user_id);
 
 
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 		//$data['id'] = $id;
 
 			/*
@@ -316,6 +322,8 @@ class Customer extends CI_Controller {
 		//get user_id via $user_id session
 		$data['current_customer_login'] = $this->customer_model->get_customer_by_id($user_id);
 
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
 		//total number of appointments
 
 		//total number of pets
@@ -346,6 +354,8 @@ class Customer extends CI_Controller {
 		//get user_id via $user_id session
 		$data['current_customer_login'] = $this->customer_model->get_customer_by_id($user_id);
 
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
 
 		$data['appointments'] = $this->customer_model->get_appointments_by_customer_id($user_id);
 
@@ -373,6 +383,7 @@ class Customer extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_customer_login'] = $this->customer_model->get_customer_by_id($user_id);
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 		//get customers pets
 		$data['customers_pets'] = $this->customer_model->get_pet_data_by_customer_id($user_id);
@@ -394,6 +405,9 @@ class Customer extends CI_Controller {
 
 			//get user_id via $user_id session
 		$data['current_customer_login'] = $this->customer_model->get_customer_by_id($user_id);
+
+		
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 			//$data['id'] = $id;
 

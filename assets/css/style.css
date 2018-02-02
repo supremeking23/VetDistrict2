@@ -58,12 +58,12 @@ header .navbar-default .navbar-nav .active a:active {
 
 /**  Navbar Brand **/
 
-header .navbar-brand {
+/*header .navbar-brand {
   background: url(../images/wisdompetlogo.svg);
   background-repeat: no-repeat;
   background-position: 15px 0;
   height: auto;
-}
+}*/
 
 header .navbar-brand h1 {
   color: white;
@@ -98,9 +98,7 @@ and (max-width: 768px) {
 
 /**  nav inbody **/
 
-header .inbody {
-  background: rgb(107,142,35);/*light green*/
-}
+
 
 header .navbar.inbody {
   padding-top: 0;

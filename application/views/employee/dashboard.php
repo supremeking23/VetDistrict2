@@ -1,9 +1,23 @@
+ <?php 
+
+            //for system preferences
+            foreach($get_system_settings as $system_settings){
+                $system_name = $system_settings->system_name;
+                $system_color_skin = $system_settings->color_skin;
+                $system_logo = $system_settings->system_logo;
+                $system_background_color = $system_settings->background_color;
+
+
+                $system_id = $system_settings->systemsetting_id;
+           }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet Disctrict | <?php
+  <title><?php echo $system_name;?> | <?php
   //comes frome the session
    echo ucfirst($employee_type);?> </title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
@@ -19,7 +33,7 @@
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/skins/skin-green.css">
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/skins/<?php echo $system_color_skin?>.css">
   
   <!-- Date Picker -->
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
@@ -42,16 +56,16 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition skin-green sidebar-mini" id="dashboard">
+<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="dashboard">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Vet </b></span>
+      <span class="logo-mini"><b></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Vet District</b></span>
+      <span class="logo-lg"><b><?php echo $system_name;?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -318,7 +332,7 @@
     <div class="pull-right hidden-xs">
       <b></b>
     </div>
-    <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; <?php echo date('Y');?> <a href="#"><?php echo $system_name;?></a>.</strong> All rights reserved.
     reserved.
   </footer>
 

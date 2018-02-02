@@ -53,7 +53,7 @@
         <li><a href="<?php echo site_url();?>admin/appointments"><i class="fa fa-calendar"></i> <span>Appointments</span></a></li>
 
         <li><a href="<?php echo site_url();?>admin/customers"><i class="fa fa-users"></i> <span>Customers</span></a></li>
-        <li><a href="<?php echo site_url();?>admin/pets"><i class="fa fa-user"></i> <span>Pets</span></a></li>
+        <li><a href="<?php echo site_url();?>admin/pets"><i class="fa fa-firefox"></i> <span>Pets</span></a></li>
         
        <!-- <li><a href="<?php echo site_url();?>admin/products"><i class="fa  fa-th-list"></i> <span>Products</span></a></li> -->
         <li class="treeview" id="prod_family">

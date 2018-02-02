@@ -18,6 +18,9 @@ class Admin extends CI_Controller {
 		//for updating
 		$this->load->model('update_model');
 
+		//for system settings
+		$this->load->model('system_settings_model');
+
 
 		//library
 		$this->load->library('form_validation');
@@ -53,6 +56,33 @@ class Admin extends CI_Controller {
 				redirect('admin/login');
 		}
 
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+		
+
+
+		//this page only
+		$data['skin_colors'] = $this->admin_model->get_all_color_skin();
+
+		$this->load->view('admin/settings',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
+	}
+
+
+
+
+	public function update_system_settings(){
+		//print_r($this->input->post());
+
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
 
 
 		$user_id = $this->session->userdata('user_id');
@@ -60,11 +90,70 @@ class Admin extends CI_Controller {
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
 
+		//get color background
+		$color_skin_id = $this->input->post('skin_color');
+		$get_backgound_color = $this->admin_model->get_color_skin_by_id($color_skin_id);
 
+
+		foreach ($get_backgound_color as $background) {
+			$background_color =  $background->background_color;
+			$color_skin = $background->color_skin;
+		}
+
+
+		$system_id =  $this->input->post('system_id');
+
+		//for system logo
+		//config for upload image
+			$config['upload_path']          = './uploads/system_images/';
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        //$config['max_size']             = 100;
+	       // $config['max_width']            = 1024;
+	       // $config['max_height']           = 768;
+			$this->load->library('upload', $config);
+
+
+			
+
+
+			if($this->upload->do_upload('company_logo')){
+		    	//get the file name of the uploaded file
+		        $uploadData = $this->upload->data();
+		        $image = $uploadData['file_name'];
+		        //echo 1;
+		        //echo "ivan";
+		    }else{
+		        	//echo 'wala laman';
+		        	//set the image name to the previously upload image
+		        	$default_image_name = $this->admin_model->get_system_settings_by_id($system_id);
+		           	foreach ($default_image_name as $default_image) {
+		           			   $image = $default_image->system_logo; 
+					
+		           				}
+		        }
+
+
+
+		    $data = array(
+	        		
+	        		
+	        		'system_name' => $this->input->post('company_name'),
+	        		'system_logo' => $this->input->post('company_logo'),
+	        		'color_skin'  => $color_skin,
+	        		'background_color' => $background_color,
+	        		'system_logo' => $image,
+
+	        	);
+
+			//Transfering data to Model
+		$this->admin_model->update_settings($system_id,$data);
+		$this->session->set_flashdata('update_system_setting_success','System settings has been updated');
 		
 		
-		$this->load->view('admin/settings',$data);
-		$this->load->view('admin/layouts/sidebar.php',$data);
+		redirect('admin/settings');
+
+
+
 	}
 
 
@@ -74,13 +163,19 @@ class Admin extends CI_Controller {
 		//field name, field label, attributee
 		//$data['may_error'] = 1;
 
+
+		
+
 		$this->form_validation->set_rules('email','Email','required');
 		$this->form_validation->set_rules('password','Password','required');
 
 
 		if($this->form_validation->run() === FALSE){
+
+			$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
 			//beginning of the load
-			$this->load->view('admin/login');
+			$this->load->view('admin/login',$data);
 
 			
 
@@ -161,7 +256,8 @@ class Admin extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
-
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 		//$data['id'] = $id;
 
@@ -193,7 +289,7 @@ class Admin extends CI_Controller {
 					redirect('admin/login');
 		}
 		
-			    //config for upload image
+			//config for upload image
 			$config['upload_path']          = './uploads/admin_image/';
 	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
 	        //$config['max_size']             = 100;
@@ -211,14 +307,14 @@ class Admin extends CI_Controller {
 		        $image = $uploadData['file_name'];
 		        //echo 1;
 		        //echo "ivan";
-		        }else{
+		    }else{
 		        	//echo 'wala laman';
 		        	//set the image name to the previously upload image
 		        	$default_image_name = $this->admin_model->get_admin_by_id($admin_id);
 		           	foreach ($default_image_name as $default_image) {
 		           			   $image = $default_image->image; 
 					
-		           }
+		           				}
 					
 
 
@@ -280,6 +376,8 @@ class Admin extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 		$data['count_all_employee'] = $this->admin_model->get_count_all_employee();
@@ -314,6 +412,8 @@ class Admin extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 
@@ -339,6 +439,8 @@ class Admin extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 		$data['admins'] = $this->admin_model->get_all_admins();
@@ -365,6 +467,8 @@ class Admin extends CI_Controller {
 
 			//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 		//for datatable
 		$data['employees'] = $this->admin_model->get_all_employees();
@@ -399,6 +503,8 @@ class Admin extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 
@@ -431,6 +537,8 @@ class Admin extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 
@@ -467,23 +575,25 @@ class Admin extends CI_Controller {
 
 
 
-			$user_id = $this->session->userdata('user_id');
+		$user_id = $this->session->userdata('user_id');
 
-			//get user_id via $user_id session
-			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
-
-
-
-			$data['customers'] = $this->admin_model->get_all_customer();
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
-			$data['count_all_customer'] = $this->admin_model->get_count_all_customer();
-			$data['count_male_customer'] = $this->admin_model->get_count_male_customer();
-			$data['count_female_customer'] = $this->admin_model->get_count_female_customer();
+
+		$data['customers'] = $this->admin_model->get_all_customer();
 
 
-			$this->load->view('admin/customer',$data);
-			$this->load->view('admin/layouts/sidebar.php',$data);
+		$data['count_all_customer'] = $this->admin_model->get_count_all_customer();
+		$data['count_male_customer'] = $this->admin_model->get_count_male_customer();
+		$data['count_female_customer'] = $this->admin_model->get_count_female_customer();
+
+
+		$this->load->view('admin/customer',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
 	}
 
 
@@ -501,7 +611,8 @@ class Admin extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
-
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 		$data['pets'] = $this->admin_model->get_all_pets_with_there_customers();
@@ -572,6 +683,8 @@ class Admin extends CI_Controller {
 			$id = $this->uri->segment(3);
 
 			$data['show_admin_details'] = $this->admin_model->get_admin_by_id($id);
+			//previous settings
+			$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 			//single employee . search with id
 			$this->load->view('admin/admin_details',$data);
@@ -598,6 +711,8 @@ class Admin extends CI_Controller {
 
 			//get user_id via $user_id session
 			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+			//previous settings
+			$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 
@@ -635,7 +750,8 @@ class Admin extends CI_Controller {
 
 		//get user_id via $user_id session
 		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
-
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
 		/*
@@ -661,10 +777,13 @@ class Admin extends CI_Controller {
 					redirect('admin/login');
 			}
 
-			$user_id = $this->session->userdata('user_id');
+		$user_id = $this->session->userdata('user_id');
 
-			//get user_id via $user_id session
-			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+
+			//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 			//$data['id'] = $id;
 
@@ -719,6 +838,8 @@ class Admin extends CI_Controller {
 
 			//get user_id via $user_id session
 			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+			//previous settings
+			$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 			//$data['id'] = $id;
 
@@ -769,6 +890,8 @@ class Admin extends CI_Controller {
 
 			//get user_id via $user_id session
 			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+			//previous settings
+			$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 			//$data['id'] = $id;
 
@@ -834,6 +957,7 @@ class Admin extends CI_Controller {
 
 			//get user_id via $user_id session
 			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+			
 
 
 			
@@ -1786,7 +1910,7 @@ class Admin extends CI_Controller {
 		    }else{
 		        	//echo 'wala laman';
 		        	//set the image name to the previously upload image
-		        	$default_image_name = $this->admin_model->get_item_details_by_id_from_tblproductitems($med_id);
+		        	$default_image_name = $this->admin_model->get_med_details_by_id_from_tblproductmedicines($med_id);
 		           	foreach ($default_image_name as $default_image) {
 		           			   $image = $default_image->image; 
 					

@@ -1,9 +1,23 @@
+ <?php 
+
+            //for system preferences
+            foreach($get_system_settings as $system_settings){
+                $system_name = $system_settings->system_name;
+                $system_color_skin = $system_settings->color_skin;
+                $system_logo = $system_settings->system_logo;
+                $system_background_color = $system_settings->background_color;
+
+
+                $system_id = $system_settings->systemsetting_id;
+           }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet District Clinic | Admin</title>
+  <title><?php echo $system_name;?> | Admin</title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -88,7 +102,7 @@
 
 
   <div class="login-logo">
-    <a href="<?php echo site_url();?>admin/login"><b>Vet District Clinic</b> </a>
+    <a href="<?php echo site_url();?>admin/login"><b><?php echo $system_name;?></b> </a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

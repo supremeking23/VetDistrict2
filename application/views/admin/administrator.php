@@ -89,6 +89,7 @@
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+               $admin_type = $admin_login->admin_type;
             }
           ?>
 
@@ -117,7 +118,7 @@
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small>Admin</small>
+                          <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -205,6 +206,24 @@
                         <?php //beginning form
                           echo form_open_multipart('admin/create_new_admin');
                         ?>
+
+
+                          <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Admin ID" id="admin_user_id"   name="admin_user_id" readonly="" >
+                            <span class="glyphicon glyphicon-user form-control-feedback" required=""></span>
+                          </div>
+
+                          <?php //option for unit of measurements
+                                $option = array(
+                                    "" => "Admin Type",
+                                    "superadmin" => "Super Admin",
+                                    "admin" => "Admin",
+                                    
+                                );
+                            ?>
+                            <div class="form-group has-feedback">
+                             <?php echo form_dropdown('admin_type',$option,'','class="form-control" id="admin_type"','required');?>
+                            </div>
 
                           <div class="form-group has-feedback">
                             <input type="text"  class="form-control" placeholder="First Name"   name="first_name" required="">
@@ -300,7 +319,7 @@
                   <?php endforeach?>
 
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addAdminModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addAdminModal">
                     Add new Admin
                   </button>
                  
@@ -351,6 +370,7 @@
                 <thead>
                 <tr>
                   <th>Admin ID</th>
+                  <th>Admin Type</th>
                   <th>Name</th>
                   <th>Gender</th>
                   <th>Telephone Number</th>
@@ -363,18 +383,19 @@
 
                 <?php foreach($admins as $admin):?>
                   <tr>
-                    <td><?php echo $admin['admin_id'];?></td>
+                    <td><?php echo $admin['admin_user_id'];?></td>
+                    <td><?php echo strtoupper($admin['admin_type']);?></td>
                     <td><?php echo $admin['first_name'] .' ' . $admin['middle_name'] .' ' . $admin['last_name'];?></td>
                     <td><?php echo $admin['gender'];?></td>
                     <td><?php echo $admin['telephone'];?></td>
                     <td><?php echo $admin['cellphone'];?></td>
                     <td><?php if($admin['is_active'] == 1){ ?>
-                        Active
+                       <span class="label label-success">Active</span> 
                   <?php  }else{ ?>
 
-                        Not Active
+                        <span class="label label-danger">Not Active</span>
                   <?php   } ?></td>
-                    <td><a href="<?php echo site_url()?>admin/admin_details/<?php echo $admin['admin_id'];?>" class="btn btn-primary">View More Details</a></td>
+                    <td><a href="<?php echo site_url()?>admin/admin_details/<?php echo $admin['admin_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
                   </tr>
                 <?php endforeach; ?>
 
@@ -443,22 +464,23 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+   
+    $('#admin_type').change(function(){
+          var val = $(this).val();
+          var admin_user_id = "";
+
+          if(val =="superadmin"){
+            var admin_user_id = "<?= 'SA'.date("ymdhis") . abs(rand('0','9'));  ?>";
+            $('#admin_user_id').val(admin_user_id);
+          }else if(val=="admin"){
+            var admin_user_id = "<?= 'A'.date("ymdhis") . abs(rand('0','9'));  ?>";
+            $('#admin_user_id').val(admin_user_id);
+          }
+        });
   })
 
 
 
-    $(document).ready(function(){
-    $('#successmodal').modal('show');
-  });
 
 
 

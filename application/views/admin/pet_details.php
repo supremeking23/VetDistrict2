@@ -154,6 +154,7 @@ input:checked + .slider:before {
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+               $admin_type = $admin_login->admin_type;
             }
           ?>
 
@@ -184,7 +185,7 @@ input:checked + .slider:before {
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                         <small>Admin</small>
+                         <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -250,7 +251,7 @@ input:checked + .slider:before {
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Pet ID</b> <a class="pull-right"><?php echo $pet_details->pet_id;?></a>
+                  <b>Pet ID</b> <a class="pull-right"><?php echo $pet_details->pet_data_id;?></a>
                 </li>
                 <li class="list-group-item">
                   <b>Pet Type</b> <a class="pull-right"><?php echo $pet_details->pet_type;?></a>
@@ -388,7 +389,7 @@ input:checked + .slider:before {
                       <select class="form-control" name="customer" id="customer">
                         <?php foreach($customers as $customer):?>
                             <option value="<?php echo $customer['customer_id'];?>"
-                              <?php if($customer['customer_id'] == $pet_details->customer_id){echo "selected";} ?> ><?php echo $customer['first_name'].' '.$customer['middle_name'].''.$customer['last_name'];?></option>
+                              <?php if($customer['customer_id'] == $pet_details->customer_id){echo "selected";} ?> ><?php echo $customer['first_name'].' '.$customer['middle_name'].' '.$customer['last_name'];?></option>
 
                         <?php endforeach;?>
                       </select>

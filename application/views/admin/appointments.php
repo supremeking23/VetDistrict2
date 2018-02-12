@@ -46,7 +46,9 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/fullcalendar/dist/fullcalendar.min.css">
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -106,6 +108,7 @@
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
                $user_email = $admin_login->email;
+               $admin_type = $admin_login->admin_type;
 
              
             }
@@ -136,7 +139,7 @@
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small><?php echo $user_email;?></small>
+                          <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -469,11 +472,26 @@
               </div>
               <!-- /.box -->
 
-        </div>
+          </div>
        
 
       </div>
       <!-- /.row (main row) -->
+
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-body no-padding">
+              <!-- THE CALENDAR -->
+              <div id="calendar"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /. box -->
+        </div>
+        <!-- /.col -->
+      </div>
 
     </section>
     <!-- /.content -->
@@ -530,7 +548,9 @@
 
 <script src="<?php echo site_url()?>assets/bower_components/ckeditor/ckeditor.js"></script>
 
-
+<!-- fullCalendar -->
+<script src="<?php echo site_url()?>assets/bower_components/moment/moment.js"></script>
+<script src="<?php echo site_url()?>assets/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 
 <!--admin scripts -->
 <script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
@@ -544,7 +564,80 @@
     // instance, using default configuration.
    
     //bootstrap WYSIHTML5 - text editor
-    $('.textarea').wysihtml5()
+    $('.textarea').wysihtml5();
+
+    var date = new Date()
+    var d    = date.getDate(),
+        m    = date.getMonth(),
+        y    = date.getFullYear()
+    $('#calendar').fullCalendar({
+      header    : {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'month,agendaWeek,agendaDay'
+      },
+      buttonText: {
+        today: 'today',
+        month: 'month',
+        week : 'week',
+        day  : 'day'
+      },
+      //Random default events
+      events    : [
+        {
+            title: 'Jason Irving',
+            start: '2018-02-01'
+        },
+         {
+            title: 'Jason Nash',
+            start: '2018-02-01'
+        },
+         {
+            title: 'Mellisa Benoist',
+            start: '2018-02-01'
+        },
+         {
+            title: 'Danielle Panabaker',
+            start: '2018-02-01'
+        },
+         {
+            title: 'Ciline Daza',
+            start: '2018-02-01'
+        },
+         {
+            title: 'Jason Irving',
+            start: '2018-02-15'
+        },
+      ],
+      editable  : true,
+      droppable : true, // this allows things to be dropped onto the calendar !!!
+      drop      : function (date, allDay) { // this function is called when something is dropped
+
+        // retrieve the dropped element's stored Event Object
+        var originalEventObject = $(this).data('eventObject')
+
+        // we need to copy it, so that multiple events don't have a reference to the same object
+        var copiedEventObject = $.extend({}, originalEventObject)
+
+        // assign it the date that was reported
+        copiedEventObject.start           = date
+        copiedEventObject.allDay          = allDay
+        copiedEventObject.backgroundColor = $(this).css('background-color')
+        copiedEventObject.borderColor     = $(this).css('border-color')
+
+        // render the event on the calendar
+        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
+
+        // is the "remove after drop" checkbox checked?
+        if ($('#drop-remove').is(':checked')) {
+          // if so, remove the element from the "Draggable Events" list
+          $(this).remove()
+        }
+
+      }
+    })
+
   })
 
 

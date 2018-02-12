@@ -6,13 +6,14 @@ $(function(){
  //for product
   $("#medicine  a:contains('Products')").parent().addClass('active');
   $("#item  a:contains('Products')").parent().addClass('active');
-
+  $("#service  a:contains('Products')").parent().addClass('active');
   
 
 
 
   $("#medicine ul li a:contains('Medicines')").parent().addClass('active');
   $("#item ul li a:contains('Items')").parent().addClass('active');
+  $("#service  a:contains('Services')").parent().addClass('active');
 
   $("#customer a:contains('Customers')").parent().addClass('active');
   $("#pet a:contains('Pets')").parent().addClass('active');
@@ -37,6 +38,8 @@ $(function(){
 
 
     });
+
+    $('.select2').select2();
   });
 
 

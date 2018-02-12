@@ -153,6 +153,7 @@ input:checked + .slider:before {
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+               $admin_type = $admin_login->admin_type;
             }
           ?>
 
@@ -181,7 +182,7 @@ input:checked + .slider:before {
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small></small>
+                          <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->

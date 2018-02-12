@@ -9,6 +9,9 @@
 
 
                 $system_id = $system_settings->systemsetting_id;
+
+
+                $background_image = $system_settings->login_photo_employee;
            }
 ?>
 
@@ -47,7 +50,7 @@
     /*on page style*/
 
     body {
-     background: url('<?php echo site_url();?>assets/images/doctor-chase.jpg');
+    background: url('<?php echo site_url();?>uploads/system_images/<?php echo $background_image;?>');
      background-repeat: no-repeat;
      background-attachment: fixed;
      background-position: center;
@@ -102,7 +105,7 @@
 
 
   <div class="login-logo">
-    <a href="<?php echo site_url();?>customer/login"><b><?php echo $system_name;?></b> </a>
+    <a href="<?php echo site_url();?>employee/login"><b><?php echo $system_name;?></b> </a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

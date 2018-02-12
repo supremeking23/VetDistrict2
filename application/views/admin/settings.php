@@ -9,6 +9,13 @@
 
 
                 $system_id = $system_settings->systemsetting_id;
+
+
+
+                //for background photos in login
+                $login_photo_admin = $system_settings->login_photo_admin;
+                $login_photo_employee = $system_settings->login_photo_employee;
+                $login_photo_customer = $system_settings->login_photo_customer;
            }
 ?>
 
@@ -93,6 +100,7 @@
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+               $admin_type = $admin_login->admin_type;
             }
           ?>
 
@@ -121,7 +129,7 @@
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small>Admin</small>
+                         <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -189,6 +197,144 @@
                   </div>
 
                <?php } ?>
+
+
+
+            <?php if ($this->session->flashdata('incorrect_password')) { ?>
+         
+                   <div class="modal modal-danger" id="dangermodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('incorrect_password'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+
+              <div class="modal modal-danger fade" id="deleteBackgroundAdmin">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Access Confirmation</h4>
+                                  </div>
+
+                                  <?php //beginning form
+                                    echo form_open_multipart('access_confirmation_controller/delete_background_admin','class="form-horizontal"');
+                                   ?>
+
+                                  <div class="modal-body">
+                                    
+                                    <input type="hidden" name="system_id" value="<?php echo $system_id;?>">
+                                    
+                                    <p>Please enter your password to continue </p>
+                                    <div class="has-feedback">
+                                        <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
+                                      
+                                    </div>
+                                    
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <?php echo form_submit(array('id' => 'delete_background_admin', 'name' =>'delete_background_admin', 'value' => 'Delete','class'=>'pull-right btn btn-primary')); ?>
+                                  </div>
+
+                                  <?php echo form_close();?>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+
+              <div class="modal modal-danger fade" id="deleteBackgroundEmployee">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Access Confirmation</h4>
+                                  </div>
+
+                                  <?php //beginning form
+                                    echo form_open_multipart('access_confirmation_controller/delete_background_employee','class="form-horizontal"');
+                                   ?>
+
+                                  <div class="modal-body">
+                                    
+                                    <input type="hidden" name="system_id" value="<?php echo $system_id;?>">
+                                    
+                                    <p>Please enter your password to continue </p>
+                                    <div class="has-feedback">
+                                        <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
+                                      
+                                    </div>
+                                    
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <?php echo form_submit(array('id' => 'delete_background_employee', 'name' =>'delete_background_employee', 'value' => 'Delete','class'=>'pull-right btn btn-primary')); ?>
+                                  </div>
+
+                                  <?php echo form_close();?>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+
+
+              <div class="modal modal-danger fade" id="deleteBackgroundCustomer">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Access Confirmation</h4>
+                                  </div>
+
+                                  <?php //beginning form
+                                    echo form_open_multipart('access_confirmation_controller/delete_background_customer','class="form-horizontal"');
+                                   ?>
+
+                                  <div class="modal-body">
+                                    
+                                    <input type="hidden" name="system_id" value="<?php echo $system_id;?>">
+                                    
+                                    <p>Please enter your password to continue </p>
+                                    <div class="has-feedback">
+                                        <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
+                                      
+                                    </div>
+                                    
+
+                                  </div>
+                                  <div class="modal-footer">
+                                    <?php echo form_submit(array('id' => 'delete_background_customer', 'name' =>'delete_background_customer', 'value' => 'Delete','class'=>'pull-right btn btn-primary')); ?>
+                                  </div>
+
+                                  <?php echo form_close();?>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
           
       </div>
 
@@ -238,7 +384,7 @@
 
                                                       <div class="form-group has-feedback">
                                                           <select required=""  class="form-control" name="skin_color">
-                                                          <option value="">Please choose your prefered skin color</option>
+                                                          <option value="">Please choose your preferred skin color</option>
                                                                <?php foreach($skin_colors as $skin_color):?>
 
                                                                 <option value="<?php echo $skin_color->colorskin_id;?>" <?php if($system_color_skin == $skin_color->color_skin){ echo "selected"; } ?> >
@@ -293,6 +439,287 @@
             </div>
           </div>
           <!-- /.widget-user -->
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 col-xs-12">
+                    <!-- Default box -->
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Change Login Background Image for Admin</h3>
+
+                    
+                  </div>
+                  <div class="box-body">
+
+                       <?php //beginning form
+                            echo form_open_multipart('admin/update_login_photo_admin');
+                        ?>
+
+                        <div class="form-group has-feedback">
+                            <p>Admin Login Background Image</p>
+                            <input type="file"   class="form-control"  name="admin_login_photo" onchange="document.getElementById('login_photo_admin').src = window.URL.createObjectURL(this.files[0])" >
+                            <br />
+
+                            <a href="#" data-tooltip="tooltip" title="Remove Background Image" data-toggle="modal" data-target="#deleteBackgroundAdmin">
+                              <img  id="login_photo_admin" class="img-rounded" alt="" width="100%" height="200" src="<?php echo site_url(); ?>uploads/system_images/<?php echo $login_photo_admin;?>" />
+                            </a>
+                        </div>
+                   
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                                  <input type="hidden" name="system_id" value="<?php echo $system_id;?>">
+                                 <input type="submit" name="update_admin_photo" class="btn btn-block btn-primary btn-sm">    
+                            <?php echo form_close();//endform?>
+                  </div>
+                  <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+        </div>
+
+
+        <div class="col-md-4 col-xs-12"">
+                    <!-- Default box -->
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Change Login Background Image for Employee</h3>
+
+                    
+                  </div>
+                  <div class="box-body">
+
+                       <?php //beginning form
+                            echo form_open_multipart('admin/update_login_photo_employee');
+                        ?>
+
+                        <div class="form-group has-feedback">
+                            <p>Employee Login Background Image</p>
+                            <input type="file"   class="form-control"  name="employee_login_photo" onchange="document.getElementById('login_photo_employee').src = window.URL.createObjectURL(this.files[0])" >
+                            <br />
+                             <a href="#" data-tooltip="tooltip" title="Remove Background Image" data-toggle="modal" data-target="#deleteBackgroundEmployee">
+                              <img  id="login_photo_employee" class="img-rounded" alt="" width="100%" height="200" src="<?php echo site_url(); ?>uploads/system_images/<?php echo $login_photo_employee;?>" />
+                            </a>
+                        </div>
+                   
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                                 <input type="hidden" name="system_id" value="<?php echo $system_id;?>">
+                                 <input type="submit" name="update_employee_photo" class="btn btn-block btn-primary btn-sm">    
+                            <?php echo form_close();//endform?>
+                  </div>
+                  <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+        </div>
+
+
+        <div class="col-md-4 col-xs-12"">
+                    <!-- Default box -->
+                <div class="box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Change Login Background Image for Customer</h3>
+
+                    
+                  </div>
+                  <div class="box-body">
+
+                       <?php //beginning form
+                            echo form_open_multipart('admin/update_login_photo_customer');
+                        ?>
+
+                        <div class="form-group has-feedback">
+                            <p>Customer Background Image</p>
+                            <input type="file"   class="form-control"  name="customer_login_photo" onchange="document.getElementById('login_photo_customer').src = window.URL.createObjectURL(this.files[0])" >
+                            <br />
+
+                             <a href="#" data-tooltip="tooltip" title="Remove Background Image" data-toggle="modal" data-target="#deleteBackgroundCustomer">
+                                <img  id="login_photo_customer" class="img-rounded" alt="" width="100%" height="200" src="<?php echo site_url(); ?>uploads/system_images/<?php echo $login_photo_customer;?>" />
+                            </a>
+                        </div>
+                   
+                  </div>
+                  <!-- /.box-body -->
+                  <div class="box-footer">
+                                  <input type="hidden" name="system_id" value="<?php echo $system_id;?>">
+                                 <input type="submit" name="update_customer_photo" class="btn btn-block btn-primary btn-sm">    
+                            <?php echo form_close();//endform?>
+                  </div>
+                  <!-- /.box-footer-->
+                </div>
+                <!-- /.box -->
+        </div>
+
+      </div>
+
+
+      <div class="row">
+
+        <div class="col-md-6">
+          
+          <div class="box">
+              <div class="box-header with-border">
+                <h3 class="box-title">Add Banner Image</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addBanner"  data-toggle="tooltip" title="Add Banner">
+                    <i class="fa fa-plus"></i></button>
+                 
+                  <div class="modal fade" id="addBanner">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Add Banner Image</h4>
+                        </div>
+
+
+                    <?php //beginning form
+                            echo form_open_multipart('admin/update_system_settings');
+                      ?>
+                        <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="form-group has-feedback">
+                                          <p>Add Banner</p>
+                                          <input type="file"   class="form-control"  name="banner_image" onchange="document.getElementById('banner_Image').src = window.URL.createObjectURL(this.files[0])" >
+                                          <br />
+                                          <img  id="banner_Image" class="img-rounded" alt="" width="100%" height="200" src="" />
+                                        </div>
+
+                                    </div>
+
+                                  
+                                </div>                          
+
+                        </div>
+
+
+                        <div class="modal-footer">
+                         
+                            <input type="submit" name="add_banner" value="Add Banner" class="btn btn-primary btn-sm pull-right">
+                        </div>
+
+
+                      <?php echo form_close();?>
+
+
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                </div>
+              </div>
+              <div class="box-body">
+                
+                <div class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="item active">
+                        <img src="<?php echo site_url()?>assets/images/carousel-lifestyle.jpg" alt="dsd">
+                      </div>
+                       <div class="item">
+                        <img src="<?php echo site_url()?>assets/images/carousel-mission.jpg" alt="dsd">
+                      </div>
+                      <div class="item">
+                        <img src="<?php echo site_url()?>assets/images/carousel-vaccinations.jpg" alt="dsd">
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                
+              </div>
+              <!-- /.box-footer-->
+         </div>
+        <!-- /.box -->
+
+        </div>
+
+
+        <div class="col-md-6">
+            
+            <div class="box">
+              <div class="box-header with-border">
+                <h3 class="box-title">Mission</h3>
+
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#mission"  data-toggle="tooltip" title="Add Banner">
+                    <i class="fa fa-plus"></i></button>
+                 
+                  <div class="modal fade" id="mission">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Mission</h4>
+                        </div>
+
+
+                    <?php //beginning form
+                            echo form_open_multipart('admin/update_system_settings');
+                      ?>
+                        <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <div class="form-group has-feedback">
+                                          <textarea style="width: 100%;height: 150px" class="form-control">
+                                            Vetopia strives to blend the best in traditional and alternative medicine in the diagnosis and treatment of companion animals including dogs, cats, birds, reptiles, rodents, and fish. We apply the wisdom garnered in the centuries old tradition of veterinary medicine, to find the safest treatments and cures. We strive to be your pet's medical experts from youth through the senior years. We build preventative health care plans for each and every one of our patients, based on breed, age, and sex, so that your pet receives the most appropriate care at crucial milestones. We want to give your pet a long and healthy life.
+                                          </textarea>
+                                        </div>
+
+                                    </div>
+
+                                  
+                                </div>                          
+
+                        </div>
+
+
+                        <div class="modal-footer">
+                         
+                            <input type="submit" name="add_banner" value="Add Banner" class="btn btn-primary btn-sm pull-right">
+                        </div>
+
+
+                      <?php echo form_close();?>
+
+
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                </div>
+              </div>
+              <div class="box-body">
+                
+                <p>Vetopia strives to blend the best in traditional and alternative medicine in the diagnosis and treatment of companion animals including dogs, cats, birds, reptiles, rodents, and fish. We apply the wisdom garnered in the centuries old tradition of veterinary medicine, to find the safest treatments and cures. We strive to be your pet's medical experts from youth through the senior years. We build preventative health care plans for each and every one of our patients, based on breed, age, and sex, so that your pet receives the most appropriate care at crucial milestones. We want to give your pet a long and healthy life.</p>
+
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                
+              </div>
+              <!-- /.box-footer-->
+            </div>
+          <!-- /.box -->
+
         </div>
 
       </div>

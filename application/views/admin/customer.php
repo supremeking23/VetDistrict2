@@ -55,9 +55,9 @@
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Vet </b></span>
+      <span class="logo-mini"><b></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Vet District</b></span>
+      <span class="logo-lg"><b><?php echo $system_name;?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -90,6 +90,7 @@
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+               $admin_type = $admin_login->admin_type;
             }
           ?>
 
@@ -118,7 +119,7 @@
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small></small>
+                          <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -193,8 +194,7 @@
 
 
 
-                <!-- addCustomerModal-->  
-                <div class="modal fade" id="addCustomerModal">
+             <div class="modal fade" id="addCustomerModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -207,18 +207,24 @@
                           echo form_open_multipart('admin/create_new_customer');
                         ?>
 
+                        <div class="form-group has-feedback">
+                            <input type="text"   class="form-control" placeholder="Customer ID"   name="customer_user_id" id="customer_user_id" readonly="" >
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+
+                          </div>
+
                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="First Name"   name="first_name">
+                            <input type="text" required=""  class="form-control" placeholder="First Name"   name="first_name">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                            <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Middle Name"  name="middle_name">
+                            <input type="text" class="form-control" placeholder="Middle Name"  name="middle_name">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                            <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Last Name" name="last_name">
+                            <input type="text" required=""  class="form-control" placeholder="Last Name" name="last_name">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
@@ -233,40 +239,40 @@
                                 );
                             ?>
                             <div class="form-group has-feedback">
-                             <?php echo form_dropdown('gender',$option,'','class="form-control"');?>
+                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
                             </div>
 
                             <!-- end dropdown-->
 
                           <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth">
+                            <input type="date" required=""  class="form-control" name="date_birth" placeholder="Date of Birth">
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
                           </div>
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Telephone"  name="telephone">
+                            <input type="text" required=""   class="form-control" placeholder="Telephone"  name="telephone">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Cellphone"  name="cellphone">
+                            <input type="text" required=""   class="form-control" placeholder="Cellphone"  name="cellphone">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Address"  name="address">
+                            <input type="text"  required=""  class="form-control" placeholder="Address"  name="address">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
 
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Email"  name="email">
+                            <input type="text"  required=""  class="form-control" placeholder="Email"  name="email">
                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                           </div>
 
                            <div class="form-group has-feedback">
-                            <input type="password"    class="form-control" placeholder="Password"  name="password">
+                            <input type="password" required=""   class="form-control" placeholder="Password"  name="password">
                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                           </div>
                           
@@ -284,7 +290,6 @@
                   </div>
                   <!-- /.modal-dialog -->
                 </div>
-                <!-- /.modal -->
 
 
             </div> <!-- modal section -->
@@ -301,7 +306,7 @@
                   <?php endforeach?>
 
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addCustomerModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addCustomerModal">
                     Add new customer
                   </button>
                  
@@ -341,56 +346,76 @@
 
 
 
-      <div class="row">
-
-       <div class="col-xs-12">
-       <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Customer</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped table-hover">
-                <thead>
-                <tr>
-                  <th>Customer ID</th>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  
-                  <th>Cellphone Number</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <?php foreach($customers as $customer):?>
-                  <tr>
-                    <td><?php echo $customer['customer_id'];?></td>
-                    <td><?php echo $customer['first_name'] .' ' . $customer['middle_name'] .' ' . $customer['last_name'];?></td>
-                    <td><?php echo $customer['gender'];?></td>
+       <div class="row">
+            <div class="col-md-12">
                     
-                    <td><?php echo $customer['cellphone'];?></td>
-                    <td><?php if($customer['is_active'] == 1){ ?>
-                        Active
-                  <?php  }else{ ?>
+              <!-- Default box -->
+                  <div class="box ">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Customer List</h3>
 
-                        Not Active
-                  <?php   } ?></td>
-                    <td><a href="<?php echo site_url()?>admin/customer_details/<?php echo $customer['customer_id'];?>" class="btn btn-primary">View More Details</a></td>
-                  </tr>
-                <?php endforeach; ?>
+                      <div class="box-tools pull-right">
+                        
+                      
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Print Data">
+                          <i class="fa fa-print"></i></button>
+                      </div>
+                    </div>
+                    <div class="box-body table-responsive">
+                        
+                        <table  class="data-table table table-bordered table-striped table-hover">
+                          <thead>
+                          <tr>
+                            <th>Customer ID</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            
+                            <th>Cellphone Number</th>
+                            <th>Status</th>
+                            <th>Member Since</th>
+                            <th>Action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
 
-                </tbody>
-                
-              </table>
+                          <?php foreach($customers as $customer):?>
+                            <tr>
+                              <td><?php echo $customer['customer_user_id'];?></td>
+                              <td><?php echo $customer['first_name'] .' ' . $customer['middle_name'] .' ' . $customer['last_name'];?></td>
+                              <td><?php echo $customer['gender'];?></td>
+                              
+                              <td><?php echo $customer['cellphone'];?></td>
+                              <td><?php if($customer['is_active'] == 1){ ?>
+                                  <span class="label label-success">Active</span>
+                            <?php  }else{ ?>
+
+                                  <span class="label label-danger">Not Active</span>
+                            <?php   } ?></td>
+
+                              <?php
+                                $date =date_create($customer['date_added']);
+                                $date_added = date_format($date,"F j, Y, g:i a");
+                              ?>
+                            <td><?php echo $date_added;?></td>
+
+                              <td><a href="<?php echo site_url()?>admin/customer_details/<?php echo $customer['customer_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
+                            </tr>
+                          <?php endforeach; ?>
+
+                          </tbody>
+                          
+                        </table>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                    
+                    </div>
+                    <!-- /.box-footer-->
+                  </div>
+                  <!-- /.box -->
             </div>
-            <!-- /.box-body -->
           </div>
-          <!-- /.box -->
-
-          </div>
-      </div>
       <!-- /.row (main row) -->
 
     </section>
@@ -443,17 +468,9 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false,
-
-
-    })
+    
+    var customer_user_id = "<?= 'C'.date("ymdhis") . abs(rand('0','9'));  ?>";
+        $('#customer_user_id').val(customer_user_id);
   })
 
 

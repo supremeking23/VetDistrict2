@@ -96,6 +96,7 @@
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+               $admin_type = $admin_login->admin_type;
 
             }
           ?>
@@ -127,7 +128,7 @@
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small>Admin</small>
+                          <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -272,7 +273,7 @@
                       <span class="info-box-number"><?php echo $total_count_all_item['count_all'];?></span>
                   <?php endforeach?>
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addItemModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addItemModal">
                     Add new Item
                   </button>
                  
@@ -298,7 +299,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
+              <table  class="data-table table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Item Name</th>
@@ -318,12 +319,12 @@
                   <td><?php echo $item_info['item_price'];?></td>
                   <td><?php echo $item_info['item_qty'];?></td>
                    <td><?php if($item_info['is_active'] == 1){ ?>
-                        Active 
+                        <span class="label label-success">Active</span> 
                   <?php  }else{ ?>
-
-                        Not Active 
+                        <span class="label label-danger"> Not Active </span> 
+                       
                   <?php   } ?></td>
-                  <td><a href="<?php echo site_url()?>admin/item_details/<?php echo $item_info['prod_item_id'];?>" class="btn btn-primary">View More Details</a></td>
+                  <td><a href="<?php echo site_url()?>admin/item_details/<?php echo $item_info['prod_item_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
                 </tr>
 
 
@@ -391,15 +392,7 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+   
   })
 
 

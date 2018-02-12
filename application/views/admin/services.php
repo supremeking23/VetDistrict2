@@ -47,8 +47,15 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+
+<script>
+  
+ 
+</script>
+
 </head>
-<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="employee">
+<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="service">
 <div class="wrapper">
 
   <header class="main-header">
@@ -81,6 +88,7 @@
             </ul>
           </li>
 
+
            <?php 
 
             foreach($current_admin_login as $admin_login){
@@ -108,12 +116,14 @@
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                       
-                        <?php if(empty($image)){ ?>
+
+                          <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
                        <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
+
+                        
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
@@ -133,8 +143,7 @@
                       </li>
                     </ul>
           </li>
-
-       
+        
         </ul>
       </div>
     </nav>
@@ -147,12 +156,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Employee 
-        <small>Employee List</small>
+        Medicine 
+        <small>Medicine List</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Employee</li>
+        <li class="active">Medicine</li>
       </ol>
     </section>
 
@@ -160,13 +169,12 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
 
-
       <div class="row">
 
-            <div id="modal_section">
+          <div id="modal_section">
 
-              <!-- add customer message--> 
-               <?php if ($this->session->flashdata('add_employee_success')) { ?>
+              <!-- add pet message--> 
+               <?php if ($this->session->flashdata('add_med_success')) { ?>
          
                    <div class="modal modal-success" id="successmodal" role="dialog">
                      <div class="modal-dialog">
@@ -177,7 +185,31 @@
                         <h4 class="modal-title"></h4>
                       </div>
                       <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('add_employee_success'); ?> </p>
+                        <p> <?php echo $this->session->flashdata('add_med_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+               <!-- add  type message--> 
+               <?php if ($this->session->flashdata('add_medtype_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('add_medtype_success'); ?> </p>
                       </div>
                       <div class="modal-footer">
                       <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
@@ -191,108 +223,69 @@
 
 
 
-                 <!-- -->  
-                <div class="modal fade" id="addEmployeeModal">
+
+               
+
+                <!-- add Modal-->  
+                <div class="modal fade" id="addMedModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new employee</h4>
+                        <h4 class="modal-title">Add new Medicine</h4>
                       </div>
                       <div class="modal-body">
                         <?php //beginning form
-                          echo form_open_multipart('admin/create_new_employee');
+                          echo form_open_multipart('admin/create_new_medicine');
                         ?>
 
-                         <div class="form-group has-feedback">
-                            <input type="text" required=""  class="form-control" placeholder="Employee ID"   name="employee_user_id" id="employee_user_id" readonly="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <?php //option for employee type
-                                $option = array(
-                                    "" => "Employee Type",
-                                    "vet" => "Veterinarian",
-                                    "staff" => "Staff",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                              <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('employee_type',$option,'','class="form-control" id="employee_type" required');?>
-                            </div>
-
 
                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="First Name"   name="first_name" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Middle Name"  name="middle_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Last Name" name="last_name" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            <input type="text"  class="form-control" placeholder="Medicine Name"   name="med_name" required="">
+                            <span class="fa fa-sitemap form-control-feedback"></span>
                           </div>
 
 
 
-                          <?php //option for  gender
-                                $option = array(
-                                    "" => "Gender",
-                                    "male" => "Male",
-                                    "female" => "Female",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                              <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
-                            </div>
-
-                            <!-- end dropdown-->
-
-                          <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth" required="">
-                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Telephone"  name="telephone">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Cellphone"  name="cellphone" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Address"  name="address" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
+                      <div class="form-group has-feedback">
+                        <select id="med_type" name="med_type" class="form-control" required="">
+                                 <option value="">Medicine Type</option>
+                                <?php foreach($drug_type as $type):?>
+                                 
+                                 <option value="<?php echo $type['drugtype_id']?>"><?php echo ucfirst($type['drug_type']);?></option>
+                                 <?php ?>
+                               <?php endforeach;?>
+                               </select>
+                       </div>
 
 
+                       
 
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Email"  name="email" required="">
-                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="password"    class="form-control" placeholder="Password"  name="password" required="">
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                          </div>
                           
+
+
+                        <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Price"   name="med_price" required="">
+                            <span class="fa fa-sitemap form-control-feedback"></span>
+                        </div>
+
+
+
+                        <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Quantity"   name="med_qty" required="">
+                            <span class="fa fa-sitemap form-control-feedback"></span>
+                        </div>
+
+
+
+                     
+
 
 
                       </div><!-- end modal content-->
                       <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_employee', 'name' =>'add_employee', 'value' => 'Add Employee','class'=>'pull-right btn btn-primary')); ?>
+                        <?php echo form_submit(array('id' => 'add_med', 'name' =>'add_med', 'value' => 'Add Medicine','class'=>'pull-right btn btn-primary')); ?>
                         
                       </div>
 
@@ -305,119 +298,164 @@
                 <!-- /.modal -->
 
 
+                <!--addTypeModal-->
+                <div class="modal fade" id="addMedTypeModal">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Add new medicine type</h4>
+                    </div>
+                    <div class="modal-body">
+                      <?php echo form_open_multipart('admin/create_new_medtype');?>
+
+                         <div class="form-group has-feedback">
+                            <input type="text"  class="form-control" placeholder="Medicine Type"   name="new_drug_type" required="">
+                            <span class="fa fa-sitemap form-control-feedback"></span>
+                          </div>
+
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <?php echo form_submit(array('id' => 'add_medtype', 'name' =>'add_medtype', 'value' => 'Add Medicine Type','class'=>'pull-right btn btn-primary')); ?>
+                    </div>
+
+                    <?php echo form_close();?>
+                  </div>
+                  <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+              </div>
+              <!-- /.modal -->
+
+
+
+
             </div>
+        
 
             <div class="col-md-4">
               <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-users"></i></span>
+                <span class="info-box-icon bg-green"><i class="fa fa-sitemap"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Employee Count 
+                  <span class="info-box-text">Services 
                   </span>
                   
-                  <?php foreach($count_all_employee as $total_count_all_employee):?>
-                      <span class="info-box-number"><?php echo $total_count_all_employee['count_all'];?></span>
-                  <?php endforeach?>
+                 
+                 
+                      <span class="info-box-number">10</span>
+                
 
-                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addEmployeeModal">
-                    Add new Employee
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addMedModal">
+                    Add new service
                   </button>
                  
                 </div>
               </div>
             </div>
 
-                <div class="col-md-4">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-user"></i></span>
-                    <div class="info-box-content">
-                      <span class="info-box-text">Staff</span>
 
-                     <?php foreach($count_staff as $total_count_staff):?>
-                      <span class="info-box-number"><?php echo $total_count_staff['count_staff'];?></span>
-                  <?php endforeach?>
 
-                    </div>
-                  </div>
-            </div>
             <div class="col-md-4">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
-                    <div class="info-box-content">
-                      <span class="info-box-text">Veterinarian</span>
+              <div class="info-box">
+                <span class="info-box-icon bg-blue"><i class="fa fa-sitemap"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Service Type  
+                  </span>
+                  
+                 
+                  <span class="info-box-number"><br/></span>
 
-                     <?php foreach($count_veterinarian as $total_count_veterinarian):?>
-                      <span class="info-box-number"><?php echo $total_count_veterinarian['count_veterinarian'];?></span>
-                     <?php endforeach?>
-
-                    </div>
-                  </div>
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addMedTypeModal">
+                    Add new service type
+                  </button>
+                 
+                </div>
+              </div>
             </div>
-        
-      </div> <!-- end first row -->
 
+
+
+
+      </div> <!-- end first row -->
 
 
       <div class="row">
        
        <div class="col-xs-12">
-         <div class="box">
-              <div class="box-header">
-                <h3 class="box-title">Employee</h3>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body table-responsive">
-                
-                    <table  class="data-table table table-bordered table-striped">
-                              <thead>
-                              <tr>
-                                <th>Employee ID</th>
-                                <th>Name</th>
-                                <th>Employee Type</th>
-                                <th>Cellphone Number</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              
-
-                              <?php foreach($employees as $employee):?>
-                              <tr>
-                                <td><?php echo $employee['employee_user_id'];?></td>
-                                <td><?php echo $employee['first_name'] .' '. $employee['middle_name'] .' '.$employee['last_name'] ;?></td>
-                                <td><?php  
-
-                                if($employee['employee_type'] == 'staff'){
-                                          echo "Staff";
-                                }else{
-                                          echo "Veterinarian";
-                                }?></td>
-
-                                <td><?php echo $employee['cellphone'];?></td>
-
-                                 <td><?php if($employee['is_active'] == 1){ ?>
-                                      <span class="label label-success">Active</span>
-                                <?php  }else{ ?>
-                                      <span class="label label-success">Not Active</span>
-                                      
-                                <?php   } ?></td>
-                               
-                                
-                                
-                                <td><a href="<?php echo site_url()?>admin/employee_details/<?php echo $employee['employee_id']; ?>" class="btn btn-primary btn-sm">View More Details</a></td>
-                              </tr>
-                             <?php endforeach;?>
-
-
-                              </tbody>
-                            
-                          </table>
-              </div>
-              <!-- /.box-body -->
+       <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Medicine</h3>
             </div>
-            <!-- /.box -->
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+              <table  class="data-table table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Service Type</th>
+                  <th>Price</th>
+                  
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Skin and coat treatment (Small Breed)</td>
+                    <td>Skin care</td>
+                    <td>150.00</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm">Add to Store</button>
+                      <button class="btn btn-info btn-sm">View Details</button>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td>Nail Cutting (Small Breed)</td>
+                    <td>Grooming</td>
+                    <td>50.00</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm">Add to Store</button>
+                      <button class="btn btn-info btn-sm">View Details</button>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td>Nail Cutting (Big Breed)</td>
+                    <td>Grooming</td>
+                    <td>150.00</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm">Add to Store</button>
+                      <button class="btn btn-info btn-sm">View Details</button>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td>Full Grooming (Small Breed)</td>
+                    <td>Grooming</td>
+                    <td>550.00</td>
+                    <td>
+                      <button type="button" class="btn btn-danger btn-sm">Remove to Store</button>
+                      <button class="btn btn-info btn-sm">View Details</button>
+                    </td>
+                  </tr>
+                   <tr>
+                    <td>Full Grooming (Big Breed)</td>
+                    <td>Grooming</td>
+                    <td>750.00</td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm">Add to Store</button>
+                      <button class="btn btn-info btn-sm">View Details</button>
+                    </td>
+                  </tr>
+              
+                </tbody>
+                
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
 
-        </div>
+          </div>
       </div>
       <!-- /.row (main row) -->
 
@@ -430,7 +468,6 @@
       <b>Version</b> 2.4.0
     </div>
     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#"><?php echo $system_name;?></a>.</strong> All rights reserved.
-   
   </footer>
 
  
@@ -472,19 +509,13 @@
 <!-- page script -->
 <script>
   $(function () {
-            $('#employee_type').change(function(){
-          var val = $(this).val();
-          var employee_user_id = "";
-
-          if(val =="vet"){
-            var employee_user_id = "<?= 'V'.date("ymdhis") . abs(rand('0','9'));  ?>";
-            $('#employee_user_id').val(employee_user_id);
-          }else if(val=="staff"){
-            var employee_user_id = "<?= 'S'.date("ymdhis") . abs(rand('0','9'));  ?>";
-            $('#employee_user_id').val(employee_user_id);
-          }
-        });
+    
   })
+
+
+  
+
+   
   </script>
 </body>
 </html>

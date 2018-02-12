@@ -96,7 +96,7 @@
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
-
+               $admin_type = $admin_login->admin_type;
             }
           ?>
 
@@ -127,7 +127,7 @@
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small>Admin</small>
+                          <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -347,7 +347,7 @@
                       <span class="info-box-number"><?php echo $total_count_all_med['count_all'];?></span>
                   <?php endforeach?>
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addMedModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addMedModal">
                     Add new medicine
                   </button>
                  
@@ -367,7 +367,7 @@
                  
                   <span class="info-box-number"><br/></span>
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addMedTypeModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addMedTypeModal">
                     Add new medicine type
                   </button>
                  
@@ -390,7 +390,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped">
+              <table  class="data-table table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Medicine Name</th>
@@ -412,12 +412,12 @@
                   <td><?php echo $med_info['med_price'];?></td>
                   <td><?php echo $med_info['med_qty'];?></td>
                    <td><?php if($med_info['is_active'] == 1){ ?>
-                        Active 
+                        <span class="label label-success">Active </span>
                   <?php  }else{ ?>
-
+                        <span class="label label-danger">Not Active  </span>
                         Not Active 
                   <?php   } ?></td>
-                  <td><a href="<?php echo site_url()?>admin/med_details/<?php echo $med_info['prod_med_id'];?>" class="btn btn-primary">View More Details</a></td>
+                  <td><a href="<?php echo site_url()?>admin/med_details/<?php echo $med_info['prod_med_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
                 </tr>
 
 
@@ -485,15 +485,7 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+    
   })
 
 

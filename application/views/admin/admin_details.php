@@ -154,6 +154,7 @@ input:checked + .slider:before {
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+                $admin_type = $admin_login->admin_type;
             }
           ?>
 
@@ -182,7 +183,7 @@ input:checked + .slider:before {
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small>Admin</small>
+                         <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -251,8 +252,13 @@ input:checked + .slider:before {
               <p class="text-muted text-center"></p>
 
               <ul class="list-group list-group-unbordered">
+                 <li class="list-group-item">
+                   <?php $date =date_create($admin_details->date_added);
+                         $admin_since= date_format($date,"F  Y ");?>
+                  <b>Admin Since</b> <a class="pull-right"><?php echo $admin_since;?></a>
+                </li>
                 <li class="list-group-item">
-                  <b>Admin ID</b> <a class="pull-right"><?php echo $admin_details->admin_id;?></a>
+                  <b>Admin ID</b> <a class="pull-right"><?php echo $admin_details->admin_user_id;?></a>
                 </li>
                 <li class="list-group-item">
                   <!--$dateadded = date("F j, Y, g:i a", $r["DateAdded"]);-->

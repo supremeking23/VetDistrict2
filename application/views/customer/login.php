@@ -9,6 +9,8 @@
 
 
                 $system_id = $system_settings->systemsetting_id;
+
+                 $background_image = $system_settings->login_photo_customer;
            }
 ?>
 
@@ -47,7 +49,7 @@
     /*on page style*/
 
     body {
-     background: url('<?php echo site_url();?>assets/images/doctor-chase.jpg');
+    background: url('<?php echo site_url();?>uploads/system_images/<?php echo $background_image;?>');
      background-repeat: no-repeat;
      background-attachment: fixed;
      background-position: center;

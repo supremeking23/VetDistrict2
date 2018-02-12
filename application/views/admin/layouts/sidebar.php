@@ -17,7 +17,7 @@
           ?>
 
            <?php if(empty($image)){ ?>
-                    <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                      <?php }else{ ?>
                      <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                      <?php } ?>
@@ -64,6 +64,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li id="med"><a href="<?php echo site_url();?>admin/services"><i class="fa fa-circle-o"></i> Services</a></li>
             <li id="med"><a href="<?php echo site_url();?>admin/medicines"><i class="fa fa-circle-o"></i> Medicines</a></li>
             <li id="item"><a href="<?php echo site_url();?>admin/items"><i class="fa fa-circle-o"></i> Items</a></li>
           </ul>
@@ -91,7 +92,13 @@
         <li><a href="<?php echo site_url();?>admin/employees"><i class="fa fa-user"></i> <span>Employees</span></a></li>
 
 
-        <li><a href="<?php echo site_url();?>admin/settings"><i class="fa fa-gear"></i> <span>Settings</span></a></li>        
+
+        <?php $admin_type = $this->session->userdata('admin_type');
+         
+        ?>
+        <?php if($admin_type =="superadmin"):?>
+          <li><a href="<?php echo site_url();?>admin/settings"><i class="fa fa-gear"></i> <span>Settings</span></a></li>  
+        <?php endif;?>      
        
       </ul>
     </section>

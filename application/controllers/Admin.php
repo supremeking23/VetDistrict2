@@ -112,10 +112,6 @@ class Admin extends CI_Controller {
 	       // $config['max_height']           = 768;
 			$this->load->library('upload', $config);
 
-
-			
-
-
 			if($this->upload->do_upload('company_logo')){
 		    	//get the file name of the uploaded file
 		        $uploadData = $this->upload->data();
@@ -155,6 +151,143 @@ class Admin extends CI_Controller {
 
 
 	}
+
+
+
+	public function update_login_photo_admin(){
+
+		//config for upload image
+			$config['upload_path']          = './uploads/system_images/';
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        //$config['max_size']             = 100;
+	       // $config['max_width']            = 1024;
+	       // $config['max_height']           = 768;
+			$this->load->library('upload', $config);
+
+			if($this->upload->do_upload('admin_login_photo')){
+		    	//get the file name of the uploaded file
+		        $uploadData = $this->upload->data();
+		        $image = $uploadData['file_name'];
+		        //echo 1;
+		        //echo "ivan";
+		    }else{
+		        	//echo 'wala laman';
+		        	//set the image name to the previously upload image
+		        	$default_image_name = $this->admin_model->get_system_settings_by_id($system_id);
+		           	foreach ($default_image_name as $default_image) {
+		           			   $image = $default_image->login_photo_admin; 
+					
+		           				}
+		        }
+
+
+		    $system_id =  $this->input->post('system_id');
+		    $data = array(
+	        		
+	        		
+	        		'login_photo_admin' => $image,
+
+	        	);
+
+			//Transfering data to Model
+		$this->admin_model->update_settings($system_id,$data);
+		$this->session->set_flashdata('update_system_setting_success','System settings has been updated');
+		redirect('admin/settings');
+
+		//print_r($data);
+	}
+
+
+
+	public function update_login_photo_employee(){
+
+		//config for upload image
+			$config['upload_path']          = './uploads/system_images/';
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        //$config['max_size']             = 100;
+	       // $config['max_width']            = 1024;
+	       // $config['max_height']           = 768;
+			$this->load->library('upload', $config);
+
+			if($this->upload->do_upload('employee_login_photo')){
+		    	//get the file name of the uploaded file
+		        $uploadData = $this->upload->data();
+		        $image = $uploadData['file_name'];
+		        //echo 1;
+		        //echo "ivan";
+		    }else{
+		        	//echo 'wala laman';
+		        	//set the image name to the previously upload image
+		        	$default_image_name = $this->admin_model->get_system_settings_by_id($system_id);
+		           	foreach ($default_image_name as $default_image) {
+		           			   $image = $default_image->login_photo_admin; 
+					
+		           				}
+		        }
+
+
+		    $system_id =  $this->input->post('system_id');
+		    $data = array(
+	        		
+	        		
+	        		'login_photo_employee' => $image,
+
+	        	);
+
+			//Transfering data to Model
+		$this->admin_model->update_settings($system_id,$data);
+		$this->session->set_flashdata('update_system_setting_success','System settings has been updated');
+		redirect('admin/settings');
+
+		//print_r($data);
+	}
+
+
+	public function update_login_photo_customer(){
+
+		//config for upload image
+			$config['upload_path']          = './uploads/system_images/';
+	        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+	        //$config['max_size']             = 100;
+	       // $config['max_width']            = 1024;
+	       // $config['max_height']           = 768;
+			$this->load->library('upload', $config);
+
+			if($this->upload->do_upload('customer_login_photo')){
+		    	//get the file name of the uploaded file
+		        $uploadData = $this->upload->data();
+		        $image = $uploadData['file_name'];
+		        //echo 1;
+		        //echo "ivan";
+		    }else{
+		        	//echo 'wala laman';
+		        	//set the image name to the previously upload image
+		        	$default_image_name = $this->admin_model->get_system_settings_by_id($system_id);
+		           	foreach ($default_image_name as $default_image) {
+		           			   $image = $default_image->login_photo_admin; 
+					
+		           				}
+		        }
+
+
+		    $system_id =  $this->input->post('system_id');
+		    $data = array(
+	        		
+	        		
+	        		'login_photo_customer' => $image,
+
+	        	);
+
+			//Transfering data to Model
+		$this->admin_model->update_settings($system_id,$data);
+		$this->session->set_flashdata('update_system_setting_success','System settings has been updated');
+		redirect('admin/settings');
+
+		//print_r($data);
+	}
+
+
+
 
 
 	public function login(){
@@ -200,6 +333,7 @@ class Admin extends CI_Controller {
 				foreach($found_admin as $admin_credentials){
 					$user_id =  $admin_credentials->admin_id;
 					$email = 	$admin_credentials->email;
+					$admin_type = $admin_credentials->admin_type;
 				}
 
 
@@ -209,6 +343,8 @@ class Admin extends CI_Controller {
 					'user_id' => $user_id,
 					'email' => $email,
 					'logged_in' =>true,
+					'admin_type' =>$admin_type,
+
 				);
 
 				$this->session->set_userdata($user_data);
@@ -391,6 +527,17 @@ class Admin extends CI_Controller {
 		$data['count_all_customer'] = $this->admin_model->get_count_all_customer();
 
 		$data['count_all_pet'] = $this->admin_model->get_count_all_pet();
+
+
+
+		//for retrieving customer
+		$data['customers'] = $this->admin_model->get_all_customer();
+
+		$data['employees'] = $this->admin_model->get_all_employees();
+
+
+		$data['pet_type'] = $this->admin_model->get_all_pet_type();
+		$data['pets'] = $this->admin_model->get_all_pets_with_there_customers();
 		
 
 		$this->load->view('admin/dashboard',$data);
@@ -487,6 +634,32 @@ class Admin extends CI_Controller {
 
 
 	//----------------------------- PRODUCT--------------------------------------//
+
+	//FOR SERVICES
+	public function services(){
+		//$data['type'] = $this->admin_model->get_all_pet_type();
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+
+
+		
+
+
+		$this->load->view('admin/services',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
+	}
 
 	//FOR MEDICINES
 
@@ -960,8 +1133,10 @@ class Admin extends CI_Controller {
 			
 
 
-			
+			$now = date('Y-m-d H:i:s');
 			$data = array(
+			'admin_user_id' => $this->input->post('admin_user_id'),
+			'admin_type' => $this->input->post('admin_type'),
 			'first_name' => $this->input->post('first_name'),
 			'middle_name' => $this->input->post('middle_name'),
 			'last_name' => $this->input->post('last_name'),
@@ -973,7 +1148,7 @@ class Admin extends CI_Controller {
 			'email' => $this->input->post('email'),
 			'password' =>$this->input->post('password'),
 			'is_active' => 1,
-			'date_added' => time(),  //unix timestamp
+			'date_added' => $now,
 			
 
 			);
@@ -1008,7 +1183,10 @@ class Admin extends CI_Controller {
 
 			//preparing the data to be uploaded to database
 			//key value pair key is the column name value is the input type value
+			$now = date('Y-m-d H:i:s');
 			$data = array(
+				'employee_user_id' => $this->input->post('employee_user_id'),
+				'employee_type' => $this->input->post('employee_type'),
 				'first_name' => $this->input->post('first_name'),
 				'middle_name' => $this->input->post('middle_name'),
 				'last_name' => $this->input->post('last_name'),
@@ -1020,7 +1198,7 @@ class Admin extends CI_Controller {
 				'email' => $this->input->post('email'),
 				'password' =>$this->input->post('password'),
 				'is_active' => 1,
-				'date_added' => time()
+				'date_added' => $now,
 			);
 
 
@@ -1266,7 +1444,9 @@ class Admin extends CI_Controller {
 
 			//preparing the data to be uploaded to database
 			//key value pair key is the column name value is the input type value
+			$now = date('Y-m-d H:i:s');
 			$data = array(
+				'customer_user_id' => $this->input->post('customer_user_id'),
 				'first_name' => $this->input->post('first_name'),
 				'middle_name' => $this->input->post('middle_name'),
 				'last_name' => $this->input->post('last_name'),
@@ -1278,9 +1458,10 @@ class Admin extends CI_Controller {
 				'email' => $this->input->post('email'),
 				'password' =>$this->input->post('password'),
 				'is_active' => 1,
-				'date_added' => time()
+				'date_added' => $now
 			);
 
+			print_r($data);
 
 			//Transfering data to Model
 			$this->create_model->create_customer($data);
@@ -1288,7 +1469,6 @@ class Admin extends CI_Controller {
 
 			$this->session->set_flashdata('add_customer_success','Customer has been added');
 	      	redirect('admin/customers');
-
 	}
 
 
@@ -1305,7 +1485,9 @@ class Admin extends CI_Controller {
 			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
 
 
+			$now = date('Y-m-d H:i:s');
 			$data = array(
+			'pet_data_id'=> $this->input->post('pet_data_id'),
 			//customer_id reference
 			'customer_id' => $this->input->post('customer_id'),
 			'pet_name' => $this->input->post('pet_name'),
@@ -1316,7 +1498,7 @@ class Admin extends CI_Controller {
 			'pet_size' => $this->input->post('pet_size'),
 			'date_birth' => $this->input->post('date_birth'),
 			'is_active' => 1,
-			'date_added' => time(),  //unix timestamp
+			'date_added' => $now,  
 			
 
 		);

@@ -45,6 +45,10 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/select2/dist/css/select2.min.css">
+
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
@@ -96,6 +100,7 @@
                $middle_name = $admin_login->middle_name;
                $last_name = $admin_login->last_name;
                $image = $admin_login->image;
+               $admin_type = $admin_login->admin_type;
 
             }
           ?>
@@ -127,7 +132,7 @@
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small>Admin</small>
+                          <small><?php echo strtoupper($admin_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -247,7 +252,7 @@
 
                
 
-                <!-- addPetModal-->  
+                   <!-- addPetModal-->  
                 <div class="modal fade" id="addPetModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -261,11 +266,14 @@
                           echo form_open_multipart('admin/create_new_pet');
                         ?>
 
-
+                         <div class="form-group has-feedback">
+                            <input type="text"   class="form-control" placeholder="Pet ID"   name="pet_data_id" id="pet_data_id" readonly="">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                          </div>
 
                         <?php  //for customer name?>
                           <div class="form-group has-feedback">
-                               <select name="customer_id" class="form-control" required="">
+                               <select name="customer_id" class="form-control select2" required="" style="width: 100%;min-height: 150px;max-height: 150px;overflow-y: auto;">
                                 <option value="">Customer Name</option>
                                 <?php foreach($customers as $customer):?>
                                   
@@ -274,9 +282,6 @@
                                <?php endforeach;?>
                                </select>
                           </div>
-
-
-
 
                             <!-- end dropdown-->
 
@@ -442,7 +447,7 @@
                       <span class="info-box-number"><?php echo $total_count_all_pet['count_all'];?></span>
                   <?php endforeach?>
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addPetModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addPetModal">
                     Add new pet
                   </button>
                  
@@ -462,7 +467,7 @@
                  
                   <span class="info-box-number"><br/></span>
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addPetTypeModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addPetTypeModal">
                     Add new pet type
                   </button>
                  
@@ -481,7 +486,7 @@
                  <span class="info-box-number"><br/></span>
                 
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addPetBreedModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addPetBreedModal">
                     Add new pet breed
                   </button>
                  
@@ -493,58 +498,74 @@
 
 
       <div class="row">
-       
-       <div class="col-xs-12">
-       <div class="box ">
-            <div class="box-header">
-              <h3 class="box-title">Pet</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive" style="">
-              <table id="example1" class="table table-bordered table-striped" >
-                    <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                       <th>Animal Type <?php //echo date('F d Y',31556926)?></th>
-                      <th>Breed</th>
-                      <th>Owner</th>
-                       <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+              <div class="col-md-12">
+                      
+                <!-- Default box -->
+                    <div class="box ">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">Pet List</h3>
 
-                  <?php foreach($pets as $pet_info):?>
+                        <div class="box-tools pull-right">
+                          
+                        
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Print Data">
+                            <i class="fa fa-print"></i></button>
+                        </div>
+                      </div>
+                      <div class="box-body table-responsive">
+                          
+                              <table class="data-table table table-bordered table-striped" >
+                                    <thead>
+                                    <tr>
+                                      <th>Pet ID</th>
+                                      <th>Name</th>
+                                       <th>Animal Type <?php //echo date('F d Y',31556926)?></th>
+                                      <th>Breed</th>
+                                      <th>Owner</th>
+                                       <th>Status</th>
+                                      <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
-                    <tr>
-                      <td><?php echo $pet_info['pet_id'];?></td>
-                      <td><?php echo $pet_info['pet_name'];?></td>
-                      <td><?php echo $pet_info['pet_type'];?></td>
-                      <td><?php echo $pet_info['breed'];?></td>
-                      <td><?php echo $pet_info['first_name'] .' '. $pet_info['middle_name']. ' ' . $pet_info['last_name'];?></td>
-                       <td><?php if($pet_info['is_active'] == 1){ ?>
-                            Active 
-                      <?php  }else{ ?>
+                                  <?php foreach($pets as $pet_info):?>
 
-                            Not Active 
-                      <?php   } ?></td>
-                      <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary">View More Details</a></td>
-                    </tr>
+                                    <tr>
+                                      <td><?php echo $pet_info['pet_data_id'];?></td>
+                                      <td><?php echo $pet_info['pet_name'];?></td>
+                                      <td><?php echo $pet_info['pet_type'];?></td>
+                                      <td><?php echo $pet_info['breed'];?></td>
+                                      <td><?php echo $pet_info['first_name'] .' '. $pet_info['middle_name']. ' ' . $pet_info['last_name'];?></td>
+                                       <td><?php if($pet_info['is_active'] == 1){ ?>
+                                           <span class="label label-success">Active</span> 
+                                      <?php  }else{ ?>
+                                            <span class="label label-danger">Not Active</span>
+                                             
+                                      <?php   } ?>
+                                        
+                                      </td>
+                                      <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
+                                    </tr>
 
 
-                    <?php endforeach; ?>
-                   
-                    </tbody>
-                
-              </table>
-            </div>
-            <!-- /.box-body -->
+                                    <?php endforeach; ?>
+                                   
+                                    </tbody>
+                                
+                              </table>
+                                
+
+                      </div>
+                      <!-- /.box-body -->
+                      <div class="box-footer">
+                      
+                      </div>
+                      <!-- /.box-footer-->
+                    </div>
+                    <!-- /.box -->
+              </div>
           </div>
-          <!-- /.box -->
 
-          </div>
-      </div>
       <!-- /.row (main row) -->
 
 
@@ -596,23 +617,20 @@
 <script src="<?php echo site_url()?>assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
+
+
+<!-- Select2 -->
+<script src="<?php echo site_url()?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
+
 <!--admin scripts -->
 <script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
 
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false,
-      'scrollY': 200,
-      'scrollX': true
-    })
+    
+    var pet_data_id = "<?= 'P'.date("ymdhis") . abs(rand('0','9'));  ?>";
+        $('#pet_data_id').val(pet_data_id);
   })
 
 
@@ -620,7 +638,7 @@
 
           $('#breed').hide(); 
 
-        $('select[name="pet_type"]').on('change', function() {
+          $('select[name="pet_type"]').on('change', function() {
 
             var stateID = $(this).val();
 

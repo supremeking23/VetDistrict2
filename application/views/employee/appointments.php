@@ -106,15 +106,11 @@
 
           <?php 
 
-            foreach($current_admin_login as $admin_login){
-               $first_name = $admin_login->first_name;
-               $middle_name = $admin_login->middle_name;
-               $last_name = $admin_login->last_name;
-               $image = $admin_login->image;
-               $user_email = $admin_login->email;
-               $admin_type = $admin_login->admin_type;
-
-             
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
@@ -125,7 +121,7 @@
                       <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -141,9 +137,9 @@
                        <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
-                        <p>
+                       <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small><?php echo strtoupper($admin_type);?></small>
+                          <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -151,10 +147,10 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>employee/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>employee/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>

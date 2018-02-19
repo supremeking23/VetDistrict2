@@ -238,9 +238,7 @@
 
                             <p>Reason</p>
                             <div class=" has-feedback">
-                                <textarea  class="" name="appointment_reason" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;border-radius: 4px">
-                                  
-                                </textarea>
+                                <textarea style="width: 100%;height: 70px" name="appointment_reason" placeholder="Reason"></textarea>
                             </div>
 
 

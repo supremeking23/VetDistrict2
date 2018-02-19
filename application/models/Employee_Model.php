@@ -115,9 +115,14 @@ class Employee_Model extends CI_Model
 
 
 	public function get_all_customer(){
-			$result_set = $this->db->get('tblcustomers');
+		$this->db->select('*');
+		$this->db->from('tblcustomers');
+		
+		$this->db->order_by('customer_id', 'DESC');
+		$query = $this->db->get();
+		$result_set = $query->result_array();
 
-			return $result_set->result_array();
+		return $result_set;
 	}
 
 
@@ -245,11 +250,12 @@ class Employee_Model extends CI_Model
 	public function get_all_pets_with_there_customers(){
 		
 
-		$this->db->select('a.pet_id,a.pet_name,a.is_active,b.pet_type,c.breed,d.first_name,d.middle_name,d.last_name');
+		$this->db->select('a.pet_id,a.pet_data_id,a.pet_name,a.is_active,b.pet_type,c.breed,d.first_name,d.middle_name,d.last_name');
 		$this->db->from('tblpets a');
 		$this->db->join('tblpettype b','a.pet_type = b.pettype_id');
 		$this->db->join('tblpetbreed c','a.pet_breed = c.breed_id');
 		$this->db->join('tblcustomers d','a.customer_id = d.customer_id');
+		$this->db->order_by('pet_id', 'DESC');
 
 		$result_set = $this->db->get();
 		return $result_set->result_array();
@@ -341,7 +347,7 @@ class Employee_Model extends CI_Model
 	public function get_complete_pet_info_by_id($data){
 
 
-		$this->db->select('a.pet_image,a.pet_name,a.date_birth,a.pet_breed,a.gender,a.is_active,b.pettype_id,b.pet_type,a.pet_size,a.pet_id,c.breed,d.customer_id,d.first_name');
+		$this->db->select('a.pet_data_id,a.pet_image,a.pet_name,a.date_birth,a.pet_breed,a.gender,a.is_active,b.pettype_id,b.pet_type,a.pet_size,a.pet_id,c.breed,d.customer_id,d.first_name');
 		$this->db->from('tblpets as a');
 		$this->db->join('tblpettype as b','a.pet_type = b.pettype_id');
 		$this->db->join('tblpetbreed as c','a.pet_breed = c.breed_id');

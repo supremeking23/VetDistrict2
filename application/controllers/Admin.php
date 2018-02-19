@@ -1375,30 +1375,47 @@ class Admin extends CI_Controller {
 			//get user_id via $user_id session
 			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
 
+			$walk_customer_name = $this->input->post('walk_customer_name');
 
-			//get customer detail by their id
+			if(empty($walk_customer_name)){
 
-			$customer_details = $this->admin_model->get_customer_by_id($this->input->post('customer_id'));
-
-
-			foreach ($customer_details as $customer) {
-				$full_name =  $customer->first_name .' '. $customer->middle_name .' '. $customer->last_name;
+				//if it is a member customer
+				$customer_id = $this->input->post('customer_id');
+				//get customer detail by their id
+				$customer_details = $this->admin_model->get_customer_by_id($this->input->post('customer_id'));
+				
+				foreach ($customer_details as $customer) {
+				$customer_name =  $customer->first_name .' '. $customer->middle_name .' '. $customer->last_name;
 
 				$telephone = $customer->telephone;
 				$cellphone = $customer->cellphone;
-			}
+				}
 
-			$appointment_reason = "---------- WALK IN ----------";
+
+			}else{
+
+				$customer_id = 0;
+				$customer_name = $this->input->post('walk_customer_name');
+				$cellphone = $this->input->post('cellphone');
+				$telephone = $this->input->post('telephone');
+
+			}
+			
+			
+			
+
+			$appointment_reason = $this->input->post('reason');
 			$now = date('Y-m-d H:i:s');
 			$data = array(
-				'customer_id' => $this->input->post('customer_id'),
-				'customer_name' => $full_name,
+				'customer_id' => $customer_id,
+				'customer_name' => $customer_name,
 				'telephone' => $telephone,
 				'cellphone' => $cellphone,
 				'preferred_time_of_day' => $this->input->post('preferred_time'),
 				'appointment_reason' => $appointment_reason,
 				'status' => 'approved',
 				'preferred_date' => $now,
+				'date_requested' => $now,
 
 			);
 
@@ -1413,9 +1430,9 @@ class Admin extends CI_Controller {
 
 
 	      	redirect('admin/appointments');
+			
 
-
-		//print_r($this->input->post());
+		print_r($this->input->post());
 
 	}
 

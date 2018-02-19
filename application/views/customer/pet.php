@@ -175,35 +175,42 @@
 
         
 
-          <div class="col-lg-3 col-xs-12">
+          <div class="col-lg-4 col-xs-12">
             <!-- small box -->
-              <div class="box box-success">
-                <div class="box-header with-border">
-                  <h3 class="box-title"><?php echo ucfirst($customer_pets->pet_name);?></h3>
+                
+              <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header" style="background:<?php echo $system_background_color?>;color: white">
+                  <h3 class="widget-user-username text-center"><?php echo ucfirst($customer_pets->pet_name);?></h3>
+                  <h5 class="widget-user-desc"></h5>
+                </div>
+                <div class="widget-user-image">
+                
+                  <?php if(empty($customer_pets->pet_image)){ ?>
 
-                </div><!-- /.box-header -->
+                    <img class="img-circle" src="<?php echo site_url()?>assets/dist/img/stock-vector-paw-print-205756207.jpg" alt="User Avatar">
 
-                <div class="box-body">
-                  <center>
-                   
-                      <?php if(empty($customer_pets->pet_image)){ ?>
-                        <img src="<?php echo site_url()?>assets/dist/img/stock-vector-paw-print-205756207.jpg" class="img-responsive" alt="">
-                       <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/pet_image/<?php echo $customer_pets->pet_image;?>" class="img-responsive" alt="">
-                       <?php } ?>
+                   <?php }else{ ?> 
 
-                    
-                   </center>
-                  <hr/>
-                   
-                   <center><a href="<?php echo site_url()?>customer/pet_details/<?php echo $customer_pets->pet_id;?>" class="btn btn-success btn-flat">View Pet Record</a></center>
-                </div><!-- /.box-body -->
+                     <img class="img-circle" src="<?php echo site_url()?>/uploads/pet_image/<?php echo $customer_pets->pet_image;?>" alt="User Avatar">
 
+                   <?php }?>
+
+                </div>
                 <div class="box-footer">
+                  <div class="row" style="margin-top: 10px">
 
-                </div><!-- box-footer -->
-            </div><!-- /.box -->
+                     <div class="col-md-12">
+                        <a href="<?php echo site_url()?>customer/pet_details/<?php echo $customer_pets->pet_id; ?>" class="btn btn-sm btn-primary btn-block">View Details</a>
+                      <!-- /.description-block -->
 
+                     </div> 
+                     
+                  </div>
+                  <!-- /.row -->
+                </div>
+            </div>
+        
 
           </div> <!--end col -->
 

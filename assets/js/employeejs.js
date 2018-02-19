@@ -21,29 +21,43 @@ $(function(){
 })
 
 
+ $(function () {
+   $('.data-table').DataTable( {
+      "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
+      'paging'      : true,
+      //'lengthChange': false,
+      //'searching'   : false,
+      'ordering'    : false,
+      'info'        : true,
+      //'autoWidth'   : false,
+
+
+    });
+
+    $('.select2').select2();
+  });
+
+
 $('[data-tooltip="tooltip"]').tooltip();
 
  $(document).ready(function(){
     $('#successmodal').modal('show');
     $('#dangermodal').modal('show');
 
-	
+  
         /*var ckbox = $('#check_active');
         $('input#check_active').on('click',function () {
             if (ckbox.is(':checked')) {
-            	location.reload();
+              location.reload();
                 $('#import_csv').modal('show');
                 
             } else {
-            	location.reload();
+              location.reload();
                  $('#import_csv').modal('show');
                  
             }
         });*/
-
-  
   });
-
 
 
 

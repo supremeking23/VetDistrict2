@@ -23,6 +23,10 @@ class Employee extends CI_Controller {
 
 		//for system settings
 		$this->load->model('system_settings_model');
+
+
+		//for appointment
+		$this->load->model('appointment_model');
 	}
 
 
@@ -355,10 +359,44 @@ class Employee extends CI_Controller {
 		$data['count_all_customer'] = $this->employee_model->get_count_all_customer();
 
 		$data['count_all_pet'] = $this->employee_model->get_count_all_pet();
+
+
+
+		$data['customers'] = $this->employee_model->get_all_customer();
+		$data['pet_type'] = $this->employee_model->get_all_pet_type();
+		$data['pets'] = $this->employee_model->get_all_pets_with_there_customers();
 		
 		$this->load->view('employee/dashboard',$data);
 		$this->load->view('employee/layouts/sidebar.php',$data);
 
+	}
+
+
+
+	public function appointments(){
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('employee/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+
+
+		 $data['appointments'] = $this->appointment_model->get_all_appointments();
+		
+
+		 $data['customers'] = $this->employee_model->get_all_customer();
+
+		$this->load->view('employee/appointments',$data);
+		$this->load->view('employee/layouts/sidebar.php',$data);
 	}
 
 
@@ -428,6 +466,62 @@ class Employee extends CI_Controller {
 		$data['show_customer_details'] = $this->employee_model->get_customer_by_id($id);
 		$this->load->view('employee/customer_details',$data);
 		$this->load->view('employee/layouts/sidebar.php',$data);
+	}
+
+
+
+	public function pet_details(){
+
+		if(!$this->session->userdata('logged_in')){
+					redirect('admin/login');
+			}
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
+
+			//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+			//$data['id'] = $id;
+
+				/*
+				*	The segment numbers would be this:
+				*  	1 news
+					2 local
+					3 metro
+					4 crime_is_up
+				*/
+
+			$id = $this->uri->segment(3);
+
+			$data['show_pet_details'] = $this->employee_model->get_complete_pet_info_by_id($id);
+
+			foreach($data['show_pet_details'] as $d){
+				 $pet_id = $d->pettype_id;
+			}
+
+			$data['customers'] = $this->employee_model->get_all_customer();
+			$data['pet_types'] = $this->employee_model->get_all_pet_types_for_dropdown();
+
+			$data['pet_breeds'] = $this->employee_model->get_all_pet_breed_by_type_id($pet_id);
+
+			$this->load->view('employee/pet_details',$data);
+			$this->load->view('employee/layouts/sidebar.php',$data);
+			//print_r($data);
+
+
+			/*foreach($data['pet_breeds'] as $d){
+				echo $pet_breed = $d->breed;
+			}*/
+			
+
+			/*foreach($data['pet_types'] as $d){
+				echo $d->pettype_id;
+			}*/
+			//echo  $this->uri->segment(3);
+
 	}
 
 }

@@ -368,7 +368,14 @@ input:checked + .slider:before {
               <div class="box-body">
                 <center>
                   <?php foreach($show_customer_details as $customer_details):?>
-                      <img class="img-responsive" src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" alt="Admin Picture" >
+
+                    <?php if(empty($image)){ ?>
+                      <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-responsive" alt="User Image" style="height: 140px">
+                     <?php }else{ ?>
+                     <img class="img-responsive" src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" alt="Picture" >
+                     <?php } ?>
+                      
+                     
 
                   <?php endforeach;?>
                  </center>

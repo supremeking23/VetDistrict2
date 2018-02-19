@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2018 at 04:40 PM
+-- Generation Time: Feb 19, 2018 at 12:54 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -76,6 +76,18 @@ CREATE TABLE `tblappointments` (
   `cancellation_reason` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tblappointments`
+--
+
+INSERT INTO `tblappointments` (`appointment_id`, `customer_id`, `customer_name`, `telephone`, `cellphone`, `preferred_date`, `preferred_time_of_day`, `appointment_reason`, `date_requested`, `status`, `cancellation_reason`) VALUES
+(2, 0, 'Customer 1', '111111', '1111111', '2018-02-14', 'evening', 'hahha sample1', '2018-02-14 23:59:18', 'approved', ''),
+(3, 21, 'Karla Rose Mayumi Dele Cruz', '090911', '09121212121', '2018-02-15', 'afternoon', 'sdsdsdsd', '2018-02-15 00:25:03', 'approved', ''),
+(4, 0, 'Customer 2', '3232', '434', '2018-02-15', 'evening', 'ssddsds', '2018-02-15 00:41:31', 'cancelled', 'hahhahahaha na cancel ko to'),
+(5, 0, 'Bruno Mars', '9999', '090911212112', '2018-02-17', 'evening', 'may sakit si junny boy', '2018-02-17 19:38:41', 'done', ''),
+(6, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-19', 'afternoon', 'pacheck up ng aso ko', '2018-02-17 22:42:22', 'approved', ''),
+(7, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-23', 'moring', 'hahahhaha', '2018-02-19 00:14:04', 'approved', '');
+
 -- --------------------------------------------------------
 
 --
@@ -131,7 +143,7 @@ CREATE TABLE `tblcustomers` (
 --
 
 INSERT INTO `tblcustomers` (`customer_id`, `customer_user_id`, `first_name`, `middle_name`, `last_name`, `address`, `cellphone`, `telephone`, `email`, `image`, `gender`, `is_active`, `password`, `date_added`, `date_birth`) VALUES
-(15, 'C1802110323006', 'Christine', 'Batacan', 'Domingo', 'Makait', '090911212112', '09111', 'christinedomingo@gmail.com', '', 'female', 1, 'christinedomingo', '2018-02-11 15:24:33', '1995-06-06'),
+(15, 'C1802110323006', 'Christine', 'Batacan', 'Domingo', 'Makait', '090911212112', '09111', 'christinedomingo@gmail.com', 'avatar3.png', 'female', 1, 'christinedomingo', '2018-02-11 15:24:33', '1995-06-06'),
 (16, 'C1802110324497', 'Rey Vincent Phillip', 'Dineros', 'Villaver', 'Brgy. Olimpia Makati City', '090911212112', '090911', 'rvpvillaver@gmail.com', '', 'male', 0, 'rvpvillaver', '2018-02-11 15:28:45', '1995-06-06'),
 (17, 'C1802110328459', 'Aldwin ', 'Balagtas', 'Labrador', 'Cavite', '90093343434', '09111', 'A8labrador@gmail.com', '', 'male', 1, 'A8labrador', '2018-02-11 15:30:35', '1995-09-19'),
 (18, 'C1802110330352', 'Jay Jay', '', 'Helterbrand', 'Brgy. Ginebra San Miguel', '090911212112', '090911', 'mr.fast13@gmail.com', '', 'male', 1, 'mr.fast13', '2018-02-11 15:31:54', '1976-06-15'),
@@ -325,7 +337,8 @@ CREATE TABLE `tblpets` (
 INSERT INTO `tblpets` (`pet_id`, `pet_data_id`, `pet_name`, `pet_type`, `pet_breed`, `pet_size`, `date_birth`, `gender`, `pet_color`, `pet_image`, `date_added`, `customer_id`, `is_active`) VALUES
 (2, 'P1802111149553', 'Nimo', 1, 1, '3', '2016-05-17', 'female', '', '', '2018-02-11 23:50:33', 21, 0),
 (3, 'P1802111152454', 'Lily', 1, 2, '2', '2016-05-16', 'female', '', '', '2018-02-11 23:53:17', 21, 1),
-(4, 'P1802121206494', 'Vice Dragon', 1, 2, '5', '2010-06-15', 'male', '', '', '2018-02-12 00:11:22', 20, 1);
+(4, 'P1802121206494', 'Vice Dragon', 1, 2, '5', '2010-06-15', 'male', '', '', '2018-02-12 00:11:22', 20, 1),
+(5, 'P1802170830167', 'tine', 1, 2, '4', '2016-06-23', 'female', '', '', '2018-02-17 20:30:39', 15, 1);
 
 -- --------------------------------------------------------
 
@@ -610,7 +623,7 @@ ALTER TABLE `tbladmins`
 -- AUTO_INCREMENT for table `tblappointments`
 --
 ALTER TABLE `tblappointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tblcolorskins`
 --
@@ -660,7 +673,7 @@ ALTER TABLE `tblpetcheckup`
 -- AUTO_INCREMENT for table `tblpets`
 --
 ALTER TABLE `tblpets`
-  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tblpettype`
 --

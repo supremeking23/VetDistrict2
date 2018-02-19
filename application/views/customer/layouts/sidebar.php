@@ -17,7 +17,7 @@
           ?>
 
            <?php if(empty($image)){ ?>
-                    <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                      <?php }else{ ?>
                      <img src="<?php echo site_url()?>uploads/customer_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                      <?php } ?>
@@ -48,9 +48,9 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li><a href="<?php echo site_url();?>customer/dashboard"> <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-        <li><a href="<?php echo site_url();?>customer/appointments"><i class="fa fa-calendar"></i> <span>Appointments</span></a></li>
         <li><a href="<?php echo site_url();?>customer/pets"><i class="fa fa-firefox"></i> <span>Pets</span></a></li>
+        <li><a href="<?php echo site_url();?>customer/appointments"><i class="fa fa-calendar"></i> <span>Appointments</span></a></li>
+        
        <!-- <li><a href="<?php echo site_url();?>admin/products"><i class="fa  fa-th-list"></i> <span>Products</span></a></li> -->
         
         <li class="treeview" id="history_family">

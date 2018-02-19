@@ -1,9 +1,23 @@
+ <?php 
+
+            //for system preferences
+            foreach($get_system_settings as $system_settings){
+                $system_name = $system_settings->system_name;
+                $system_color_skin = $system_settings->color_skin;
+                $system_logo = $system_settings->system_logo;
+                $system_background_color = $system_settings->background_color;
+
+
+                $system_id = $system_settings->systemsetting_id;
+           }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet District Clinic | Admin</title>
+  <title><?php echo $system_name;?> | Admin</title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -17,7 +31,7 @@
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/skins/skin-green.css">
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/skins/<?php echo $system_color_skin?>.css">
    
      <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
@@ -99,16 +113,16 @@ input:checked + .slider:before {
 
 </head>
 
-<body class="hold-transition skin-green sidebar-mini" id="pet">
+<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="pet">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Vet </b></span>
+      <span class="logo-mini"><b></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Vet District</b></span>
+      <span class="logo-lg"><b><?php echo $system_name;?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -135,11 +149,11 @@ input:checked + .slider:before {
 
           <?php 
 
-            foreach($current_admin_login as $admin_login){
-               $first_name = $admin_login->first_name;
-               $middle_name = $admin_login->middle_name;
-               $last_name = $admin_login->last_name;
-               $image = $admin_login->image;
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
@@ -168,9 +182,9 @@ input:checked + .slider:before {
 
                         
 
-                        <p>
+                       <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                         <small>Admin</small>
+                          <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -178,10 +192,10 @@ input:checked + .slider:before {
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>employee/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>employee/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
@@ -236,7 +250,7 @@ input:checked + .slider:before {
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Pet ID</b> <a class="pull-right"><?php echo $pet_details->pet_id;?></a>
+                  <b>Pet ID</b> <a class="pull-right"><?php echo $pet_details->pet_data_id;?></a>
                 </li>
                 <li class="list-group-item">
                   <b>Pet Type</b> <a class="pull-right"><?php echo $pet_details->pet_type;?></a>
@@ -374,7 +388,7 @@ input:checked + .slider:before {
                       <select class="form-control" name="customer" id="customer">
                         <?php foreach($customers as $customer):?>
                             <option value="<?php echo $customer['customer_id'];?>"
-                              <?php if($customer['customer_id'] == $pet_details->customer_id){echo "selected";} ?> ><?php echo $customer['first_name'].' '.$customer['middle_name'].''.$customer['last_name'];?></option>
+                              <?php if($customer['customer_id'] == $pet_details->customer_id){echo "selected";} ?> ><?php echo $customer['first_name'].' '.$customer['middle_name'].' '.$customer['last_name'];?></option>
 
                         <?php endforeach;?>
                       </select>
@@ -634,7 +648,7 @@ input:checked + .slider:before {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
+     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#"><?php echo $system_name;?></a>.</strong> All rights reserved.
   </footer>
 
  

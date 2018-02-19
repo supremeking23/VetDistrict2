@@ -68,7 +68,8 @@ class Customer extends CI_Controller {
 
 				$this->session->set_userdata($user_data);
 
-				redirect('customer/dashboard');
+				
+				redirect('customer/pets');
 
 
 			}else{

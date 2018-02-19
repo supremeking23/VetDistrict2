@@ -17,7 +17,7 @@
           ?>
 
            <?php if(empty($image)){ ?>
-                    <img src="<?php echo site_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                    <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                      <?php }else{ ?>
                      <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                      <?php } ?>

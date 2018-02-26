@@ -69,6 +69,55 @@ class Appointment extends CI_Controller {
    		echo json_encode($appointments);
     }
 
+    
+
+
+
+    public function get_all_appointments_for_calendar(){
+
+    	$data_appointments = $this->appointment_model->get_all_appointments();
+
+   		$appointments = array();
+
+   		foreach ($data_appointments  as $data_appointment) {
+
+   			$datas = array();
+   			
+   			$datas['id'] = $data_appointment->appointment_id;
+   			$datas['title'] = $data_appointment->customer_name;
+   			$datas['start'] = $data_appointment->preferred_date;
+   			//status
+   			$status_color = "";
+   			if($data_appointment->status == "pending"){
+   				$status_color = "#D88B24";
+   			}else if($data_appointment->status == "approved"){
+   				$status_color = "#45A9FF";
+   			}else if($data_appointment->status == "done"){
+   				$status_color = "#008B24";
+   			}else if($data_appointment->status == "cancelled"){
+   				$status_color = "#FF1B00";
+   			}
+   			
+
+   			$datas['backgroundColor'] = $status_color;
+   			$datas['borderColor'] = $status_color;
+
+
+
+   			$datas['customer_name'] =   $data_appointment->customer_name;
+   			$datas['status'] =   $data_appointment->status;
+   			$datas['preferred_time'] = ucfirst($data_appointment->preferred_time_of_day);
+   			$datas['appointment_reason'] = ucfirst($data_appointment->appointment_reason);
+
+
+   			$datas['cancellation_reason'] = ucfirst($data_appointment->cancellation_reason);
+
+   			//merget the vent array into the return array
+			array_push($appointments, $datas);
+   		}
+   		echo json_encode($appointments);
+    }
+
 
 
 

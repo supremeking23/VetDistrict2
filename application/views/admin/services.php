@@ -156,12 +156,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Medicine 
-        <small>Medicine List</small>
+        Services 
+        <small>Service List</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Medicine</li>
+        <li class="active">Services</li>
       </ol>
     </section>
 
@@ -173,87 +173,41 @@
 
           <div id="modal_section">
 
-              <!-- add pet message--> 
-               <?php if ($this->session->flashdata('add_med_success')) { ?>
-         
-                   <div class="modal modal-success" id="successmodal" role="dialog">
-                     <div class="modal-dialog">
-                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"></h4>
-                      </div>
-                      <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('add_med_success'); ?> </p>
-                      </div>
-                      <div class="modal-footer">
-                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
-                     </div>
-                     </div>
-                     </div>
-                  </div>
-
-               <?php } ?>
-
-
-               <!-- add  type message--> 
-               <?php if ($this->session->flashdata('add_medtype_success')) { ?>
-         
-                   <div class="modal modal-success" id="successmodal" role="dialog">
-                     <div class="modal-dialog">
-                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"></h4>
-                      </div>
-                      <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('add_medtype_success'); ?> </p>
-                      </div>
-                      <div class="modal-footer">
-                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
-                     </div>
-                     </div>
-                     </div>
-                  </div>
-
-               <?php } ?>
-
-
+              
 
 
 
                
 
                 <!-- add Modal-->  
-                <div class="modal fade" id="addMedModal">
+                <div class="modal fade" id="addServiceModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new Medicine</h4>
+                        <h4 class="modal-title">Add new Service</h4>
                       </div>
                       <div class="modal-body">
                         <?php //beginning form
-                          echo form_open_multipart('admin/create_new_medicine');
+                          echo form_open_multipart('service/create_new_service');
                         ?>
 
 
                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Medicine Name"   name="med_name" required="">
+                            <input type="text"  class="form-control" placeholder="Service Name"   name="service_name" required="">
                             <span class="fa fa-sitemap form-control-feedback"></span>
                           </div>
 
 
 
                       <div class="form-group has-feedback">
-                        <select id="med_type" name="med_type" class="form-control" required="">
-                                 <option value="">Medicine Type</option>
-                                <?php foreach($drug_type as $type):?>
+                        <select id="service_type" name="service_type" class="form-control" required="">
+                                 <option value="">Service Type</option>
+                               
+                                <?php foreach($service_types as $service_type):?>
                                  
-                                 <option value="<?php echo $type['drugtype_id']?>"><?php echo ucfirst($type['drug_type']);?></option>
+                                 <option value="<?php echo $service_type->servicetype_id;?>"><?php echo ucfirst($service_type->servicetype_name);?></option>
                                  <?php ?>
                                <?php endforeach;?>
                                </select>
@@ -261,22 +215,21 @@
 
 
                        
-
                           
 
 
+
                         <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Price"   name="med_price" required="">
+                            <input type="text"  class="form-control" placeholder="Price"   name="service_price" required="">
                             <span class="fa fa-sitemap form-control-feedback"></span>
                         </div>
 
 
-
-                        <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Quantity"   name="med_qty" required="">
-                            <span class="fa fa-sitemap form-control-feedback"></span>
-                        </div>
-
+                          <div class="form-group has-feedback">
+                                        <textarea style="width: 100%;height: 70px" name="service_description" placeholder="Description"></textarea>
+                                        
+                          </div>
+                       
 
 
                      
@@ -285,7 +238,7 @@
 
                       </div><!-- end modal content-->
                       <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_med', 'name' =>'add_med', 'value' => 'Add Medicine','class'=>'pull-right btn btn-primary')); ?>
+                        <?php echo form_submit(array('id' => 'add_service', 'name' =>'add_service', 'value' => 'Add Service','class'=>'pull-right btn btn-primary')); ?>
                         
                       </div>
 
@@ -299,26 +252,32 @@
 
 
                 <!--addTypeModal-->
-                <div class="modal fade" id="addMedTypeModal">
+                <div class="modal fade" id="addServiceTypeModal">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title">Add new medicine type</h4>
+                      <h4 class="modal-title">Add new service type</h4>
                     </div>
                     <div class="modal-body">
-                      <?php echo form_open_multipart('admin/create_new_medtype');?>
+                      <?php echo form_open_multipart('service/create_new_servicetype');?>
 
                          <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Medicine Type"   name="new_drug_type" required="">
+                            <input type="text"  class="form-control" placeholder="Service Type"   name="new_service_type" required="">
                             <span class="fa fa-sitemap form-control-feedback"></span>
+                          </div>
+
+
+                           <div class="form-group has-feedback">
+                                        <textarea style="width: 100%;height: 70px" name="service_type_description" placeholder="Description"></textarea>
+                                        
                           </div>
 
                       
                     </div>
                     <div class="modal-footer">
-                      <?php echo form_submit(array('id' => 'add_medtype', 'name' =>'add_medtype', 'value' => 'Add Medicine Type','class'=>'pull-right btn btn-primary')); ?>
+                      <?php echo form_submit(array('id' => 'add_servicetype', 'name' =>'add_servicetype', 'value' => 'Add Service Type','class'=>'pull-right btn btn-primary')); ?>
                     </div>
 
                     <?php echo form_close();?>
@@ -347,7 +306,7 @@
                       <span class="info-box-number">10</span>
                 
 
-                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addMedModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addServiceModal">
                     Add new service
                   </button>
                  
@@ -367,13 +326,20 @@
                  
                   <span class="info-box-number"><br/></span>
 
-                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addMedTypeModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addServiceTypeModal">
                     Add new service type
                   </button>
                  
                 </div>
               </div>
             </div>
+
+
+
+            
+
+
+
 
 
 
@@ -384,80 +350,275 @@
       <div class="row">
        
        <div class="col-xs-12">
-       <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Medicine</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table  class="data-table table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Service Name</th>
-                  <th>Service Type</th>
-                  <th>Price</th>
-                  
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
+         <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Services</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body table-responsive">
+                <table  class="data-table table table-bordered table-striped">
+                  <thead>
                   <tr>
-                    <td>Skin and coat treatment (Small Breed)</td>
-                    <td>Skin care</td>
-                    <td>150.00</td>
+                    <th>Service Name</th>
+                    <th>Service Type</th>
+                    <th>Price</th>
+                    
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                   
+                   <?php foreach($services as $service):?>
+                  
+                  <tr>
+                    <td><?php echo $service->service_name;?></td>
+                    <td><?php echo $service->servicetype_name;?></td>
+                    <td><?php echo $service->price;?></td>
                     <td>
-                      <button type="button" class="btn btn-primary btn-sm">Add to Store</button>
-                      <button class="btn btn-info btn-sm">View Details</button>
+                      <a data-toggle="modal" data-target="#view_details<?php echo $service->service_id?>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-fullscreen"></span>  View Details</a>
+
+
+                       <?php 
+
+                          $state;
+                          if($service->is_active == 1){
+                            $state = "Active";
+                            $btn_type="success";
+                          }else{
+                            $state = "Not Active";
+                            $btn_type="danger";
+                          }
+
+                        ?>
+
+                      <a data-tooltip="tooltip" title="Click to change state. Current state is <?php echo $state;?>" class="btn btn-<?php echo $btn_type;?> btn-sm" data-toggle="modal" data-target="#change_service_state<?php echo $service->service_id?>"><?php echo $state;?></a>
                     </td>
                   </tr>
-                   <tr>
-                    <td>Nail Cutting (Small Breed)</td>
-                    <td>Grooming</td>
-                    <td>50.00</td>
-                    <td>
-                      <button type="button" class="btn btn-primary btn-sm">Add to Store</button>
-                      <button class="btn btn-info btn-sm">View Details</button>
-                    </td>
-                  </tr>
-                   <tr>
-                    <td>Nail Cutting (Big Breed)</td>
-                    <td>Grooming</td>
-                    <td>150.00</td>
-                    <td>
-                      <button type="button" class="btn btn-primary btn-sm">Add to Store</button>
-                      <button class="btn btn-info btn-sm">View Details</button>
-                    </td>
-                  </tr>
-                   <tr>
-                    <td>Full Grooming (Small Breed)</td>
-                    <td>Grooming</td>
-                    <td>550.00</td>
-                    <td>
-                      <button type="button" class="btn btn-danger btn-sm">Remove to Store</button>
-                      <button class="btn btn-info btn-sm">View Details</button>
-                    </td>
-                  </tr>
-                   <tr>
-                    <td>Full Grooming (Big Breed)</td>
-                    <td>Grooming</td>
-                    <td>750.00</td>
-                    <td>
-                      <button type="button" class="btn btn-primary btn-sm">Add to Store</button>
-                      <button class="btn btn-info btn-sm">View Details</button>
-                    </td>
-                  </tr>
-              
-                </tbody>
-                
-              </table>
+
+
+                   <div class="modal fade" id="view_details<?php echo $service->service_id?>">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title">Service Detail</h4>
+                                </div>
+                            <div class="modal-body">
+                              <dl class="dl-horizontal">
+                                <dt>Service</dt>
+                                <dd><?php echo $service->service_name;?></dd>
+                                
+                                
+                               
+                                <dt>Price</dt>
+                                <dd><?php echo $service->price;?></dd>
+                                
+                                <dt>Service Description</dt>
+                                <dd><?php echo $service->service_description;?></dd>
+
+                                <dt>Status</dt>
+                                  
+                                 <dd>
+                                   
+                                    <?php if($service->is_active == 0){ ?>
+
+                                      <span class="label label-danger">Not Active</span>
+
+                                  <?php  }else{ ?>
+
+                                      <span class="label label-success">Active</span>
+
+                                  <?php }?>
+
+
+                                 </dd>
+                              </dl>
+
+                                <hr>
+
+                              <dl class="dl-horizontal">
+
+                                <dt>Service Type</dt>
+                                <dd><?php echo $service->servicetype_name;?></dd>
+
+                                <dt>Service type Description</dt>
+                                <dd><?php echo $service->servicetype_description;?></dd>
+
+
+                                
+                                
+                               
+                               
+                              </dl>
+                            </div>
+                            <div class="modal-footer">
+                             
+                            </div>
+                          </div>
+                          <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                   </div>
+
+
+                    <div class="modal fade modal-danger" id="change_service_state<?php echo $service->service_id?>">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"  aria-label="Close">
+                                      <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Access Confirmation</h4>
+                                  </div>
+
+                                   <?php //beginning form
+                                      echo form_open_multipart('service/change_service_state','class="form-horizontal"');
+                                ?>
+                                  <div class="modal-body">
+                                    <input type="hidden" name="current_state" value="<?php echo  $service->is_active;?>">
+                                    <input type="hidden" name="service_id" value="<?php echo  $service->service_id;?>">
+                                    <p>Please enter your password to continue </p>
+                                    <div class="has-feedback">
+                                        <input type="password"   required="" class="form-control" placeholder="Password" name="password_confirmation">
+                                      
+                                    </div>
+
+
+                                    
+                                  </div>
+
+                                  <div class="modal-footer">
+                                     <?php echo form_submit(array('id' => 'change_state', 'name' =>'change_state', 'value' => 'Submit','class'=>'pull-right btn btn-primary')); ?>
+                                   
+                                  </div> 
+                                  <?php echo form_close();?>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                    </div>
+
+
+
+
+
+                   <?php endforeach;?>
+
+                  </tbody>
+                  
+                </table>
+              </div>
+              <!-- /.box-body -->
             </div>
-            <!-- /.box-body -->
-          </div>
           <!-- /.box -->
 
-          </div>
+        </div>
+     
       </div>
       <!-- /.row (main row) -->
+
+
+      <div class="row">
+
+
+         <?php if ($this->session->flashdata('add_servicetype_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('add_servicetype_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+
+                <?php if ($this->session->flashdata('add_service_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('add_service_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+
+                <?php if ($this->session->flashdata('service_state')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('service_state'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+
+                <?php if ($this->session->flashdata('incorrect_password')) { ?>
+         
+                   <div class="modal modal-danger" id="dangermodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('incorrect_password'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+
+               
+      </div>
 
     </section>
     <!-- /.content -->

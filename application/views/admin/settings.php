@@ -562,10 +562,10 @@
           
           <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">Add Banner Image</h3>
+                <h3 class="box-title">Add Gallery Image</h3>
 
                 <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addBanner"  data-toggle="tooltip" title="Add Banner">
+                  <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addBanner"  data-toggle="tooltip" title="Add Gallery Image">
                     <i class="fa fa-plus"></i></button>
                  
                   <div class="modal fade" id="addBanner">
@@ -574,12 +574,12 @@
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                          <h4 class="modal-title">Add Banner Image</h4>
+                          <h4 class="modal-title">Add Gallery Image</h4>
                         </div>
 
 
                     <?php //beginning form
-                            echo form_open_multipart('admin/update_system_settings');
+                            echo form_open_multipart('image_gallery_controller/add_image_to_gallery');
                       ?>
                         <div class="modal-body">
 
@@ -587,10 +587,10 @@
                                     <div class="col-md-12">
 
                                         <div class="form-group has-feedback">
-                                          <p>Add Banner</p>
-                                          <input type="file"   class="form-control"  name="banner_image" onchange="document.getElementById('banner_Image').src = window.URL.createObjectURL(this.files[0])" >
+                                          <p>Add Gallery Image</p>
+                                          <input type="file"   class="form-control"  name="gallery_image" onchange="document.getElementById('gallery_Image').src = window.URL.createObjectURL(this.files[0])" >
                                           <br />
-                                          <img  id="banner_Image" class="img-rounded" alt="" width="100%" height="200" src="" />
+                                          <img  id="gallery_Image" class="img-rounded" alt="" width="100%" height="200" src="" />
                                         </div>
 
                                     </div>
@@ -603,7 +603,7 @@
 
                         <div class="modal-footer">
                          
-                            <input type="submit" name="add_banner" value="Add Banner" class="btn btn-primary btn-sm pull-right">
+                            <input type="submit" name="add_gallery" value="Add" class="btn btn-primary btn-sm pull-right">
                         </div>
 
 
@@ -621,19 +621,42 @@
               </div>
               <div class="box-body">
                 
-                <div class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                      <div class="item active">
-                        <img src="<?php echo site_url()?>assets/images/carousel-lifestyle.jpg" alt="dsd">
-                      </div>
-                       <div class="item">
-                        <img src="<?php echo site_url()?>assets/images/carousel-mission.jpg" alt="dsd">
-                      </div>
-                      <div class="item">
-                        <img src="<?php echo site_url()?>assets/images/carousel-vaccinations.jpg" alt="dsd">
-                      </div>
-                    </div>
-                </div>
+
+                <div class="carousel slide" data-ride="carousel" id="featured">
+
+
+                  <div class="carousel-inner">
+
+                      <?php foreach($image_gallery as $images_for_gallery):?>
+
+                        <?php if( $images_for_gallery->image_id == 1){
+                            $carousel_item_active ="active";
+                        }else{
+                           $carousel_item_active="";
+                        }
+
+                        ?>
+
+                        <div class="item <?php echo $carousel_item_active; ?>">
+                           <img src="<?php echo site_url()?>uploads/gallery_images/<?php echo $images_for_gallery->image_name;?>" alt="">
+
+                        </div>
+
+                      
+                      <?php endforeach;?>
+
+                  </div>
+
+
+                  <a class="left carousel-control" href="#featured" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                  </a>
+
+                    <a class="right carousel-control" href="#featured" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                  </a>
+
+                  </div>
 
               </div>
               <!-- /.box-body -->
@@ -668,7 +691,7 @@
 
 
                     <?php //beginning form
-                            echo form_open_multipart('admin/update_system_settings');
+                            echo form_open_multipart('admin/update_mission');
                       ?>
                         <div class="modal-body">
 
@@ -676,14 +699,16 @@
                                     <div class="col-md-12">
 
                                         <div class="form-group has-feedback">
-                                          <textarea style="width: 100%;height: 150px" class="form-control">
-                                            Vetopia strives to blend the best in traditional and alternative medicine in the diagnosis and treatment of companion animals including dogs, cats, birds, reptiles, rodents, and fish. We apply the wisdom garnered in the centuries old tradition of veterinary medicine, to find the safest treatments and cures. We strive to be your pet's medical experts from youth through the senior years. We build preventative health care plans for each and every one of our patients, based on breed, age, and sex, so that your pet receives the most appropriate care at crucial milestones. We want to give your pet a long and healthy life.
+                                          <textarea style="width: 100%;height: 150px" class="form-control" name="mission">
+                                           <?php foreach($company_mission as $mission):?>
+                                              <?php echo $mission->mission;?>
+                                           <?php endforeach;?>
                                           </textarea>
                                         </div>
 
                                     </div>
 
-                                  
+                                  <input type="hidden" name="system_id" value="<?php echo $system_id;?>">
                                 </div>                          
 
                         </div>
@@ -691,7 +716,7 @@
 
                         <div class="modal-footer">
                          
-                            <input type="submit" name="add_banner" value="Add Banner" class="btn btn-primary btn-sm pull-right">
+                            <input type="submit" name="update_mission" value="Update Mission" class="btn btn-primary btn-sm pull-right">
                         </div>
 
 
@@ -709,7 +734,9 @@
               </div>
               <div class="box-body">
                 
-                <p>Vetopia strives to blend the best in traditional and alternative medicine in the diagnosis and treatment of companion animals including dogs, cats, birds, reptiles, rodents, and fish. We apply the wisdom garnered in the centuries old tradition of veterinary medicine, to find the safest treatments and cures. We strive to be your pet's medical experts from youth through the senior years. We build preventative health care plans for each and every one of our patients, based on breed, age, and sex, so that your pet receives the most appropriate care at crucial milestones. We want to give your pet a long and healthy life.</p>
+                <?php foreach($company_mission as $mission):?>
+                    <?php echo $mission->mission;?>
+                 <?php endforeach;?>
 
               </div>
               <!-- /.box-body -->
@@ -725,6 +752,55 @@
       </div>
 
       
+
+      <div class="row">
+        
+          <?php if ($this->session->flashdata('add_image_gallery_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('add_image_gallery_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+          <?php if ($this->session->flashdata('update_mission_success')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('update_mission_success'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+      </div>
 
 
      

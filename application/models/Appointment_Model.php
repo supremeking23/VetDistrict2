@@ -19,7 +19,7 @@ class Appointment_Model extends CI_Model
 
 
 //----------------------------- APPOINTMENT RELATED MODEL ----------------//
-    //for calendar only
+    //for calendar only /// only employee uses it... must change
 	public function get_all_appointments_approved(){
 
 		/*$this->db->select('a.prod_med_id,a.med_name, a.med_price, a.med_qty, a.image, a.is_active, a.drugtype_id, b.drug_type');
@@ -50,7 +50,7 @@ class Appointment_Model extends CI_Model
 
 
 
-	public function get_all_appointments(){
+	public function get_all_appointments_for_calendar(){
 
 		/*$this->db->select('a.prod_med_id,a.med_name, a.med_price, a.med_qty, a.image, a.is_active, a.drugtype_id, b.drug_type');
 		$this->db->from('tblproductmedicines a');
@@ -59,6 +59,20 @@ class Appointment_Model extends CI_Model
 
 		//$query = $this->db->get("tblappointments");
 
+		$this->db->select('*');
+		$this->db->from('tblappointments');
+		
+		$this->db->order_by('appointment_id', 'DESC');
+		$query = $this->db->get();
+		$result_set = $query->result();
+
+		return $result_set;
+	}
+
+
+
+
+	public function get_all_appointments(){
 		$this->db->select('*');
 		$this->db->from('tblappointments');
 		

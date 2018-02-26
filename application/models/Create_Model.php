@@ -29,6 +29,18 @@ class Create_Model extends CI_Model
 
   //for PRODUCTS
 
+
+  public function create_servicetype($data){
+    $this->db->insert('tblservicetype',$data);
+  }
+
+
+  public function create_service($data){
+     $this->db->insert('tblservices',$data);
+  }
+
+
+
   public function create_drugtype($data){
     $this->db->insert('tbldrugtype',$data);
   }

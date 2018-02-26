@@ -98,6 +98,15 @@ class Update_Model extends CI_Model
 
 
 
+  //change state for : service
+  public function update_state_service($service_id,$data){
+      $this->db->where('service_id', $service_id);
+      $this->db->update('tblservices', $data);
+  }
+
+
+
+
 
 
 

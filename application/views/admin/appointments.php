@@ -579,8 +579,7 @@
                             </dl>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                              
                           </div>
                         </div>
                         <!-- /.modal-content -->
@@ -609,8 +608,9 @@
 
       <div class="row">
         <div class="col-md-12">
-          <div class="box box-primary">
-            <div class="box-body no-padding">
+          <div class="box " >
+              
+            <div class="box-body">
               <!-- THE CALENDAR -->
               <div id="calendar"></div>
             </div>
@@ -643,6 +643,25 @@
                       <dd id="appointment_reason">
                       </dd>
                     </dl>
+
+
+                     <hr>
+
+                          <dl class="dl-horizontal">
+                                <dt>Status</dt>
+                                <dd id="appointment_Status">
+                                  <span id="appointmentStatus" class="label"> </span>
+                                </dd>
+                              
+                                 
+                                <fieldset id="is_cancelled">
+                                  <dt>Cancellation Reason</dt>
+                                  <dd id="cancel_reason">
+                                    
+                                  </dd>
+                                </fieldset>
+                              
+                          </dl>
 
                 </div>
                 <input type="hidden" id="appointmentID"/>
@@ -842,7 +861,7 @@
         },
     
          events: {
-              url: '<?php echo base_url('appointment/get_all_appointments_approved/')?>',
+              url: '<?php echo base_url('appointment/get_all_appointments_for_calendar/')?>',
               type: 'GET', // Send post data
               //backgroundColor: '',
               error: function() {
@@ -862,6 +881,36 @@
                 $('#preferred_time').html(event.preferred_time);
                 
                 $('#appointment_reason').html(event.appointment_reason);
+
+
+
+                var status = event.status;
+
+                if(status == "pending"){
+                  $('.label').addClass('label-warning');
+                }else if(status == "cancelled"){
+                  $('.label').addClass('label-danger');
+                }else if(status == "approved"){
+                  $('.label').addClass('label-info');
+                }else if(status == "done"){
+                  $('.label').addClass('label-success');
+                }
+
+                //span
+                $('#appointmentStatus').html(event.status);
+
+
+                var cancellation_reason = event.cancellation_reason;
+
+                if(cancellation_reason == ""){
+                  $('#is_cancelled').hide();
+                }else{
+                  $('#is_cancelled').show();
+                }
+
+                $('#cancel_reason').html(event.cancellation_reason);
+
+                //alert(status);
                 //$('#startTime').html(mywhen);
                 $('#appointmentID').val(event.id);
                

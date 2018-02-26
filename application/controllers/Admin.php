@@ -22,6 +22,15 @@ class Admin extends CI_Controller {
 		$this->load->model('system_settings_model');
 
 
+		//for services
+		$this->load->model('service_model');
+
+
+		//inventory
+		$this->load->model('inventory_model');
+
+
+
 		//library
 		$this->load->library('form_validation');
 	}
@@ -68,8 +77,43 @@ class Admin extends CI_Controller {
 		//this page only
 		$data['skin_colors'] = $this->admin_model->get_all_color_skin();
 
+		$data['image_gallery'] = $this->system_settings_model->get_all_image_gallery();
+
+		$data['company_mission'] = $this->system_settings_model->get_mission();
+
 		$this->load->view('admin/settings',$data);
 		$this->load->view('admin/layouts/sidebar.php',$data);
+	}
+
+
+
+
+
+	public function update_mission(){
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		$system_id = $this->input->post('system_id');
+
+		$data = array(
+
+	        		'mission' => $this->input->post('mission'),  		
+	        	);
+
+			//Transfering data to Model
+		$this->admin_model->update_settings($system_id,$data);
+		$this->session->set_flashdata('update_mission_success','Mission has been updated');
+
+
+		redirect('admin/settings');
 	}
 
 
@@ -653,9 +697,9 @@ class Admin extends CI_Controller {
 		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 
-
+		$data['service_types'] = $this->service_model->get_all_service_type(); 
 		
-
+		$data['services'] = $this->service_model->get_all_services_details();
 
 		$this->load->view('admin/services',$data);
 		$this->load->view('admin/layouts/sidebar.php',$data);
@@ -730,14 +774,41 @@ class Admin extends CI_Controller {
 	}
 
 
-
-
-
-
-
-
-
 	//-----------------------------END PRODUCT--------------------------------------//
+
+
+
+
+	///////////////REPORTS
+
+	public function inventory(){
+
+		
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+
+
+		//get all inventory item details
+		$data['item_inventory'] = $this->inventory_model->get_all_inventory_details_for_items();
+
+		$data['medicine_inventory'] = $this->inventory_model->get_all_inventory_details_for_medicines();
+
+		$this->load->view('admin/inventory_report',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
+	}
+
+	//////////end REPORTS
 
 
 	public function customers(){
@@ -1280,7 +1351,7 @@ class Admin extends CI_Controller {
 
 			$action = "Add Product";
 			$user_type="Admin";
-
+			$inventory_date = date('Y-m-d H:i:s');
 			$data = array(
 				
 				'user_type' => $user_type,
@@ -1288,7 +1359,7 @@ class Admin extends CI_Controller {
 				'action' => $action ,
 				'product_med_id' => $insertId,
 				'quantity' => $this->input->post('med_qty'),
-				'inventory_date' => time(),
+				'inventory_date' => $inventory_date,
 
 			);
 
@@ -1338,7 +1409,7 @@ class Admin extends CI_Controller {
 
 			$action = "Add Product";
 			$user_type="Admin";
-
+			$inventory_date = date('Y-m-d H:i:s');
 			$data = array(
 				
 				'user_type' => $user_type,
@@ -1346,7 +1417,7 @@ class Admin extends CI_Controller {
 				'action' => $action ,
 				'product_item_id' => $insertId,
 				'quantity' => $this->input->post('item_qty'),
-				'inventory_date' => time(),
+				'inventory_date' => $inventory_date,
 
 			);
 
@@ -2042,8 +2113,8 @@ class Admin extends CI_Controller {
 
 			$user_type = "Admin";
 			$action = "Update Quantity";
-			$inventory_date = time();
-
+			$inventory_date = date('Y-m-d H:i:s');
+			//$now = date('Y-m-d H:i:s');
 
 			$data = array(
         		
@@ -2169,7 +2240,7 @@ class Admin extends CI_Controller {
 
 			$user_type = "Admin";
 			$action = "Update Quantity";
-			$inventory_date = time();
+			$inventory_date = date('Y-m-d H:i:s');
 
 
 			$data = array(

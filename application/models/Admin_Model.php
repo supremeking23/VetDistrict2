@@ -305,7 +305,10 @@ class Admin_Model extends CI_Model
 
 	//FOR ITEMS
 	public function get_all_item(){
-		$result_set = $this->db->get('tblproductitems');
+		$this->db->select('*');
+		$this->db->from('tblproductitems');
+		$this->db->order_by('prod_item_id','DESC');
+		$result_set = $this->db->get();
 		return $result_set->result_array();
 	}
 

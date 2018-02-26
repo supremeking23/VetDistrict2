@@ -83,7 +83,7 @@
           </a>
           <ul class="treeview-menu">
             <li id="med"><a href="<?php echo site_url();?>admin/sales_report"><i class="fa fa-circle-o"></i> Sales Report</a></li>
-            <li id="item"><a href="<?php echo site_url();?>admin/inventory_report"><i class="fa fa-circle-o"></i> Inventory Report</a></li>
+            <li id="item"><a href="<?php echo site_url();?>admin/inventory"><i class="fa fa-circle-o"></i> Inventory Report</a></li>
           </ul>
         </li>
 

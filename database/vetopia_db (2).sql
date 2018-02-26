@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2018 at 12:54 PM
+-- Generation Time: Feb 26, 2018 at 05:29 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -86,7 +86,8 @@ INSERT INTO `tblappointments` (`appointment_id`, `customer_id`, `customer_name`,
 (4, 0, 'Customer 2', '3232', '434', '2018-02-15', 'evening', 'ssddsds', '2018-02-15 00:41:31', 'cancelled', 'hahhahahaha na cancel ko to'),
 (5, 0, 'Bruno Mars', '9999', '090911212112', '2018-02-17', 'evening', 'may sakit si junny boy', '2018-02-17 19:38:41', 'done', ''),
 (6, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-19', 'afternoon', 'pacheck up ng aso ko', '2018-02-17 22:42:22', 'approved', ''),
-(7, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-23', 'moring', 'hahahhaha', '2018-02-19 00:14:04', 'approved', '');
+(7, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-23', 'moring', 'hahahhaha', '2018-02-19 00:14:04', 'approved', ''),
+(8, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-27', 'afternoon', 'checking last', '2018-02-24 13:35:52', 'pending', '');
 
 -- --------------------------------------------------------
 
@@ -221,6 +222,27 @@ INSERT INTO `tblemployees` (`employee_id`, `employee_user_id`, `employee_type`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblimagegallery`
+--
+
+CREATE TABLE `tblimagegallery` (
+  `image_id` int(11) NOT NULL,
+  `image_name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblimagegallery`
+--
+
+INSERT INTO `tblimagegallery` (`image_id`, `image_name`) VALUES
+(1, 'carousel-mission.jpg'),
+(2, 'carousel-lifestyle.jpg'),
+(3, 'carousel-fish.jpg'),
+(4, 'carousel-mission.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblinventoryforitems`
 --
 
@@ -231,7 +253,7 @@ CREATE TABLE `tblinventoryforitems` (
   `action` varchar(45) NOT NULL,
   `product_item_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `inventory_date` int(11) NOT NULL
+  `inventory_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -239,10 +261,15 @@ CREATE TABLE `tblinventoryforitems` (
 --
 
 INSERT INTO `tblinventoryforitems` (`inv_item_id`, `user_type`, `user_id`, `action`, `product_item_id`, `quantity`, `inventory_date`) VALUES
-(1, 'Admin', 2, 'Add Product', 2, 101, 1514904600),
-(2, 'Admin', 2, 'Update Quantity', 1, 102, 1514914567),
-(3, 'Admin', 2, 'Update Quantity', 2, 110, 1514914605),
-(4, 'Admin', 5, 'Add Product', 3, 1000, 1518371891);
+(1, 'Admin', 2, 'Add Product', 2, 101, '2018-02-11 23:45:18'),
+(2, 'Admin', 2, 'Update Quantity', 1, 102, '2018-02-11 23:45:18'),
+(3, 'Admin', 2, 'Update Quantity', 2, 110, '2018-02-11 23:45:18'),
+(4, 'Admin', 5, 'Add Product', 3, 1000, '2018-02-11 23:45:18'),
+(5, 'Admin', 5, 'Add Product', 4, 100, '2018-02-11 23:45:18'),
+(6, 'Admin', 5, 'Update Quantity', 4, 102, '2018-02-25 23:25:56'),
+(7, 'Admin', 5, 'Add Product', 5, 100, '2018-02-25 23:27:08'),
+(8, 'Admin', 4, 'Update Quantity', 1, 56, '2018-02-26 21:13:06'),
+(9, 'Admin', 4, 'Update Quantity', 5, 101, '2018-02-26 21:27:19');
 
 -- --------------------------------------------------------
 
@@ -257,7 +284,7 @@ CREATE TABLE `tblinventoryformedicines` (
   `action` varchar(45) NOT NULL,
   `product_med_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `inventory_date` int(11) NOT NULL
+  `inventory_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -265,8 +292,12 @@ CREATE TABLE `tblinventoryformedicines` (
 --
 
 INSERT INTO `tblinventoryformedicines` (`inv_med_id`, `user_type`, `user_id`, `action`, `product_med_id`, `quantity`, `inventory_date`) VALUES
-(1, 'Admin', 2, 'Add Product', 3, 41, 1514822057),
-(2, 'Admin', 2, 'Update Quantity', 1, 11, 1514974347);
+(1, 'Admin', 2, 'Add Product', 3, 41, '2018-02-11 23:45:18'),
+(2, 'Admin', 2, 'Update Quantity', 1, 11, '2018-02-11 23:45:18'),
+(3, 'Admin', 5, 'Add Product', 4, 168, '2018-02-11 23:45:18'),
+(4, 'Admin', 5, 'Update Quantity', 4, 161, '2018-02-25 23:29:21'),
+(5, 'Admin', 4, 'Add Product', 5, 100, '2018-02-26 22:24:10'),
+(6, 'Admin', 4, 'Update Quantity', 5, 121, '2018-02-26 22:24:20');
 
 -- --------------------------------------------------------
 
@@ -380,9 +411,11 @@ CREATE TABLE `tblproductitems` (
 --
 
 INSERT INTO `tblproductitems` (`prod_item_id`, `item_name`, `item_price`, `item_qty`, `image`, `is_active`) VALUES
-(1, 'Dog Lace', '50.00', 102, 'g4.jpg', 1),
+(1, 'Dog Lace', '50.00', 56, 'g4.jpg', 1),
 (2, 'Dog Lace 2', '50.00', 110, '', 1),
-(3, 'Cat lace', '55.00', 1000, '', 1);
+(3, 'Cat lace', '55.00', 1000, '', 1),
+(4, 'Cat Food (50mg)', '160.00', 102, '', 1),
+(5, 'Cat Food (70mg)', '50.00', 101, '', 1);
 
 -- --------------------------------------------------------
 
@@ -407,7 +440,9 @@ CREATE TABLE `tblproductmedicines` (
 INSERT INTO `tblproductmedicines` (`prod_med_id`, `drugtype_id`, `med_name`, `med_price`, `med_qty`, `image`, `is_active`) VALUES
 (1, 1, 'Antibiotic A+B', '51.00', 11, 'cirrus.png', 1),
 (2, 1, 'Antibiotic B', '444.00', 41, '', 1),
-(3, 1, 'Antibiotic C', '444.00', 41, '', 1);
+(3, 1, 'Antibiotic C', '444.00', 41, '', 1),
+(4, 2, 'Vitamin C++', '300.00', 161, '', 1),
+(5, 2, 'Carrots meds', '90.00', 121, '', 1);
 
 -- --------------------------------------------------------
 
@@ -447,8 +482,17 @@ CREATE TABLE `tblservices` (
   `servicetype_id` int(11) NOT NULL,
   `service_name` varchar(45) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `add_to_store` int(11) NOT NULL
+  `service_description` text NOT NULL,
+  `is_active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblservices`
+--
+
+INSERT INTO `tblservices` (`service_id`, `servicetype_id`, `service_name`, `price`, `service_description`, `is_active`) VALUES
+(1, 1, 'Nail Cutting (Smal Breed)', '74.00', 'nail cutting for small breeds', 0),
+(2, 1, 'Nail Cutting (Big Breed)', '150.00', 'Nail Cutting for Big Breeds\r\n', 1);
 
 -- --------------------------------------------------------
 
@@ -461,6 +505,13 @@ CREATE TABLE `tblservicetype` (
   `servicetype_name` varchar(45) NOT NULL,
   `servicetype_description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblservicetype`
+--
+
+INSERT INTO `tblservicetype` (`servicetype_id`, `servicetype_name`, `servicetype_description`) VALUES
+(1, 'Grooming', 'Grooming includes the following services');
 
 -- --------------------------------------------------------
 
@@ -476,15 +527,16 @@ CREATE TABLE `tblsystemsettings` (
   `background_color` varchar(45) NOT NULL,
   `login_photo_admin` text NOT NULL,
   `login_photo_employee` text NOT NULL,
-  `login_photo_customer` text NOT NULL
+  `login_photo_customer` text NOT NULL,
+  `mission` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblsystemsettings`
 --
 
-INSERT INTO `tblsystemsettings` (`systemsetting_id`, `system_name`, `system_logo`, `color_skin`, `background_color`, `login_photo_admin`, `login_photo_employee`, `login_photo_customer`) VALUES
-(1, 'Vetopia', 'vet4.png', 'skin-green', '#008d4c', 'carousel-stateoftheart1.jpg', 'b22.jpg', 'carousel-fish.jpg');
+INSERT INTO `tblsystemsettings` (`systemsetting_id`, `system_name`, `system_logo`, `color_skin`, `background_color`, `login_photo_admin`, `login_photo_employee`, `login_photo_customer`, `mission`) VALUES
+(1, 'Vetopia', 'vet4.png', 'skin-green', '#008d4c', 'carousel-stateoftheart1.jpg', 'b22.jpg', 'carousel-fish.jpg', 'Generally, the import section of phpMyAdmin is used to import or restore the database from a SQL file. Like phpMyAdmin, there are various options are available to restore the tables of MySQL database. To import SQL file in the database, you need to login to your hosting server or phpMyAdmin. Also, you can restore the database from PHP script without login to your hosting server or phpMyAdmin.\r\n\r\nRestore database from PHP script is very useful when you want to allow the user to restore the database from your web application. A backup of the database needs to be taken for importing tables in MySQL database. In this tutorial, we will show you how to import and restore the database from SQL file using PHP. Our simple PHP script helps to restore MySQL database from SQL file.                                                                                                                                                                              ');
 
 --
 -- Indexes for dumped tables
@@ -531,6 +583,12 @@ ALTER TABLE `tbldrugtype`
 --
 ALTER TABLE `tblemployees`
   ADD PRIMARY KEY (`employee_id`);
+
+--
+-- Indexes for table `tblimagegallery`
+--
+ALTER TABLE `tblimagegallery`
+  ADD PRIMARY KEY (`image_id`);
 
 --
 -- Indexes for table `tblinventoryforitems`
@@ -623,7 +681,7 @@ ALTER TABLE `tbladmins`
 -- AUTO_INCREMENT for table `tblappointments`
 --
 ALTER TABLE `tblappointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `tblcolorskins`
 --
@@ -650,15 +708,20 @@ ALTER TABLE `tbldrugtype`
 ALTER TABLE `tblemployees`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
+-- AUTO_INCREMENT for table `tblimagegallery`
+--
+ALTER TABLE `tblimagegallery`
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `tblinventoryforitems`
 --
 ALTER TABLE `tblinventoryforitems`
-  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `tblinventoryformedicines`
 --
 ALTER TABLE `tblinventoryformedicines`
-  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tblpetbreed`
 --
@@ -683,12 +746,12 @@ ALTER TABLE `tblpettype`
 -- AUTO_INCREMENT for table `tblproductitems`
 --
 ALTER TABLE `tblproductitems`
-  MODIFY `prod_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `prod_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tblproductmedicines`
 --
 ALTER TABLE `tblproductmedicines`
-  MODIFY `prod_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `prod_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tblserviceoffered`
 --
@@ -703,12 +766,12 @@ ALTER TABLE `tblserviceprovided`
 -- AUTO_INCREMENT for table `tblservices`
 --
 ALTER TABLE `tblservices`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tblservicetype`
 --
 ALTER TABLE `tblservicetype`
-  MODIFY `servicetype_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `servicetype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tblsystemsettings`
 --

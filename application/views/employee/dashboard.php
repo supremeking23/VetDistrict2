@@ -507,8 +507,7 @@
                           <i class="fa fa-plus"></i></button>
                        <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addCustomerModal" data-tooltip="tooltip" title="Add Customer">
                           <i class="fa fa-user"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Print Data">
-                          <i class="fa fa-print"></i></button>
+                       
                       </div>
                     </div>
                     <div class="box-body table-responsive">
@@ -581,8 +580,7 @@
                             <i class="fa fa-plus"></i></button>
                          <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addPetModal" data-tooltip="tooltip" title="Add Pet">
                             <i class="fa fa-firefox"></i></button>
-                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Print Data">
-                            <i class="fa fa-print"></i></button>
+                         
                         </div>
                       </div>
                       <div class="box-body table-responsive">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2018 at 05:29 PM
+-- Generation Time: Mar 05, 2018 at 05:32 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -536,7 +536,7 @@ CREATE TABLE `tblsystemsettings` (
 --
 
 INSERT INTO `tblsystemsettings` (`systemsetting_id`, `system_name`, `system_logo`, `color_skin`, `background_color`, `login_photo_admin`, `login_photo_employee`, `login_photo_customer`, `mission`) VALUES
-(1, 'Vetopia', 'vet4.png', 'skin-green', '#008d4c', 'carousel-stateoftheart1.jpg', 'b22.jpg', 'carousel-fish.jpg', 'Generally, the import section of phpMyAdmin is used to import or restore the database from a SQL file. Like phpMyAdmin, there are various options are available to restore the tables of MySQL database. To import SQL file in the database, you need to login to your hosting server or phpMyAdmin. Also, you can restore the database from PHP script without login to your hosting server or phpMyAdmin.\r\n\r\nRestore database from PHP script is very useful when you want to allow the user to restore the database from your web application. A backup of the database needs to be taken for importing tables in MySQL database. In this tutorial, we will show you how to import and restore the database from SQL file using PHP. Our simple PHP script helps to restore MySQL database from SQL file.                                                                                                                                                                              ');
+(1, 'Vetopia', 'vet4.png', 'skin-green', '#008d4c', 'carousel-stateoftheart1.jpg', 'b22.jpg', 'carousel-fish.jpg', 'Generally, the import section of phpMyAdmin is used to import or restore the database from a SQL file. Like phpMyAdmin, there are various options are available to restore the tables of MySQL database. To import SQL file in the database, you need to login to your hosting server or phpMyAdmin. Also, you can restore the database from PHP script without login to your hosting server or phpMyAdmin.\r\n\r\nRestore database from PHP script is very useful when you want to allow the user to restore the database from your web application. A backup of the database needs to be taken for importing tables in MySQL database. In this tutorial, we will show you how to import and restore the database from SQL file using PHP. Our simple PHP script helps to restore MySQL database from SQL file.                                                                                                                                                                                                                                                                   ');
 
 --
 -- Indexes for dumped tables

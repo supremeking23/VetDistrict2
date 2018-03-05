@@ -49,6 +49,8 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li><a href="<?php echo site_url();?>admin/dashboard"> <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+
+        <li><a href="<?php echo site_url();?>admin/pos"> <i class="fa fa-th"></i> <span>POS</span></a></li>
        
         <li><a href="<?php echo site_url();?>admin/appointments"><i class="fa fa-calendar"></i> <span>Appointments</span></a></li>
 

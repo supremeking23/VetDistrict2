@@ -29,7 +29,8 @@ class Admin extends CI_Controller {
 		//inventory
 		$this->load->model('inventory_model');
 
-
+		//pos
+		$this->load->model('pos_model');
 
 		//library
 		$this->load->library('form_validation');
@@ -589,6 +590,40 @@ class Admin extends CI_Controller {
 
 	}
 
+
+
+
+
+	public function pos(){
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+
+		$data['customers'] = $this->admin_model->get_all_customer();
+
+		//items
+		$data['items'] = $this->pos_model->get_all_active_items();
+
+		//medicines
+		$data['medicines'] = $this->pos_model->get_all_active_medicine();
+
+		//services
+		$data['services'] = $this->pos_model->get_all_active_services_details();
+
+		$this->load->view('admin/pos',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
+		
+	}
 
 
 	public function appointments(){

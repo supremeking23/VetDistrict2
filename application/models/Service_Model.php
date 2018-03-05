@@ -23,7 +23,7 @@ class Service_Model extends CI_Model
 
    	 	$this->db->select('*');
 		$this->db->from('tblservices');
-		
+		$this->db->where('is_active',1);
 		$this->db->order_by('service_id', 'DESC');
 		$query = $this->db->get();
 		$result_set = $query->result();

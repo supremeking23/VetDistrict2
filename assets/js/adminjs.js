@@ -2,6 +2,7 @@
 $(function(){
   $("#dashboard a:contains('Dashboard')").parent().addClass('active');
   $("#employee a:contains('Employees')").parent().addClass('active');
+  $("#pos a:contains('POS')").parent().addClass('active');
  
  //for product
   $("#medicine  a:contains('Products')").parent().addClass('active');

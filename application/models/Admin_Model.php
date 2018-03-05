@@ -285,14 +285,20 @@ class Admin_Model extends CI_Model
 
   		$this->db->select('a.prod_med_id,a.med_name,a.med_price,a.med_qty,a.is_active,b.drug_type');
 		$this->db->from('tblproductmedicines a');
+
 		$this->db->join('tbldrugtype b','a.drugtype_id = b.drugtype_id');
-		
+		$this->db->order_by('prod_med_id','DESC');
 
 		$result_set = $this->db->get();
 		return $result_set->result_array();
 
   	}
 
+
+  	
+
+
+  	
 
   	public function get_count_all_meds(){
 		$result_set = $this->db->query('SELECT COUNT(*) AS "count_all" FROM tblproductmedicines');
@@ -307,11 +313,14 @@ class Admin_Model extends CI_Model
 	public function get_all_item(){
 		$this->db->select('*');
 		$this->db->from('tblproductitems');
+
 		$this->db->order_by('prod_item_id','DESC');
 		$result_set = $this->db->get();
 		return $result_set->result_array();
 	}
 
+
+	
 
 
 	public function get_count_all_item(){

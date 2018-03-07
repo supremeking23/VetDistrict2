@@ -48,4 +48,19 @@ class POS_Model extends CI_Model
 		return $result_set->result();
    }
 
+
+
+
+
+   public function add_sales($data){
+
+   		$this->db->insert('tblsales',$data);
+
+   }
+
+   public function add_sales_details($data){
+
+   		$this->db->insert('tblsales_detail',$data);
+   }
+
 }

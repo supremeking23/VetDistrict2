@@ -194,25 +194,29 @@
 
        <?php if ($this->session->flashdata('remove_product_from_cart')) {?>
 
+           <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> Success!</h4>
+                <?php echo $this->session->flashdata('remove_product_from_cart');?>
+             </div>
+
+        <?php } ?>
+
+
+
+          <?php if ($this->session->flashdata('product_already_in_cart_error')) {?>
+
             <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h4><i class="icon fa fa-ban"></i> Error!</h4>
-                    <?php echo  $this->session->flashdata('remove_product_from_cart'); ?>
+                    <?php echo  $this->session->flashdata('product_already_in_cart_error'); ?>
             </div>
 
         <?php } ?>
 
 
 
-       <?php if ($this->session->flashdata('product_added_to_cart_success')) {?>
 
-             <div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-check"></i> Success!</h4>
-                <?php echo $this->session->flashdata('product_added_to_cart_success');?>
-             </div>
-
-         <?php }?>
 
         </div>
 
@@ -227,47 +231,12 @@
               <div class="box">
                 
                 <div class="box-body table-responsive no-padding">
+
+
+                
+
                   <table id="example1" class="table table-bordered table-striped">
-                      <tr>
-                          <td> 
-                            <?php //option for unit of measurements
-                                    $option = array(
-                                        "walkin" => "Walk in Customer",
-                                        "member" => "Member",
-
-                                    );
-                                ?>
-
-                               
-                                    <div class="form-group has-feedback">
-                                        <?php echo form_dropdown('is_walkin',$option,'','class="form-control" id="is_walkin" required');?>
-                                        
-                                    </div>
-
-                                     <fieldset id="for_member">
-                                         <div class="form-group has-feedback">
-                                             <select name="customer_id"  class="form-control select2" style="width: 100%" >
-                                              <option value="">Customer Name</option>
-                                              <?php foreach($customers as $customer):?>
-                                                
-                                               <option value="<?php echo $customer['customer_id']?>"><?php echo $customer['first_name'] .' '. $customer['middle_name'] .' '. $customer['last_name']?></option>
-                                               <?php ?>
-                                             <?php endforeach;?>
-                                             </select>
-                                          </div>
-                                    </fieldset>
-
-                                    <fieldset id="for_walkin">
-                                        <div class="form-group has-feedback">
-                                          <input type="text" class="form-control" name="walk_customer_name" placeholder="Enter Name for walk in Customer">
-                                          
-                                        </div>
-
-                                   
-                                  </fieldset>
-                          </td>
-
-                      </tr>
+                     
                       <tr>
                           <td>
                             <table id="example1" class="table table-striped table-condensed table-hover list-table" style="margin:0px;" data-height="100">
@@ -283,7 +252,7 @@
 
                               <tbody>
 
-                                <?php if(!empty($_SESSION['shopping_cart'])):?>
+                                <?php if(!empty($_SESSION['shopping_cart'])){ ?>
 
                                  <?php 
                                     //global variable
@@ -421,7 +390,33 @@
 
                                <?php   } ?>
 
-                               <?php endif;?>
+                               <?php }else{ ?>
+
+
+
+                                      <?php 
+
+                                              $x = 0;
+                                              while($x < 8):
+                                              ?>
+
+                                              <tr>
+                                                <td><p></p></td>
+                                                <td><p></p></td>
+                                                <td><p></p></td>
+                                                <td><p></p></td>
+                                                <td><p></p></td>
+                                              </tr>
+
+                                  <?php 
+
+                                              $x++;
+                                            endwhile;?>
+
+
+
+
+                             <?php  }?>
                               </tbody>
                             </table>
 
@@ -474,16 +469,87 @@
                                 echo number_format($total_payable,2); } ?></span></td>
                             </tr>
 
-                            <tr>
-                              <td width="100%" colspan="4"><button class="btn btn-sm btn-success btn-block">Print</button></td>
-                            </tr>
+                            
                             </tbody>
                             </table>
                             </div>
 
                           </td>
                       </tr>
-                  </table>
+
+
+
+                      <?php echo form_open_multipart('pos_controller/checkout');//start form?>
+
+                       <tr>
+                          <td> 
+                            <?php //option for unit of measurements
+                                    $option = array(
+                                        "walkin" => "Walk in Customer",
+                                        "member" => "Member",
+
+                                    );
+                                ?>
+
+                               
+                                    <div class="form-group has-feedback">
+                                        <?php echo form_dropdown('is_walkin',$option,'','class="form-control" id="is_walkin" required');?>
+                                        
+                                    </div>
+
+                                     <fieldset id="for_member">
+                                         <div class="form-group has-feedback">
+                                             <select name="customer_id"  class="form-control select2" style="width: 100%" >
+                                              <option value="">Customer Name</option>
+                                              <?php foreach($customers as $customer):?>
+                                                
+                                               <option value="<?php echo $customer['customer_id']?>"><?php echo $customer['first_name'] .' '. $customer['middle_name'] .' '. $customer['last_name']?></option>
+                                               <?php ?>
+                                             <?php endforeach;?>
+                                             </select>
+                                          </div>
+                                    </fieldset>
+
+                                    <fieldset id="for_walkin">
+                                        <div class="form-group has-feedback">
+                                          <input type="text" class="form-control" name="walk_customer_name" placeholder="Enter Name for walk in Customer">
+                                          
+                                        </div>
+
+                                   
+                                  </fieldset>
+                          </td>
+                      </tr>
+
+
+                      <tr>
+                              <td width="100%" colspan="4">
+
+
+                              <?php if(!empty($_SESSION['shopping_cart'])):?>
+
+                               <input type="hidden" name="sales_total" value="<?php echo number_format($total_payable,2);?>">
+
+                             <?php endif; ?>
+
+                               <?php ?>
+                                <button type="submit" class="btn btn-sm btn-success btn-block">Print</button>
+                                 
+
+
+
+                                
+
+
+                              </td>
+                      </tr>
+             
+                      <?php echo form_close(); //end form?>
+
+                  </table> <?php //end main table?>
+
+                
+
                 </div>
                 <!-- /.box-body -->
               </div>
@@ -791,6 +857,26 @@
                         </td>
 
                         <td>
+
+
+                        <?php 
+                            echo form_open_multipart('pos_controller/add_to_cart');
+
+                         ?>
+
+                         <input type="hidden" name="product_type" value="service">
+                         <input type="hidden" name="product_id" value="<?php echo $service->service_id;?>">
+
+                         <input type="hidden" name="product_name" value="<?php echo $service->service_name;?>">
+
+                         <input type="hidden" name="product_price" value="<?php echo $service->price;?>">
+
+                         <input type="number" class="" name="product_quantity" value=""  style="width: 50px " min="1" max="1000" required="">
+
+                          <button type="submit" class="btn btn-sm btn-success" data-tooltip="tooltip" title="add product"><span class="fa fa-plus"></span></button>
+
+                      
+                         <?php echo form_close();//endform?>
                           
                          
 

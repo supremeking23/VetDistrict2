@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2018 at 05:32 PM
+-- Generation Time: Mar 09, 2018 at 04:33 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -217,7 +217,7 @@ CREATE TABLE `tblemployees` (
 
 INSERT INTO `tblemployees` (`employee_id`, `employee_user_id`, `employee_type`, `first_name`, `middle_name`, `last_name`, `email`, `cellphone`, `telephone`, `address`, `image`, `password`, `gender`, `is_active`, `date_birth`, `date_added`) VALUES
 (11, 'V1802121253177', 'vet', 'John', 'Hernandez', 'Villete', 'jvillete@gmail.com', '090911212112', '090911', 'Makait', '', 'jvillete', 'male', 1, '1995-06-14', '2018-02-12 00:54:00'),
-(12, 'S1802121254076', 'staff', 'John Rey', 'Gulo', 'Cruz', 'johnrey@gmail.com', '90093343434', '090911', 'Central City', '', 'johnrey', 'male', 1, '1989-05-17', '2018-02-12 00:55:17');
+(12, 'S1802121254076', 'staff', 'John Rey', 'Gulo', 'Cruz', 'johnrey@gmail.com', '90093343434', '090911', 'Central City', 'images1.jpg', 'johnrey', 'male', 1, '1989-05-17', '2018-02-12 00:55:17');
 
 -- --------------------------------------------------------
 
@@ -249,6 +249,7 @@ INSERT INTO `tblimagegallery` (`image_id`, `image_name`) VALUES
 CREATE TABLE `tblinventoryforitems` (
   `inv_item_id` int(11) NOT NULL,
   `user_type` varchar(45) NOT NULL,
+  `user_name` text NOT NULL,
   `user_id` int(11) NOT NULL,
   `action` varchar(45) NOT NULL,
   `product_item_id` int(11) NOT NULL,
@@ -260,16 +261,35 @@ CREATE TABLE `tblinventoryforitems` (
 -- Dumping data for table `tblinventoryforitems`
 --
 
-INSERT INTO `tblinventoryforitems` (`inv_item_id`, `user_type`, `user_id`, `action`, `product_item_id`, `quantity`, `inventory_date`) VALUES
-(1, 'Admin', 2, 'Add Product', 2, 101, '2018-02-11 23:45:18'),
-(2, 'Admin', 2, 'Update Quantity', 1, 102, '2018-02-11 23:45:18'),
-(3, 'Admin', 2, 'Update Quantity', 2, 110, '2018-02-11 23:45:18'),
-(4, 'Admin', 5, 'Add Product', 3, 1000, '2018-02-11 23:45:18'),
-(5, 'Admin', 5, 'Add Product', 4, 100, '2018-02-11 23:45:18'),
-(6, 'Admin', 5, 'Update Quantity', 4, 102, '2018-02-25 23:25:56'),
-(7, 'Admin', 5, 'Add Product', 5, 100, '2018-02-25 23:27:08'),
-(8, 'Admin', 4, 'Update Quantity', 1, 56, '2018-02-26 21:13:06'),
-(9, 'Admin', 4, 'Update Quantity', 5, 101, '2018-02-26 21:27:19');
+INSERT INTO `tblinventoryforitems` (`inv_item_id`, `user_type`, `user_name`, `user_id`, `action`, `product_item_id`, `quantity`, `inventory_date`) VALUES
+(1, 'Admin', '', 2, 'Add Product', 2, 101, '2018-02-11 23:45:18'),
+(2, 'Admin', '', 2, 'Update Quantity', 1, 102, '2018-02-11 23:45:18'),
+(3, 'Admin', '', 2, 'Update Quantity', 2, 110, '2018-02-11 23:45:18'),
+(4, 'Admin', '', 5, 'Add Product', 3, 1000, '2018-02-11 23:45:18'),
+(5, 'Admin', '', 5, 'Add Product', 4, 100, '2018-02-11 23:45:18'),
+(6, 'Admin', '', 5, 'Update Quantity', 4, 102, '2018-02-25 23:25:56'),
+(7, 'Admin', '', 5, 'Add Product', 5, 100, '2018-02-25 23:27:08'),
+(8, 'Admin', '', 4, 'Update Quantity', 1, 56, '2018-02-26 21:13:06'),
+(9, 'Admin', '', 4, 'Update Quantity', 5, 101, '2018-02-26 21:27:19'),
+(10, 'Customer', '', 18, 'Purchased Product', 5, 1, '2018-03-07 14:12:08'),
+(11, 'Customer (Member)', '', 18, 'Purchased Product', 5, 5, '2018-03-08 15:55:01'),
+(12, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 2, 3, '2018-03-08 16:08:57'),
+(13, 'Customer (Walkin)', 'dsds', 0, 'Purchased Product', 6, 7, '2018-03-08 16:24:35'),
+(14, 'Customer (Walkin)', 'ds', 0, 'Purchased Product', 5, 4, '2018-03-08 16:26:39'),
+(15, 'Customer (Member)', 'Terrence Bill Mendoza Romeo', 20, 'Purchased Product', 6, 5, '2018-03-08 16:29:05'),
+(16, 'Customer (Walkin)', 'Carla jane', 0, 'Purchased Product', 2, 5, '2018-03-08 16:40:02'),
+(17, 'Customer (Walkin)', 'dsds', 0, 'Purchased Product', 4, 5, '2018-03-08 17:39:59'),
+(18, 'Customer (Member)', 'Jay Jay  Helterbrand', 18, 'Purchased Product', 5, 5, '2018-03-08 23:05:16'),
+(19, 'Customer (Member)', 'Aldwin  Balagtas Labrador', 17, 'Purchased Product', 2, 2, '2018-03-08 23:14:03'),
+(20, 'Customer (Walk in)', 'ivan the ahhaha', 0, 'Purchased Product', 4, 4, '2018-03-08 23:17:38'),
+(21, 'Customer (Member)', 'Aldwin  Balagtas Labrador', 17, 'Purchased Product', 3, 2, '2018-03-08 23:25:15'),
+(22, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 6, 2, '2018-03-09 02:29:57'),
+(23, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 5, 2, '2018-03-09 02:29:57'),
+(24, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 4, 2, '2018-03-09 02:29:57'),
+(25, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 3, 2, '2018-03-09 02:29:57'),
+(26, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 2, 2, '2018-03-09 02:29:57'),
+(27, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 6, 2, '2018-03-09 02:46:23'),
+(28, 'Customer (Walk in)', 'iaisadadsadsad', 0, 'Purchased Product', 3, 2, '2018-03-09 02:49:03');
 
 -- --------------------------------------------------------
 
@@ -284,20 +304,70 @@ CREATE TABLE `tblinventoryformedicines` (
   `action` varchar(45) NOT NULL,
   `product_med_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `inventory_date` datetime NOT NULL
+  `inventory_date` datetime NOT NULL,
+  `user_name` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblinventoryformedicines`
 --
 
-INSERT INTO `tblinventoryformedicines` (`inv_med_id`, `user_type`, `user_id`, `action`, `product_med_id`, `quantity`, `inventory_date`) VALUES
-(1, 'Admin', 2, 'Add Product', 3, 41, '2018-02-11 23:45:18'),
-(2, 'Admin', 2, 'Update Quantity', 1, 11, '2018-02-11 23:45:18'),
-(3, 'Admin', 5, 'Add Product', 4, 168, '2018-02-11 23:45:18'),
-(4, 'Admin', 5, 'Update Quantity', 4, 161, '2018-02-25 23:29:21'),
-(5, 'Admin', 4, 'Add Product', 5, 100, '2018-02-26 22:24:10'),
-(6, 'Admin', 4, 'Update Quantity', 5, 121, '2018-02-26 22:24:20');
+INSERT INTO `tblinventoryformedicines` (`inv_med_id`, `user_type`, `user_id`, `action`, `product_med_id`, `quantity`, `inventory_date`, `user_name`) VALUES
+(1, 'Admin', 2, 'Add Product', 3, 41, '2018-02-11 23:45:18', ''),
+(2, 'Admin', 2, 'Update Quantity', 1, 11, '2018-02-11 23:45:18', ''),
+(3, 'Admin', 5, 'Add Product', 4, 168, '2018-02-11 23:45:18', ''),
+(4, 'Admin', 5, 'Update Quantity', 4, 161, '2018-02-25 23:29:21', ''),
+(5, 'Admin', 4, 'Add Product', 5, 100, '2018-02-26 22:24:10', ''),
+(6, 'Admin', 4, 'Update Quantity', 5, 121, '2018-02-26 22:24:20', ''),
+(7, 'Customer', 18, 'Purchased Product', 5, 6, '2018-03-07 14:12:08', ''),
+(8, 'Customer', 18, 'Purchased Product', 4, 5, '2018-03-07 14:12:08', ''),
+(9, 'Admin', 5, 'Update Quantity', 5, 126, '2018-03-08 13:37:39', ''),
+(10, 'Admin', 5, 'Update Quantity', 5, 124, '2018-03-08 13:38:40', ''),
+(11, 'Admin', 5, 'Update Quantity', 5, 555, '2018-03-08 13:39:38', ''),
+(12, 'Admin', 5, 'Add Product', 6, 541, '2018-03-08 13:40:15', 'Ivan Christian Jay Echanes Funcion'),
+(13, 'superadmin', 5, 'Update Quantity', 6, 1111, '2018-03-08 14:07:54', 'Ivan Christian Jay Echanes Funcion'),
+(14, 'Customer (Member)', 18, 'Purchased Product', 5, 5, '2018-03-08 15:55:01', ''),
+(15, 'Customer (Member)', 18, 'Purchased Product', 4, 2, '2018-03-08 15:55:01', ''),
+(16, 'Customer (Member)', 20, 'Purchased Product', 5, 4, '2018-03-08 15:59:43', ''),
+(17, 'Customer (Member)', 20, 'Purchased Product', 4, 2, '2018-03-08 15:59:43', ''),
+(18, 'Customer (Member)', 19, 'Purchased Product', 5, 5, '2018-03-08 16:08:57', 'Apple  David'),
+(19, 'Customer (Member)', 19, 'Purchased Product', 4, 5, '2018-03-08 16:08:57', 'Apple  David'),
+(20, 'Customer (Member)', 19, 'Purchased Product', 2, 1, '2018-03-08 16:08:57', 'Apple  David'),
+(21, 'Customer (Walkin)', 0, 'Purchased Product', 5, 6, '2018-03-08 16:23:28', 'dsdsd'),
+(22, 'Customer (Walkin)', 0, 'Purchased Product', 4, 5, '2018-03-08 16:23:28', 'dsdsd'),
+(23, 'Customer (Walkin)', 0, 'Purchased Product', 5, 6, '2018-03-08 16:24:35', 'dsds'),
+(24, 'Customer (Walkin)', 0, 'Purchased Product', 4, 1, '2018-03-08 16:24:35', 'dsds'),
+(25, 'Customer (Walkin)', 0, 'Purchased Product', 4, 3, '2018-03-08 16:26:39', 'ds'),
+(26, 'Customer (Member)', 20, 'Purchased Product', 5, 1, '2018-03-08 16:29:05', 'Terrence Bill Mendoza Romeo'),
+(27, 'Customer (Walkin)', 0, 'Purchased Product', 5, 5, '2018-03-08 16:40:02', 'Carla jane'),
+(28, 'Customer (Walkin)', 0, 'Purchased Product', 4, 2, '2018-03-08 16:40:02', 'Carla jane'),
+(29, 'Customer (Walkin)', 0, 'Purchased Product', 5, 4, '2018-03-08 16:42:49', 'dsd'),
+(30, 'Customer (Walkin)', 0, 'Purchased Product', 5, 5, '2018-03-08 16:43:44', 'ds'),
+(31, 'Customer (Walkin)', 0, 'Purchased Product', 4, 2, '2018-03-08 16:43:44', 'ds'),
+(32, 'Customer (Walkin)', 0, 'Purchased Product', 5, 3, '2018-03-08 17:39:59', 'dsds'),
+(33, 'Customer (Walkin)', 0, 'Purchased Product', 4, 2, '2018-03-08 17:39:59', 'dsds'),
+(34, 'Customer (Member)', 21, 'Purchased Product', 5, 1, '2018-03-08 21:25:44', 'Karla Rose Mayumi Dele Cruz'),
+(35, 'Customer (Member)', 21, 'Purchased Product', 5, 4, '2018-03-08 23:03:59', 'Karla Rose Mayumi Dele Cruz'),
+(36, 'Customer (Member)', 21, 'Purchased Product', 4, 4, '2018-03-08 23:03:59', 'Karla Rose Mayumi Dele Cruz'),
+(37, 'Customer (Member)', 18, 'Purchased Product', 5, 5, '2018-03-08 23:05:16', 'Jay Jay  Helterbrand'),
+(38, 'Customer (Member)', 18, 'Purchased Product', 4, 2, '2018-03-08 23:05:16', 'Jay Jay  Helterbrand'),
+(39, 'Customer (Member)', 20, 'Purchased Product', 5, 5, '2018-03-08 23:06:02', 'Terrence Bill Mendoza Romeo'),
+(40, 'Customer (Member)', 20, 'Purchased Product', 3, 1, '2018-03-08 23:06:02', 'Terrence Bill Mendoza Romeo'),
+(41, 'Customer (Member)', 17, 'Purchased Product', 5, 3, '2018-03-08 23:14:03', 'Aldwin  Balagtas Labrador'),
+(42, 'Customer (Walk in)', 0, 'Purchased Product', 5, 3, '2018-03-08 23:17:38', 'ivan the ahhaha'),
+(43, 'Customer (Member)', 17, 'Purchased Product', 5, 5, '2018-03-08 23:25:15', 'Aldwin  Balagtas Labrador'),
+(44, 'Customer (Member)', 19, 'Purchased Product', 5, 2, '2018-03-09 02:29:57', 'Apple  David'),
+(45, 'Customer (Member)', 19, 'Purchased Product', 4, 2, '2018-03-09 02:29:57', 'Apple  David'),
+(46, 'Customer (Member)', 19, 'Purchased Product', 3, 2, '2018-03-09 02:29:57', 'Apple  David'),
+(47, 'Customer (Member)', 19, 'Purchased Product', 2, 2, '2018-03-09 02:29:57', 'Apple  David'),
+(48, 'Customer (Member)', 19, 'Purchased Product', 1, 2, '2018-03-09 02:29:57', 'Apple  David'),
+(49, 'Customer (Member)', 19, 'Purchased Product', 5, 4, '2018-03-09 02:46:23', 'Apple  David'),
+(50, 'Customer (Walk in)', 0, 'Purchased Product', 5, 5, '2018-03-09 02:49:03', 'iaisadadsadsad'),
+(51, 'Customer (Walk in)', 0, 'Purchased Product', 5, 1, '2018-03-09 02:50:28', 'sds'),
+(52, 'Customer (Walk in)', 0, 'Purchased Product', 5, 1, '2018-03-09 02:51:22', 'sdsdadfdfd'),
+(53, 'Customer (Member)', 20, 'Purchased Product', 5, 3, '2018-03-09 03:17:20', 'Terrence Bill Mendoza Romeo'),
+(54, 'Customer (Walk in)', 0, 'Purchased Product', 5, 4, '2018-03-09 03:17:47', 'dsds'),
+(55, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-09 03:17:47', 'dsds');
 
 -- --------------------------------------------------------
 
@@ -442,7 +512,195 @@ INSERT INTO `tblproductmedicines` (`prod_med_id`, `drugtype_id`, `med_name`, `me
 (2, 1, 'Antibiotic B', '444.00', 41, '', 1),
 (3, 1, 'Antibiotic C', '444.00', 41, '', 1),
 (4, 2, 'Vitamin C++', '300.00', 161, '', 1),
-(5, 2, 'Carrots meds', '90.00', 121, '', 1);
+(5, 2, 'Carrots meds', '90.00', 555, '', 1),
+(6, 3, 'HAHAHAA1', '300.00', 1111, '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblsales`
+--
+
+CREATE TABLE `tblsales` (
+  `sales_id` int(11) NOT NULL,
+  `customer_type` varchar(45) NOT NULL,
+  `customer_name` text NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `total_amount` text NOT NULL,
+  `total_tax` text NOT NULL,
+  `sales_total` text NOT NULL,
+  `sales_date` datetime NOT NULL,
+  `invoice_number` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblsales`
+--
+
+INSERT INTO `tblsales` (`sales_id`, `customer_type`, `customer_name`, `customer_id`, `total_amount`, `total_tax`, `sales_total`, `sales_date`, `invoice_number`) VALUES
+(1, 'member', '', 20, '', '', '15', '0000-00-00 00:00:00', ''),
+(2, 'member', '', 19, '', '', '618', '2018-03-07 13:19:16', ''),
+(3, 'member', '', 19, '', '', '2', '2018-03-07 13:19:56', ''),
+(4, 'walkin', '', 0, '', '', '3', '2018-03-07 13:22:45', ''),
+(5, 'walkin', 'ivan 1', 0, '', '', '2', '2018-03-07 13:25:58', ''),
+(6, 'member', '', 21, '', '', '1', '2018-03-07 13:27:01', ''),
+(7, 'walkin', 'sdsd', 0, '', '', '619', '2018-03-07 13:28:08', ''),
+(8, 'member', '', 21, '', '', '1', '2018-03-07 13:28:54', ''),
+(9, 'member', '', 18, '', '', '7', '2018-03-07 13:29:27', ''),
+(10, 'member', '', 21, '', '', '6', '2018-03-07 13:31:28', ''),
+(11, 'walkin', 'sdsd', 0, '', '', '1,394.00', '2018-03-07 13:43:03', ''),
+(12, 'member', '', 20, '', '', '1,081.00', '2018-03-07 13:58:57', ''),
+(13, 'member', '', 18, '', '', '1,230.00', '2018-03-07 14:12:08', ''),
+(14, 'member', '', 18, '', '', '1,183.00', '2018-03-08 15:55:01', ''),
+(15, 'member', '', 20, '', '', '620.00', '2018-03-08 15:59:43', ''),
+(16, 'member', 'Apple  David', 19, '', '', '2,485.00', '2018-03-08 16:08:57', ''),
+(17, 'walkin', 'dsdsd', 0, '', '', '1,138.00', '2018-03-08 16:23:28', ''),
+(18, 'walkin', 'dsdsd', 0, '', '', '1,138.00', '2018-03-08 16:24:02', ''),
+(19, 'walkin', 'dsds', 0, '', '', '2,836.00', '2018-03-08 16:24:35', ''),
+(20, 'walkin', 'dsds', 0, '', '', '2,836.00', '2018-03-08 16:26:10', ''),
+(21, 'walkin', 'ds', 0, '', '', '680.00', '2018-03-08 16:26:39', ''),
+(22, 'member', 'Terrence Bill Mendoza Romeo', 20, '', '', '1,613.00', '2018-03-08 16:29:05', ''),
+(23, 'walkin', 'Carla jane', 0, '', '', '3,257.00', '2018-03-08 16:40:02', ''),
+(24, 'walkin', 'dsd', 0, '', '', '564.00', '2018-03-08 16:42:49', ''),
+(25, 'walkin', 'ds', 0, '', '', '723.00', '2018-03-08 16:43:44', ''),
+(26, 'walkin', 'dsds', 0, '20.00', '20.00', '2,027.00', '2018-03-08 17:39:59', ''),
+(27, 'member', 'Karla Rose Mayumi Dele Cruz', 21, '2.00', '2.00', '103.00', '2018-03-08 21:25:44', ''),
+(28, 'member', 'Karla Rose Mayumi Dele Cruz', 21, '812.00', '16.00', '828.00', '2018-03-08 23:03:59', '#180308110359'),
+(29, 'member', 'Jay Jay  Helterbrand', 18, '1,159.00', '24.00', '1,183.00', '2018-03-08 23:05:16', '#180308110516'),
+(30, 'member', 'Terrence Bill Mendoza Romeo', 20, '1,805.00', '16.00', '1,821.00', '2018-03-08 23:06:02', '#180308110602'),
+(31, 'walk in', 'ivan', 0, '750.00', '10.00', '760.00', '2018-03-08 23:07:25', '#180308110725'),
+(32, 'member', 'Aldwin  Balagtas Labrador', 17, '1,191.00', '10.00', '1,201.00', '2018-03-08 23:14:03', '#180308111403'),
+(33, 'walk in', 'ivan the ahhaha', 0, '1,503.00', '14.00', '1,517.00', '2018-03-08 23:17:38', '#180308111738'),
+(34, 'member', 'Aldwin  Balagtas Labrador', 17, '1,693.00', '18.00', '1,711.00', '2018-03-08 23:25:15', '#180308112515'),
+(35, 'member', 'Apple  David', 19, '5,894.00', '40.00', '5,934.00', '2018-03-09 02:29:57', '#180309022957'),
+(36, 'member', 'Apple  David', 19, '800.00', '12.00', '812.00', '2018-03-09 02:46:23', '#180309024623'),
+(37, 'walk in', 'iaisadadsadsad', 0, '1,288.00', '16.00', '1,304.00', '2018-03-09 02:49:03', '#180309024903'),
+(38, 'walk in', 'sds', 0, '50.00', '2.00', '52.00', '2018-03-09 02:50:28', '#180309025028'),
+(39, 'walk in', 'sdsdadfdfd', 0, '50.00', '2.00', '52.00', '2018-03-09 02:51:22', '#180309025122'),
+(40, 'member', 'Terrence Bill Mendoza Romeo', 20, '150.00', '6.00', '156.00', '2018-03-09 03:17:20', '#180309031720'),
+(41, 'walk in', 'dsds', 0, '520.00', '12.00', '532.00', '2018-03-09 03:17:47', '#180309031747');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblsales_detail`
+--
+
+CREATE TABLE `tblsales_detail` (
+  `salesdetail_id` int(11) NOT NULL,
+  `sales_id` int(11) NOT NULL,
+  `product_type` varchar(45) NOT NULL,
+  `product_name` text NOT NULL,
+  `price_per_product` decimal(10,2) NOT NULL,
+  `sales_quantity` int(11) NOT NULL,
+  `total_per_product` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblsales_detail`
+--
+
+INSERT INTO `tblsales_detail` (`salesdetail_id`, `sales_id`, `product_type`, `product_name`, `price_per_product`, `sales_quantity`, `total_per_product`) VALUES
+(1, 1, 'item', 'Dog Lace', '0.00', 5, '280.00'),
+(2, 2, 'item', 'Cat Food (70mg)', '0.00', 6, '606.00'),
+(3, 3, 'item', 'Cat Food (70mg)', '0.00', 6, '606.00'),
+(4, 3, 'medicine', 'Antibiotic C', '0.00', 4, '1776.00'),
+(5, 3, 'item', 'Dog Lace', '0.00', 5, '280.00'),
+(6, 4, 'item', 'Cat Food (70mg)', '0.00', 6, '606.00'),
+(7, 4, 'medicine', 'Antibiotic C', '0.00', 4, '1776.00'),
+(8, 4, 'item', 'Dog Lace', '0.00', 5, '280.00'),
+(9, 4, 'service', 'Nail Cutting (Big Breed)', '0.00', 3, '450.00'),
+(10, 5, 'item', 'Dog Lace', '0.00', 5, '280.00'),
+(11, 5, 'item', 'Cat Food (70mg)', '0.00', 2, '202.00'),
+(12, 5, 'medicine', 'Vitamin C++', '0.00', 5, '1500.00'),
+(13, 5, 'service', 'Nail Cutting (Big Breed)', '0.00', 1, '150.00'),
+(14, 6, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(15, 6, 'item', 'Cat Food (50mg)', '0.00', 5, '510.00'),
+(16, 7, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(17, 7, 'item', 'Cat Food (50mg)', '0.00', 1, '102.00'),
+(18, 8, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(19, 8, 'item', 'Cat Food (50mg)', '0.00', 5, '510.00'),
+(20, 9, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(21, 9, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(22, 9, 'item', 'Cat lace', '0.00', 7, '7000.00'),
+(23, 10, 'item', 'Cat lace', '0.00', 6, '6000.00'),
+(24, 10, 'item', 'Dog Lace', '0.00', 7, '392.00'),
+(25, 10, 'item', 'Cat Food (70mg)', '0.00', 1, '101.00'),
+(26, 11, 'item', 'Cat Food (70mg)', '0.00', 6, '606.00'),
+(27, 11, 'item', 'Cat Food (50mg)', '0.00', 3, '306.00'),
+(28, 11, 'item', 'Dog Lace', '0.00', 8, '448.00'),
+(29, 12, 'item', 'Cat Food (70mg)', '0.00', 7, '707.00'),
+(30, 12, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(31, 12, 'service', 'Nail Cutting (Big Breed)', '0.00', 1, '150.00'),
+(32, 13, 'item', 'Cat Food (70mg)', '0.00', 6, '606.00'),
+(33, 13, 'item', 'Cat Food (50mg)', '0.00', 5, '510.00'),
+(34, 13, 'medicine', 'Carrots meds', '0.00', 1, '90.00'),
+(35, 14, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(36, 14, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(37, 14, 'medicine', 'Carrots meds', '0.00', 5, '450.00'),
+(38, 15, 'item', 'Cat Food (70mg)', '0.00', 4, '404.00'),
+(39, 15, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(40, 16, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(41, 16, 'item', 'Cat Food (50mg)', '0.00', 5, '510.00'),
+(42, 16, 'item', 'Dog Lace 2', '0.00', 1, '110.00'),
+(43, 16, 'medicine', 'Antibiotic B', '0.00', 3, '1332.00'),
+(44, 17, 'item', 'Cat Food (70mg)', '0.00', 6, '606.00'),
+(45, 17, 'item', 'Cat Food (50mg)', '0.00', 5, '510.00'),
+(46, 19, 'item', 'Cat Food (70mg)', '0.00', 6, '606.00'),
+(47, 19, 'item', 'Cat Food (50mg)', '0.00', 1, '102.00'),
+(48, 19, 'medicine', 'HAHAHAA1', '0.00', 7, '2100.00'),
+(49, 21, 'medicine', 'Carrots meds', '0.00', 4, '360.00'),
+(50, 21, 'item', 'Cat Food (50mg)', '0.00', 3, '306.00'),
+(51, 22, 'medicine', 'HAHAHAA1', '0.00', 5, '1500.00'),
+(52, 22, 'item', 'Cat Food (70mg)', '0.00', 1, '101.00'),
+(53, 23, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(54, 23, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(55, 23, 'medicine', 'Antibiotic B', '0.00', 5, '2220.00'),
+(56, 23, 'service', 'Nail Cutting (Big Breed)', '0.00', 2, '300.00'),
+(57, 24, 'item', 'Cat Food (70mg)', '0.00', 4, '404.00'),
+(58, 24, 'service', 'Nail Cutting (Big Breed)', '0.00', 1, '150.00'),
+(59, 25, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(60, 25, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(61, 26, 'item', 'Cat Food (70mg)', '0.00', 3, '303.00'),
+(62, 26, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(63, 26, 'medicine', 'Vitamin C++', '0.00', 5, '1500.00'),
+(64, 27, 'item', 'Cat Food (70mg)', '0.00', 1, '101.00'),
+(65, 28, 'item', 'Cat Food (70mg)', '0.00', 4, '404.00'),
+(66, 28, 'item', 'Cat Food (50mg)', '0.00', 4, '408.00'),
+(67, 29, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(68, 29, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(69, 29, 'medicine', 'Carrots meds', '0.00', 5, '450.00'),
+(70, 30, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(71, 30, 'service', 'Nail Cutting (Big Breed)', '0.00', 2, '300.00'),
+(72, 30, 'item', 'Cat lace', '0.00', 1, '1000.00'),
+(73, 31, 'service', 'Nail Cutting (Big Breed)', '0.00', 5, '750.00'),
+(74, 32, 'item', 'Cat Food (70mg)', '0.00', 3, '303.00'),
+(75, 32, 'medicine', 'Antibiotic B', '0.00', 2, '888.00'),
+(76, 33, 'item', 'Cat Food (70mg)', '0.00', 3, '303.00'),
+(77, 33, 'medicine', 'Vitamin C++', '0.00', 4, '1200.00'),
+(78, 34, 'item', 'Cat Food (70mg)', '0.00', 5, '505.00'),
+(79, 34, 'service', 'Nail Cutting (Big Breed)', '0.00', 2, '300.00'),
+(80, 34, 'medicine', 'Antibiotic C', '0.00', 2, '888.00'),
+(81, 35, 'item', 'Cat Food (70mg)', '0.00', 2, '202.00'),
+(82, 35, 'item', 'Cat Food (50mg)', '0.00', 2, '204.00'),
+(83, 35, 'item', 'Cat lace', '0.00', 2, '2000.00'),
+(84, 35, 'item', 'Dog Lace 2', '0.00', 2, '220.00'),
+(85, 35, 'item', 'Dog Lace', '0.00', 2, '112.00'),
+(86, 35, 'medicine', 'HAHAHAA1', '0.00', 2, '600.00'),
+(87, 35, 'medicine', 'Carrots meds', '0.00', 2, '180.00'),
+(88, 35, 'medicine', 'Vitamin C++', '0.00', 2, '600.00'),
+(89, 35, 'medicine', 'Antibiotic C', '0.00', 2, '888.00'),
+(90, 35, 'medicine', 'Antibiotic B', '0.00', 2, '888.00'),
+(91, 36, 'item', 'Cat Food (70mg)', '50.00', 4, '200.00'),
+(92, 36, 'medicine', 'HAHAHAA1', '300.00', 2, '600.00'),
+(93, 37, 'item', 'Cat Food (70mg)', '50.00', 5, '250.00'),
+(94, 37, 'service', 'Nail Cutting (Big Breed)', '150.00', 1, '150.00'),
+(95, 37, 'medicine', 'Antibiotic C', '444.00', 2, '888.00'),
+(96, 38, 'item', 'Cat Food (70mg)', '50.00', 1, '50.00'),
+(97, 39, 'item', 'Cat Food (70mg)', '50.00', 1, '50.00'),
+(98, 40, 'item', 'Cat Food (70mg)', '50.00', 3, '150.00'),
+(99, 41, 'item', 'Cat Food (70mg)', '50.00', 4, '200.00'),
+(100, 41, 'item', 'Cat Food (50mg)', '160.00', 2, '320.00');
 
 -- --------------------------------------------------------
 
@@ -639,6 +897,18 @@ ALTER TABLE `tblproductmedicines`
   ADD PRIMARY KEY (`prod_med_id`);
 
 --
+-- Indexes for table `tblsales`
+--
+ALTER TABLE `tblsales`
+  ADD PRIMARY KEY (`sales_id`);
+
+--
+-- Indexes for table `tblsales_detail`
+--
+ALTER TABLE `tblsales_detail`
+  ADD PRIMARY KEY (`salesdetail_id`);
+
+--
 -- Indexes for table `tblserviceoffered`
 --
 ALTER TABLE `tblserviceoffered`
@@ -716,12 +986,12 @@ ALTER TABLE `tblimagegallery`
 -- AUTO_INCREMENT for table `tblinventoryforitems`
 --
 ALTER TABLE `tblinventoryforitems`
-  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `tblinventoryformedicines`
 --
 ALTER TABLE `tblinventoryformedicines`
-  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT for table `tblpetbreed`
 --
@@ -751,7 +1021,17 @@ ALTER TABLE `tblproductitems`
 -- AUTO_INCREMENT for table `tblproductmedicines`
 --
 ALTER TABLE `tblproductmedicines`
-  MODIFY `prod_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `prod_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `tblsales`
+--
+ALTER TABLE `tblsales`
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+--
+-- AUTO_INCREMENT for table `tblsales_detail`
+--
+ALTER TABLE `tblsales_detail`
+  MODIFY `salesdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `tblserviceoffered`
 --

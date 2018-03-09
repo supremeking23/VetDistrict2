@@ -47,10 +47,15 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
-        <li><a href="<?php echo site_url();?>employee/dashboard"> <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li class="header">MAIN NAVIGATION</li><?php  ucfirst($employee_login->employee_type);?>
+
         <li><a href="<?php echo site_url();?>employee/appointments"><i class="fa fa-calendar"></i> <span>Appointments</span></a></li>
-         <li><a href="<?php echo site_url();?>employee/customers"><i class="fa fa-users"></i> <span>Customers</span></a></li>
+
+        <?php if($employee_login->employee_type == "staff"){ ?>
+        
+        <li><a href="<?php echo site_url();?>employee/pos"> <i class="fa fa-th"></i> <span>POS</span></a></li>
+
+         <li><a href="<?php echo site_url();?>employee/customers"><i class="fa fa-users"></i> <span>Customers </span></a></li>
         <li><a href="<?php echo site_url();?>employee/pets"><i class="fa fa-user"></i> <span>Pets</span></a></li>
         
        <!-- <li><a href="<?php echo site_url();?>admin/products"><i class="fa  fa-th-list"></i> <span>Products</span></a></li> -->
@@ -81,6 +86,16 @@
             <li id="item"><a href="<?php echo site_url();?>admin/inventory_report"><i class="fa fa-circle-o"></i> Inventory Report</a></li>
           </ul>
         </li>
+
+
+        <?php }else if($employee_login->employee_type == "vet") { ?>
+
+        <li><a href="<?php echo site_url();?>employee/diagnosis"> <i class="fa fa-th"></i> <span>Diagnosis</span></a></li>
+
+        <?php } ?>
+
+
+        
 
        
       </ul>

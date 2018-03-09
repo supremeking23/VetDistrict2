@@ -29,6 +29,9 @@ class Admin extends CI_Controller {
 		//inventory
 		$this->load->model('inventory_model');
 
+		//sales
+		$this->load->model('sales_model');
+
 		//pos
 		$this->load->model('pos_model');
 
@@ -843,6 +846,62 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/layouts/sidebar.php',$data);
 	}
 
+
+	public function sales(){
+
+		
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+
+		$data['get_all_sales'] = $this->sales_model->get_all_sales_report();
+
+		//not use... duga mode on the way
+		//$data['get_all_sales'] = $this->sales_model->get_all_sales_report_by_sales_id();
+		
+
+		$this->load->view('admin/sales_report',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
+	}
+
+
+	public function sales_full_details(){
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+
+		$sales_id = $this->uri->segment(3);
+
+		$data['get_all_sales'] = $this->sales_model->get_sales_report_by_sales_id($sales_id);
+
+		
+		$data['get_all_sales_details'] = $this->sales_model->get_all_sales_report_by_sales_id($sales_id);
+
+		$this->load->view('admin/sales_details',$data);
+		$this->load->view('admin/layouts/sidebar.php',$data);
+	}
+
 	//////////end REPORTS
 
 
@@ -1364,6 +1423,15 @@ class Admin extends CI_Controller {
 			//get user_id via $user_id session
 			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
 
+			$get_user_name =  $this->admin_model->get_admin_by_id($user_id);
+
+			foreach ($get_user_name as $user_name) {
+					$u_first_name = $user_name->first_name;
+					$u_middle_name = $user_name->middle_name;
+					$u_last_name = $user_name->last_name;
+
+					 $user_full_name = $u_first_name .' '. $u_middle_name .' '. $u_last_name;
+			}
 		
 			//we will insert data to 2 tables
 			//table 1
@@ -1383,14 +1451,17 @@ class Admin extends CI_Controller {
 			$insertId = $this->db->insert_id();
 
 			//table 2
-
+			$admin_type =  $this->session->userdata('admin_type');
 			$action = "Add Product";
-			$user_type="Admin";
+			$user_type= $admin_type;
 			$inventory_date = date('Y-m-d H:i:s');
+			//user_name : $user_full_name
+			
 			$data = array(
 				
 				'user_type' => $user_type,
 				'user_id' => $user_id,
+				'user_name' => $user_full_name,
 				'action' => $action ,
 				'product_med_id' => $insertId,
 				'quantity' => $this->input->post('med_qty'),
@@ -1423,7 +1494,15 @@ class Admin extends CI_Controller {
 			//get user_id via $user_id session
 			$data['current_admin_login'] = $this->admin_model->get_admin_by_id($user_id);
 
+			$get_user_name =  $this->admin_model->get_admin_by_id($user_id);
 
+			foreach ($get_user_name as $user_name) {
+					$u_first_name = $user_name->first_name;
+					$u_middle_name = $user_name->middle_name;
+					$u_last_name = $user_name->last_name;
+
+					 $user_full_name = $u_first_name .' '. $u_middle_name .' '. $u_last_name;
+			}
 
 			$data = array(
 				'item_name' => $this->input->post('item_name'),
@@ -1441,14 +1520,15 @@ class Admin extends CI_Controller {
 
 
 			//table 2
-
+			$admin_type =  $this->session->userdata('admin_type');
 			$action = "Add Product";
-			$user_type="Admin";
+			$user_type= $admin_type;
 			$inventory_date = date('Y-m-d H:i:s');
 			$data = array(
 				
 				'user_type' => $user_type,
 				'user_id' => $user_id,
+				'user_name' => $user_full_name,
 				'action' => $action ,
 				'product_item_id' => $insertId,
 				'quantity' => $this->input->post('item_qty'),
@@ -2146,7 +2226,20 @@ class Admin extends CI_Controller {
 
 			//for item inventory table
 
-			$user_type = "Admin";
+
+			$get_user_name =  $this->admin_model->get_admin_by_id($user_id);
+
+			foreach ($get_user_name as $user_name) {
+					$u_first_name = $user_name->first_name;
+					$u_middle_name = $user_name->middle_name;
+					$u_last_name = $user_name->last_name;
+
+					 $user_full_name = $u_first_name .' '. $u_middle_name .' '. $u_last_name;
+			}
+
+
+			$admin_type =  $this->session->userdata('admin_type');
+			$user_type = $admin_type;
 			$action = "Update Quantity";
 			$inventory_date = date('Y-m-d H:i:s');
 			//$now = date('Y-m-d H:i:s');
@@ -2155,6 +2248,7 @@ class Admin extends CI_Controller {
         		
         		'user_type' => $user_type,
         		'user_id' => $user_id,
+        		'user_name' => $user_full_name,
         		'action' => $action,
         		'product_item_id' => $item_id,
         		'quantity' => $this->input->post('item_qty'),	
@@ -2273,7 +2367,18 @@ class Admin extends CI_Controller {
 
 			//for item inventory table
 
-			$user_type = "Admin";
+			$get_user_name =  $this->admin_model->get_admin_by_id($user_id);
+
+			foreach ($get_user_name as $user_name) {
+					$u_first_name = $user_name->first_name;
+					$u_middle_name = $user_name->middle_name;
+					$u_last_name = $user_name->last_name;
+
+					 $user_full_name = $u_first_name .' '. $u_middle_name .' '. $u_last_name;
+			}
+
+			$admin_type =  $this->session->userdata('admin_type');
+			$user_type = $admin_type;
 			$action = "Update Quantity";
 			$inventory_date = date('Y-m-d H:i:s');
 
@@ -2282,6 +2387,7 @@ class Admin extends CI_Controller {
         		
         		'user_type' => $user_type,
         		'user_id' => $user_id,
+        		'user_name' => $user_full_name,
         		'action' => $action,
         		'product_med_id' => $med_id,
         		'quantity' => $this->input->post('item_qty'),	

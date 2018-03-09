@@ -51,6 +51,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'landingpage';
 $route['admin'] = 'admin/dashboard';
+$route['employee'] = 'employee/login';
+$route['customer'] = 'customer/login';
 //$route['pet_breed/(:any)'] = 'admin/pet_breed/$1';
 
 /*$route['myform'] = 'admin/pets';

@@ -29,10 +29,10 @@ class Inventory_Model extends CI_Model
 
    public function get_all_inventory_details_for_items(){
 
-   		$this->db->select('a.inv_item_id,a.user_type,a.user_id,a.action,a.product_item_id,a.quantity,a.inventory_date,b.admin_type,b.first_name,b.middle_name,b.last_name,c.item_name');
+   		$this->db->select('a.inv_item_id,a.user_name,a.user_type,a.user_id,a.action,a.product_item_id,a.quantity,a.inventory_date,b.item_name');
 		$this->db->from('tblinventoryforitems a');
-		$this->db->join('tbladmins b','a.user_id = b.admin_id');
-		$this->db->join('tblproductitems c','a.product_item_id = c.prod_item_id');
+		
+		$this->db->join('tblproductitems b','a.product_item_id = b.prod_item_id');
 		
 		$this->db->order_by('inv_item_id', 'DESC');
 
@@ -45,11 +45,10 @@ class Inventory_Model extends CI_Model
 
       public function get_all_inventory_details_for_medicines(){
 
-   		$this->db->select('a.inv_med_id,a.user_type,a.user_id,a.action,a.product_med_id,a.quantity,a.inventory_date,b.admin_type,b.first_name,b.middle_name,b.last_name,c.med_name,c.drugtype_id,d.drug_type');
+   		$this->db->select('a.inv_med_id,a.user_type,a.user_name,a.user_id,a.action,a.product_med_id,a.quantity,a.inventory_date,b.med_name,b.drugtype_id,c.drug_type');
 		$this->db->from('tblinventoryformedicines a');
-		$this->db->join('tbladmins b','a.user_id = b.admin_id');
-		$this->db->join('tblproductmedicines c','a.product_med_id = c.prod_med_id');
-		$this->db->join('tbldrugtype d','c.drugtype_id = d.drugtype_id');
+		$this->db->join('tblproductmedicines b','a.product_med_id = b.prod_med_id');
+		$this->db->join('tbldrugtype c','b.drugtype_id = c.drugtype_id');
 		
 		$this->db->order_by('inv_med_id', 'DESC');
 

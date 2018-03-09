@@ -55,7 +55,7 @@
 </script>
 
 </head>
-<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="inventory">
+<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="sales">
 <div class="wrapper">
 
   <header class="main-header">
@@ -156,12 +156,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Inventory 
-        <small>Inventory Report</small>
+        Sales 
+        <small>Sales Report</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Inventory</li>
+        <li class="active">Sales</li>
       </ol>
     </section>
 
@@ -171,11 +171,11 @@
 
 
       <div class="row">
-        
+
         <div class="col-xs-12">
          <div class="box">
               <div class="box-header">
-                <h3 class="box-title">Items</h3>
+                <h3 class="box-title">Sales Report</h3>
 
                 <div class="box-tools pull-right">
                           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Expand">
@@ -188,90 +188,36 @@
                 <table  class="data-table table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>Action</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
+                    <th>Sales Date</th>
+                    <th>Customer</th>
+                    <th>Customer Type</th>
+                    <th>Total Purchase</th>
+                    <th></th>
                   </tr>
                   </thead>
                   <tbody>
                    
-                    <?php foreach($item_inventory as $item_inv):?>
+                    <?php foreach($get_all_sales as $sales):?>
 
                       <tr>
                         <?php
-                                $date =date_create($item_inv->inventory_date);
-                                $item_inventory_date = date_format($date,"F j, Y, g:i a");
+                                $date =date_create($sales->sales_date);
+                                $sales_date = date_format($date,"F j, Y g:i a");
                         ?>
-                        <td><?php echo $item_inventory_date;?></td>
+                        <td><?php echo $sales_date;?></td>
                         <td>
-                           <?php echo $item_inv->user_name;?>
-                          <?php echo ucfirst( $item_inv->user_type);?>
+                          <?php echo $sales->customer_name;?>
+                         
                         </td>
-                        <td><?php echo $item_inv->action;?></td>
+                        <td> <?php echo ucfirst( $sales->customer_type);?></td>
 
-                        <td><?php echo $item_inv->item_name;?></td>
-                        <td><?php echo $item_inv->quantity;?></td>
-                      </tr>
+                        <td><?php echo $sales->sales_total;?></td>
+                        <td> 
 
-                    <?php endforeach;?>
-                   
-                  </tbody>
-                  
-                </table>
-              </div>
-              <!-- /.box-body -->
-            </div>
-          <!-- /.box -->
-
-        </div>
+                          <a href="<?php echo site_url();?>admin/sales_full_details/<?php echo $sales->sales_id;?>" class="btn btn-primary btn-sm" target="_blank">View Detail</a></td>
 
 
-
-
-
-        <div class="col-xs-12">
-         <div class="box">
-              <div class="box-header">
-                <h3 class="box-title">Medicines</h3>
-
-                <div class="box-tools pull-right">
-                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Expand">
-                            <i class="fa fa-minus"></i></button>
-
-                        </div>
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body table-responsive">
-                <table  class="data-table table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>User</th>
-                    <th>Action</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                   
-                    <?php foreach($medicine_inventory as $med_inv):?>
-
-                      <tr>
-                        <?php
-                                $date =date_create($med_inv->inventory_date);
-                                $med_inventory_date = date_format($date,"F j, Y, g:i a");
-                        ?>
-                        <td><?php echo $med_inventory_date;?></td>
-                        <td>
-                          <?php echo $med_inv->user_name;?>
-                          <?php echo ucfirst( $med_inv->user_type);?>
-                        </td>
-                        <td><?php echo $med_inv->action;?></td>
-
-                        <td><?php echo $med_inv->med_name;?></td>
-                        <td><?php echo $med_inv->quantity;?></td>
+      
                       </tr>
 
                     <?php endforeach;?>

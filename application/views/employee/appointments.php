@@ -17,7 +17,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo $system_name;?> | Admin</title>
+  <title><?php echo $system_name;?> | <?php echo ucfirst($this->session->userdata('employee_type'));?> </title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -784,7 +784,7 @@
 <script src="<?php echo site_url()?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/employeejs.js"></script>
 
 <!-- Page specific script -->
 <!-- CK Editor -->
@@ -838,7 +838,7 @@
         },
     
          events: {
-              url: '<?php echo base_url('appointment/get_all_appointments_approved/')?>',
+              url: '<?php echo base_url('appointment/get_all_appointments_for_calendar/')?>',
               type: 'GET', // Send post data
               //backgroundColor: '',
               error: function() {

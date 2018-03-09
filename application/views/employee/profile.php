@@ -1,8 +1,21 @@
+ <?php 
+
+            //for system preferences
+            foreach($get_system_settings as $system_settings){
+                $system_name = $system_settings->system_name;
+                $system_color_skin = $system_settings->color_skin;
+                $system_logo = $system_settings->system_logo;
+                $system_background_color = $system_settings->background_color;
+
+
+                $system_id = $system_settings->systemsetting_id;
+           }
+?>
 <!DOCTYPE html>
 <head>
  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet Disctrict | <?php
+  <title><?php echo $system_name;?> | <?php
   //comes frome the session
    echo ucfirst($employee_type);?> </title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
@@ -108,9 +121,9 @@ input:checked + .slider:before {
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Vet </b></span>
+      <span class="logo-mini"><b></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Vet District</b></span>
+      <span class="logo-lg"><b><?php echo $system_name;?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -535,7 +548,7 @@ input:checked + .slider:before {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-        <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; <?php echo date('Y');?> <a href="#"><?php echo $system_name;?></a>.</strong> All rights reserved.
   </footer>
 
  
@@ -572,7 +585,7 @@ input:checked + .slider:before {
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/employeejs.js"></script>
 
 <!-- page script -->
 <script>

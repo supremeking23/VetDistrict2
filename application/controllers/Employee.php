@@ -18,15 +18,28 @@ class Employee extends CI_Controller {
 		//for updating
 		$this->load->model('update_model');
 
-		//library
-		$this->load->library('form_validation');
-
 		//for system settings
 		$this->load->model('system_settings_model');
 
 
-		//for appointment
+		//for services
+		$this->load->model('service_model');
+
+
+		//inventory
+		$this->load->model('inventory_model');
+
+		//sales
+		$this->load->model('sales_model');
+
+		//pos
+		$this->load->model('pos_model');
+
+		//appointment
 		$this->load->model('appointment_model');
+
+		//library
+		$this->load->library('form_validation');
 	}
 
 
@@ -81,7 +94,7 @@ class Employee extends CI_Controller {
 
 					$this->session->set_userdata($user_data);
 
-					redirect('employee/dashboard');
+					redirect('employee/appointments');
 
 
 				}else{
@@ -112,6 +125,9 @@ class Employee extends CI_Controller {
 
 		$user_id = $this->session->userdata('user_id');
 		$data['employee_type'] = $this->session->userdata('employee_type');
+
+		
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
 
 		//get user_id via $user_id session
 		$data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
@@ -368,6 +384,39 @@ class Employee extends CI_Controller {
 		
 		$this->load->view('employee/dashboard',$data);
 		$this->load->view('employee/layouts/sidebar.php',$data);
+
+	}
+
+	public function pos(){
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('admin/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
+		//previous settings
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+
+		$data['customers'] = $this->employee_model->get_all_customer();
+
+		//items
+		$data['items'] = $this->pos_model->get_all_active_items();
+
+		//medicines
+		$data['medicines'] = $this->pos_model->get_all_active_medicine();
+
+		//services
+		$data['services'] = $this->pos_model->get_all_active_services_details();
+
+		$this->load->view('employee/pos',$data);
+		$this->load->view('employee/layouts/sidebar.php',$data);
+		
 
 	}
 

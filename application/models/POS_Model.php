@@ -63,4 +63,32 @@ class POS_Model extends CI_Model
    		$this->db->insert('tblsales_detail',$data);
    }
 
+
+   public function get_all_sales_by_sales_id($sales_id){
+
+   		$this->db->select('*');
+		$this->db->from('tblsales');
+		$this->db->where('sales_id',$sales_id);
+
+		$query = $this->db->get();
+
+		$result_set = $query->result();
+
+		return $result_set;
+   }
+
+
+   public function get_all_sales_detail_by_sales_id($sales_id){
+
+   		$this->db->select('*');
+		$this->db->from('tblsales_detail');
+		$this->db->where('sales_id',$sales_id);
+
+		$query = $this->db->get();
+
+		$result_set = $query->result();
+
+		return $result_set;
+   }
+
 }

@@ -17,6 +17,8 @@ $(function(){
 
   $("#inventory  a:contains('Reports')").parent().addClass('active');
   $("#inventory ul li a:contains('Inventory Report')").parent().addClass('active');
+  $("#sales  a:contains('Reports')").parent().addClass('active');
+  $("#sales ul li a:contains('Sales Report')").parent().addClass('active');
 
 
   $("#customer a:contains('Customers')").parent().addClass('active');

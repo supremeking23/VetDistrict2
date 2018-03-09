@@ -96,25 +96,23 @@
           </li>
 
 
-             <?php 
+            <?php 
 
-            foreach($current_admin_login as $admin_login){
-               $first_name = $admin_login->first_name;
-               $middle_name = $admin_login->middle_name;
-               $last_name = $admin_login->last_name;
-               $image = $admin_login->image;
-               $admin_type = $admin_login->admin_type;
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
            <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-                      <?php if(empty($image)){ ?>
+  <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -124,15 +122,15 @@
                       <!-- User image -->
                       <li class="user-header">
                        
-                        <?php if(empty($image)){ ?>
+                         <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                         <small><?php echo strtoupper($admin_type);?></small>
+                          <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -140,10 +138,10 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>employee/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>employee/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
@@ -166,7 +164,7 @@
         <small></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Employee</a></li>
         <li class="active">POS</li>
       </ol>
     </section>
@@ -291,7 +289,7 @@
                                                       
 
                                                       <?php 
-                                                        echo form_open_multipart('pos_controller/remove_to_cart');
+                                                        echo form_open_multipart('pos_controller/remove_to_cart_employee');
 
                                                      ?>
 
@@ -499,7 +497,7 @@
 
 
 
-                      <?php echo form_open_multipart('pos_controller/checkout');//start form?>
+                      <?php echo form_open_multipart('pos_controller/checkout_employee');//start form?>
 
                        <tr>
                           <td> 
@@ -623,7 +621,7 @@
                         <td>
                          
                            <?php 
-                            echo form_open_multipart('pos_controller/add_to_cart');
+                            echo form_open_multipart('pos_controller/add_to_cart_employee');
 
                          ?>
 
@@ -752,7 +750,7 @@
                         <td>
                           
                            <?php 
-                            echo form_open_multipart('pos_controller/add_to_cart');
+                            echo form_open_multipart('pos_controller/add_to_cart_employee');
 
                          ?>
 
@@ -886,7 +884,7 @@
 
 
                         <?php 
-                            echo form_open_multipart('pos_controller/add_to_cart');
+                            echo form_open_multipart('pos_controller/add_to_cart_employee');
 
                          ?>
 
@@ -1018,7 +1016,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/employeejs.js"></script>
 
 <!-- Select2 -->
 <script src="<?php echo site_url()?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>

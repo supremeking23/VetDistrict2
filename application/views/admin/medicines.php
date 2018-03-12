@@ -415,7 +415,7 @@
                         <span class="label label-success">Active </span>
                   <?php  }else{ ?>
                         <span class="label label-danger">Not Active  </span>
-                        Not Active 
+                        
                   <?php   } ?></td>
                   <td><a href="<?php echo site_url()?>admin/med_details/<?php echo $med_info['prod_med_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
                 </tr>
@@ -480,7 +480,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- page script -->
 <script>

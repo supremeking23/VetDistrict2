@@ -357,8 +357,31 @@
                       <div class="box-tools pull-right">
                         
                       
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Print Data">
-                          <i class="fa fa-print"></i></button>
+                        <button type="button" class="btn btn-box-tool"  data-tooltip="tooltip" title="Options" data-target="#modal-default" data-toggle="modal" >
+                          <i class="fa fa-gear"></i></button>
+
+                        <div class="modal fade" id="modal-default">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title text-center">Filter Data</h4>
+                              </div>
+                              <div class="modal-body">
+                              
+
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
                       </div>
                     </div>
                     <div class="box-body table-responsive">
@@ -415,7 +438,7 @@
                   </div>
                   <!-- /.box -->
             </div>
-          </div>
+        </div>
       <!-- /.row (main row) -->
 
     </section>
@@ -463,7 +486,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- page script -->
 <script>

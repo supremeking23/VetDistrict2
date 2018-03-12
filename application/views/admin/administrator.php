@@ -327,32 +327,8 @@
               </div>
             </div>
 
-                <div class="col-md-4">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-male"></i></span>
-                    <div class="info-box-content">
-                      <span class="info-box-text">Male Administrator</span>
-
-                      <?php foreach($count_male_admins as $total_count_male_admins):?>
-                      <span class="info-box-number"><?php echo $total_count_male_admins['count_male'];?></span>
-                      <?php endforeach?>
-
-                    </div>
-                  </div>
-            </div>
-            <div class="col-md-4">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-female"></i></span>
-                    <div class="info-box-content">
-                      <span class="info-box-text">Female Customer</span>
-
-                       <?php foreach($count_female_admins as $total_count_female_admins):?>
-                      <span class="info-box-number"><?php echo $total_count_female_admins['count_female'];?></span>
-                      <?php endforeach?>
-
-                    </div>
-                  </div>
-            </div>
+             
+           
         
       </div> <!-- end first row -->
 
@@ -459,7 +435,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- page script -->
 <script>

@@ -17,7 +17,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo $system_name;?> | <?php echo ucfirst($this->session->userdata('employee_type'));?> </title>
+  <title><?php echo $system_name;?> |  <?php
+  //comes frome the session
+   echo ucfirst($employee_type);?> </title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -134,7 +136,7 @@
                         <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
                        <p>
@@ -205,7 +207,7 @@
                             </div>
 
                             <?php 
-                            echo form_open_multipart('admin/book_appointment');
+                            echo form_open_multipart('employee/book_appointment');
                                   ?>
                             <div class="modal-body">
 
@@ -420,10 +422,14 @@
 
                             <a data-toggle="modal" data-target="#done_appointment<?php echo $appointment->appointment_id?>" class="btn btn-success btn-sm">Done</a>
 
+                             <a data-toggle="modal" data-target="#view_appointment<?php echo $appointment->appointment_id?>" class="btn btn-primary btn-sm">View Detail</a>
+
 
                           <?php  }else if($appointment->status == "pending"){ ?>
                          <a data-toggle="modal" data-target="#cancel_appointment<?php echo $appointment->appointment_id?>" class="btn btn-danger btn-sm">Cancel Appointment</a>
-                          <a href="<?php echo site_url()?>appointment/approve_appointment_action/<?php echo $appointment->appointment_id;?>" class="btn btn-sm btn-info">Approve</a>
+                          <a href="<?php echo site_url()?>appointment/approve_appointment_action_employee/<?php echo $appointment->appointment_id;?>" class="btn btn-sm btn-info">Approve</a>
+
+                           <a data-toggle="modal" data-target="#view_appointment<?php echo $appointment->appointment_id?>" class="btn btn-primary btn-sm">View Detail</a>
 
                           <?php  }else if($appointment->status == "cancelled"){ ?>
                           
@@ -447,7 +453,7 @@
                           </div>
 
                             <?php //beginning form
-                                    echo form_open_multipart('appointment/done_appointment_action','class="form-horizontal"');
+                                    echo form_open_multipart('appointment/done_appointment_action_employee','class="form-horizontal"');
                             ?>
 
 
@@ -488,7 +494,7 @@
                           </div>
 
                             <?php //beginning form
-                                    echo form_open_multipart('appointment/cancel_appointment_action','class="form-horizontal"');
+                                    echo form_open_multipart('appointment/cancel_appointment_action_employee','class="form-horizontal"');
                             ?>
 
                           <div class="modal-body">
@@ -576,7 +582,7 @@
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
+                            
                           </div>
                         </div>
                         <!-- /.modal-content -->
@@ -603,51 +609,12 @@
       <!-- /.row (main row) -->
 
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-primary">
-            <div class="box-body no-padding">
-              <!-- THE CALENDAR -->
-              <div id="calendar"></div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /. box -->
-        </div>
-        <!-- /.col -->
-      </div>
+
 
 
       <div class="row">
           
-          <div id="calendarModal" class="modal fade">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Appointment Detail</h4>
-                </div>
-                <div id="modalBody" class="modal-body">
-                    
-                    <dl class="dl-horizontal">
-                      <dt>Customer Name</dt>
-                      <dd id="customer_name"></dd>
-                      <dt>Appointment Time</dt>
-                      <dd id="appointment_date"></dd>
-                      <dd id="preferred_time"></dd>
-                      <dt>Reason</dt>
-                      <dd id="appointment_reason">
-                      </dd>
-                    </dl>
 
-                </div>
-                <input type="hidden" id="appointmentID"/>
-                <div class="modal-footer">
-                
-                </div>
-              </div>
-            </div>
-          </div>
 
 
               <?php if ($this->session->flashdata('incorrect_password')) { ?>
@@ -719,6 +686,32 @@
 
                <?php } ?>
 
+
+               <?php if ($this->session->flashdata('appointment_done')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('appointment_done'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
+
+               
+
       </div>
 
     </section>
@@ -784,7 +777,7 @@
 <script src="<?php echo site_url()?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/employeejs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- Page specific script -->
 <!-- CK Editor -->
@@ -820,51 +813,9 @@
     
 
    
-    //bootstrap WYSIHTML5 - text editor
-    $('.textarea').wysihtml5();
-
    
-      $('#calendar').fullCalendar({
-        header    : {
-          left  : 'prev,next today',
-          center: 'title',
-          right : 'month,agendaWeek,agendaDay'
-        },
-        buttonText: {
-          today: 'today',
-          month: 'month',
-          week : 'week',
-          day  : 'day'
-        },
-    
-         events: {
-              url: '<?php echo base_url('appointment/get_all_appointments_for_calendar/')?>',
-              type: 'GET', // Send post data
-              //backgroundColor: '',
-              error: function() {
-                  alert('There was an error while fetching events.');
-              }
-        },
-
-        eventClick:  function(event, jsEvent, view) {  // when some one click on any event
-               // endtime = $.fullCalendar.moment(event.end).format('h:mm');
-                start = $.fullCalendar.moment(event.start).format('dddd, MMMM Do YYYY');
-                
-                //var mywhen = start + "";
-                //$('#modalTitle').html(event.description);
-                $('#customer_name').html(event.customer_name);
-                
-                $('#appointment_date').html(start);
-                $('#preferred_time').html(event.preferred_time);
-                
-                $('#appointment_reason').html(event.appointment_reason);
-                //$('#startTime').html(mywhen);
-                $('#appointmentID').val(event.id);
-               
-                $('#calendarModal').modal();
-            },
-       
-        });
+   
+     
 
   });
 

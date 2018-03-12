@@ -19,7 +19,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo $system_name;?> | <?php
   //comes frome the session
-   echo ucfirst($employee_type);?> </title>
+   echo ucfirst($employee_type);?></title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -85,7 +85,7 @@
 
           
 
-            <?php 
+           <?php 
 
             foreach($current_employee_login as $employee_login){
                $first_name = $employee_login->first_name;
@@ -95,8 +95,7 @@
             }
           ?>
 
-
-           <!-- User Account: style can be found in dropdown.less -->
+          <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
@@ -116,7 +115,7 @@
                          <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
                         <p>
@@ -137,7 +136,6 @@
                       </li>
                     </ul>
           </li>
-
         
         </ul>
       </div>
@@ -196,8 +194,7 @@
 
 
 
-                <!-- addCustomerModal-->  
-                <div class="modal fade" id="addCustomerModal">
+             <div class="modal fade" id="addCustomerModal">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -210,18 +207,24 @@
                           echo form_open_multipart('employee/create_new_customer');
                         ?>
 
+                        <div class="form-group has-feedback">
+                            <input type="text"   class="form-control" placeholder="Customer ID"   name="customer_user_id" id="customer_user_id" readonly="" >
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+
+                          </div>
+
                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="First Name"   name="first_name" required="">
+                            <input type="text" required=""  class="form-control" placeholder="First Name"   name="first_name">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                            <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Middle Name"  name="middle_name" required="">
+                            <input type="text" class="form-control" placeholder="Middle Name"  name="middle_name">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                            <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Last Name" name="last_name" required="">
+                            <input type="text" required=""  class="form-control" placeholder="Last Name" name="last_name">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
@@ -236,40 +239,40 @@
                                 );
                             ?>
                             <div class="form-group has-feedback">
-                             <?php echo form_dropdown('gender',$option,'','class="form-control"');?>
+                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
                             </div>
 
                             <!-- end dropdown-->
 
                           <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth" required="">
+                            <input type="date" required=""  class="form-control" name="date_birth" placeholder="Date of Birth">
                             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
                           </div>
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Telephone"  name="telephone" required="">
+                            <input type="text" required=""   class="form-control" placeholder="Telephone"  name="telephone">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Cellphone"  name="cellphone" required="">
+                            <input type="text" required=""   class="form-control" placeholder="Cellphone"  name="cellphone">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Address"  name="address" required="">
+                            <input type="text"  required=""  class="form-control" placeholder="Address"  name="address">
                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                           </div>
 
 
 
                           <div class="form-group has-feedback">
-                            <input type="email"    class="form-control" placeholder="Email"  name="email" required="">
+                            <input type="text"  required=""  class="form-control" placeholder="Email"  name="email">
                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                           </div>
 
                            <div class="form-group has-feedback">
-                            <input type="password"    class="form-control" placeholder="Password"  name="password" required="">
+                            <input type="password" required=""   class="form-control" placeholder="Password"  name="password">
                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                           </div>
                           
@@ -287,7 +290,6 @@
                   </div>
                   <!-- /.modal-dialog -->
                 </div>
-                <!-- /.modal -->
 
 
             </div> <!-- modal section -->
@@ -304,7 +306,7 @@
                   <?php endforeach?>
 
 
-                  <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addCustomerModal">
+                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addCustomerModal">
                     Add new customer
                   </button>
                  
@@ -312,88 +314,107 @@
               </div>
             </div>
 
-                <div class="col-md-4">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-blue"><i class="fa fa-male"></i></span>
-                    <div class="info-box-content">
-                      <span class="info-box-text">Male Customer</span>
-
-                      <?php foreach($count_male_customer as $total_count_male_customer):?>
-                      <span class="info-box-number"><?php echo $total_count_male_customer['count_male'];?></span>
-                      <?php endforeach?>
-
-                    </div>
-                  </div>
-            </div>
-            <div class="col-md-4">
-                  <div class="info-box">
-                    <span class="info-box-icon bg-red"><i class="fa fa-female"></i></span>
-                    <div class="info-box-content">
-                      <span class="info-box-text">Female Customer</span>
-
-                       <?php foreach($count_female_customer as $total_count_female_customer):?>
-                      <span class="info-box-number"><?php echo $total_count_female_customer['count_female'];?></span>
-                      <?php endforeach?>
-
-                    </div>
-                  </div>
-            </div>
+               
+           
         
       </div> <!-- end first row -->
 
 
 
 
-      <div class="row">
-
-       <div class="col-xs-12">
-       <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Customer</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body table-responsive">
-              <table id="example1" class="table table-bordered table-striped table-hover">
-                <thead>
-                <tr>
-                  <th>Customer ID</th>
-                  <th>Name</th>
-                  <th>Gender</th>
-                  
-                  <th>Cellphone Number</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <?php foreach($customers as $customer):?>
-                  <tr>
-                    <td><?php echo $customer['customer_id'];?></td>
-                    <td><?php echo $customer['first_name'] .' ' . $customer['middle_name'] .' ' . $customer['last_name'];?></td>
-                    <td><?php echo $customer['gender'];?></td>
+       <div class="row">
+            <div class="col-md-12">
                     
-                    <td><?php echo $customer['cellphone'];?></td>
-                    <td><?php if($customer['is_active'] == 1){ ?>
-                        Active
-                  <?php  }else{ ?>
+              <!-- Default box -->
+                  <div class="box ">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Customer List</h3>
 
-                        Not Active
-                  <?php   } ?></td>
-                    <td><a href="<?php echo site_url()?>employee/customer_details/<?php echo $customer['customer_id'];?>" class="btn btn-primary">View More Details</a></td>
-                  </tr>
-                <?php endforeach; ?>
+                      <div class="box-tools pull-right">
+                        
+                      
+                        <button type="button" class="btn btn-box-tool"  data-tooltip="tooltip" title="Options" data-target="#modal-default" data-toggle="modal" >
+                          <i class="fa fa-gear"></i></button>
 
-                </tbody>
-                
-              </table>
+                        <div class="modal fade" id="modal-default">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title text-center">Filter Data</h4>
+                              </div>
+                              <div class="modal-body">
+                              
+
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                              </div>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                      </div>
+                    </div>
+                    <div class="box-body table-responsive">
+                        
+                        <table  class="data-table table table-bordered table-striped table-hover">
+                          <thead>
+                          <tr>
+                            <th>Customer ID</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            
+                            <th>Cellphone Number</th>
+                            <th>Status</th>
+                            <th>Member Since</th>
+                            <th>Action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+
+                          <?php foreach($customers as $customer):?>
+                            <tr>
+                              <td><?php echo $customer['customer_user_id'];?></td>
+                              <td><?php echo $customer['first_name'] .' ' . $customer['middle_name'] .' ' . $customer['last_name'];?></td>
+                              <td><?php echo $customer['gender'];?></td>
+                              
+                              <td><?php echo $customer['cellphone'];?></td>
+                              <td><?php if($customer['is_active'] == 1){ ?>
+                                  <span class="label label-success">Active</span>
+                            <?php  }else{ ?>
+
+                                  <span class="label label-danger">Not Active</span>
+                            <?php   } ?></td>
+
+                              <?php
+                                $date =date_create($customer['date_added']);
+                                $date_added = date_format($date,"F j, Y, g:i a");
+                              ?>
+                            <td><?php echo $date_added;?></td>
+
+                              <td><a href="<?php echo site_url()?>employee/customer_details/<?php echo $customer['customer_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
+                            </tr>
+                          <?php endforeach; ?>
+
+                          </tbody>
+                          
+                        </table>
+
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                    
+                    </div>
+                    <!-- /.box-footer-->
+                  </div>
+                  <!-- /.box -->
             </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-
-          </div>
-      </div>
+        </div>
       <!-- /.row (main row) -->
 
     </section>
@@ -441,29 +462,18 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/employeejs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false,
-
-
-    })
+    
+    var customer_user_id = "<?= 'C'.date("ymdhis") . abs(rand('0','9'));  ?>";
+        $('#customer_user_id').val(customer_user_id);
   })
 
 
 
-    $(document).ready(function(){
-    $('#successmodal').modal('show');
-  });
 
 
 

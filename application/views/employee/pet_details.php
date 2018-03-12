@@ -17,7 +17,9 @@
 <head>
  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo $system_name;?> | Admin</title>
+  <title><?php echo $system_name;?> | <?php
+  //comes frome the session
+   echo ucfirst($employee_type);?></title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -147,7 +149,7 @@ input:checked + .slider:before {
           </li>
 
 
-          <?php 
+           <?php 
 
             foreach($current_employee_login as $employee_login){
                $first_name = $employee_login->first_name;
@@ -158,13 +160,13 @@ input:checked + .slider:before {
           ?>
 
            <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
+           <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
                       <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -173,16 +175,14 @@ input:checked + .slider:before {
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-
-                          <?php if(empty($image)){ ?>
+                        
+                         <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
-                        
-
-                       <p>
+                        <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
                           <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
@@ -200,7 +200,6 @@ input:checked + .slider:before {
                       </li>
                     </ul>
           </li>
-
          
         </ul>
       </div>
@@ -218,7 +217,7 @@ input:checked + .slider:before {
         <small>Details</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Employee</a></li>
         <li class="active">Pet</li>
         <li class="active">Pet Details</li>
       </ol>
@@ -362,6 +361,7 @@ input:checked + .slider:before {
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#settings" data-toggle="tab">Account Settings</a></li>
+              <li><a href="#pet_medical_records" data-toggle="tab">Pet Medical Records</a></li>
             </ul>
             <div class="tab-content">
              
@@ -374,7 +374,7 @@ input:checked + .slider:before {
                 <fieldset>
 
                   <?php //beginning form
-                  echo form_open_multipart('admin/update_pet_details','class="form-horizontal"');
+                  echo form_open_multipart('employee/update_pet_details','class="form-horizontal"');
                   ?>
 
 
@@ -518,6 +518,36 @@ input:checked + .slider:before {
 
               </div>
               <!-- /.tab-pane -->
+
+              <div class="tab-pane" id="pet_medical_records">
+                <table  class="data-table table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Rendering engine</th>
+                  <th>Browser</th>
+                  <th>Platform(s)</th>
+                  <th>Engine version</th>
+                  <th>CSS grade</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Trident</td>
+                  <td>Internet
+                    Explorer 4.0
+                  </td>
+                  <td>Win 95+</td>
+                  <td> 4</td>
+                  <td>X</td>
+                </tr>
+                </tbody>.
+               
+              </table>
+              
+              </div>
+              <!-- /.tab-pane -->
+
+
             </div>
             <!-- /.tab-content -->
           </div>
@@ -612,7 +642,7 @@ input:checked + .slider:before {
                                 </div>
 
                                  <?php //beginning form
-                                    echo form_open_multipart('admin/update_pet_state','class="form-horizontal"');
+                                    echo form_open_multipart('employee/update_pet_state','class="form-horizontal"');
                               ?>
                                 <div class="modal-body">
                                   <input type="hidden" name="current_state" value="<?php echo  $pet_details->is_active;?>">
@@ -685,7 +715,7 @@ input:checked + .slider:before {
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- page script -->
 <script>

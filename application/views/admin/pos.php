@@ -1017,11 +1017,14 @@
 <script src="<?php echo site_url()?>assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
-<!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
 
 <!-- Select2 -->
 <script src="<?php echo site_url()?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+<!--admin scripts -->
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
+
+
 <!-- page script -->
 <script>
  

@@ -160,6 +160,22 @@ class Admin_Model extends CI_Model
 
 
 
+	public function get_employee_by_id_and_password($id,$password){
+		$this->db->select('*');
+		$this->db->from('tblemployees');
+		$this->db->where('employee_id',$id);
+		$this->db->where('password',$password);
+
+		$query = $this->db->get();
+
+		$result_set = $query->result();
+
+		return $result_set;
+	}
+
+
+
+
 
 
 
@@ -189,7 +205,7 @@ class Admin_Model extends CI_Model
 	}
 
 	public function get_count_veterinarian(){
-			$result_set = $this->db->query('SELECT COUNT(*) AS "count_veterinarian" FROM tblemployees WHERE employee_type = "vet"');
+			$result_set = $this->db->query('SELECT COUNT(*) AS "count_veterinarian" FROM tblemployees WHERE employee_type = "veterinarian"');
 			return $result_set->result_array();
 	}
 
@@ -375,6 +391,23 @@ class Admin_Model extends CI_Model
 		$this->db->join('tblpettype b','a.pet_type = b.pettype_id');
 		$this->db->join('tblpetbreed c','a.pet_breed = c.breed_id');
 		$this->db->join('tblcustomers d','a.customer_id = d.customer_id');
+		$this->db->order_by('pet_id', 'DESC');
+
+		$result_set = $this->db->get();
+		return $result_set->result_array();
+	}
+
+
+	//vet use only only active will be retrieve
+	public function get_all_pets_with_there_customers_for_veterinarian(){
+		
+
+		$this->db->select('a.pet_id,a.pet_data_id,a.pet_name,a.is_active,b.pet_type,c.breed,d.first_name,d.middle_name,d.last_name');
+		$this->db->from('tblpets a');
+		$this->db->join('tblpettype b','a.pet_type = b.pettype_id');
+		$this->db->join('tblpetbreed c','a.pet_breed = c.breed_id');
+		$this->db->join('tblcustomers d','a.customer_id = d.customer_id');
+		$this->db->where('a.is_active', '1');
 		$this->db->order_by('pet_id', 'DESC');
 
 		$result_set = $this->db->get();

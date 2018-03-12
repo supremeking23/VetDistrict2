@@ -55,7 +55,7 @@
 </script>
 
 </head>
-<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="sales">
+<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="inventory">
 <div class="wrapper">
 
   <header class="main-header">
@@ -89,25 +89,24 @@
           </li>
 
 
-           <?php 
+          <?php 
 
-            foreach($current_admin_login as $admin_login){
-               $first_name = $admin_login->first_name;
-               $middle_name = $admin_login->middle_name;
-               $last_name = $admin_login->last_name;
-               $image = $admin_login->image;
-               $admin_type = $admin_login->admin_type;
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
            <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
+              <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
                       <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -116,18 +115,16 @@
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-
-                          <?php if(empty($image)){ ?>
+                        
+                         <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
-
-                        
 
                         <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                          <small><?php echo strtoupper($admin_type);?></small>
+                          <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -135,10 +132,10 @@
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>employee/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>employee/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
@@ -156,12 +153,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Sales 
-        <small>Purchase Full Details</small>
+        Inventory 
+        <small>Inventory Report</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li class="active">Sales</li> <li class="active">Purchase Full Details</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Employee</a></li>
+        <li class="active">Inventory</li>
       </ol>
     </section>
 
@@ -171,25 +168,11 @@
 
 
       <div class="row">
-
-       <div class="col-xs-12">
+        
+        <div class="col-xs-12">
          <div class="box">
-
-           <?php 
-                          foreach ($get_all_sales as $sales) {
-                              $customer_name = $sales->customer_name;
-                              $invoice_number = $sales->invoice_number;
-                              $total_amount = $sales->total_amount;
-                              $total_tax = $sales->total_tax;
-                              $sales_total = $sales->sales_total;
-
-                               $date =date_create($sales->sales_date);
-                              $sales_date = date_format($date,"F j, Y g:i a");
-                          }
-                    ?>  
-
               <div class="box-header">
-                <h3 class="box-title"> Invoice Number:(<?php echo $invoice_number?>)</h3>
+                <h3 class="box-title">Items</h3>
 
                 <div class="box-tools pull-right">
                           <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Expand">
@@ -199,70 +182,100 @@
               </div>
               <!-- /.box-header -->
               <div class="box-body table-responsive">
-                  
-                  <div class="container-fluid">
-
+                <table  class="data-table table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                  </tr>
+                  </thead>
+                  <tbody>
                    
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <span>Customer: <strong><?php echo $customer_name;?></strong></span>
-                        <span class="pull-right">Date: <strong><?php echo $sales_date;?></strong></span>
-                      </div>
-                    </div>
-                    <div style="height:10px;"></div>
+                    <?php foreach($item_inventory as $item_inv):?>
 
-                    <div class="row">
-                        
-                        <div class="col-md-12">
-                            <table width="100%" class="table table-striped table-bordered table-hover">
-                                  <thead>
-                                    <tr>
-                                      <th>Product Name</th>
-                                      <th>Product Type</th>
-                                      <th>Product Price</th>
-                                      <th>Purchase Qty</th>
-                                      <th>SubTotal</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                      
-                                      <?php foreach($get_all_sales_details as $sales_detail):?>
-                                      <tr>
-                                          <td><?php echo $sales_detail->product_name;?></td>
-                                          <td><?php echo $sales_detail->product_type;?></td>
-                                          <td><?php echo $sales_detail->price_per_product;?></td>
-                                          <td align="right"><?php echo $sales_detail->sales_quantity;?></td>
-                                         
-                                          <td align="right">
-                                            <?php echo $sales_detail->total_per_product;?>
-                                          </td>
-                                      </tr>
+                      <tr>
+                        <?php
+                                $date =date_create($item_inv->inventory_date);
+                                $item_inventory_date = date_format($date,"F j, Y, g:i a");
+                        ?>
+                        <td><?php echo $item_inventory_date;?></td>
+                        <td>
+                           <?php echo $item_inv->user_name;?>
+                          <?php echo ucfirst( $item_inv->user_type);?>
+                        </td>
+                        <td><?php echo $item_inv->action;?></td>
 
-                                      <?php endforeach;?>
+                        <td><?php echo $item_inv->item_name;?></td>
+                        <td><?php echo $item_inv->quantity;?></td>
+                      </tr>
 
-                                     <tr>
-                                      <td align="right" colspan="4"><strong>Total Amount</strong></td>
-                                      <td align="right"><strong><?php echo $total_amount;?></strong></td>
-                                    </tr>
+                    <?php endforeach;?>
+                   
+                  </tbody>
+                  
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </div>
+          <!-- /.box -->
 
-                                     <tr>
-                                      <td align="right" colspan="4"><strong>Total Tax</strong></td>
-                                      <td align="right"><strong><?php echo $total_tax;?></strong></td>
-                                    </tr>
-                                        
-                                    <tr>
-                                      <td align="right" colspan="4"><strong>Grand Total</strong></td>
-                                      <td align="right"><strong><?php echo $sales_total;?></strong></td>
-                                    </tr>
-                                  </tbody>
-                            </table>
+        </div>
+
+
+
+
+
+        <div class="col-xs-12">
+         <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Medicines</h3>
+
+                <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Expand">
+                            <i class="fa fa-minus"></i></button>
 
                         </div>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body table-responsive">
+                <table  class="data-table table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                   
+                    <?php foreach($medicine_inventory as $med_inv):?>
 
-                    </div>
+                      <tr>
+                        <?php
+                                $date =date_create($med_inv->inventory_date);
+                                $med_inventory_date = date_format($date,"F j, Y, g:i a");
+                        ?>
+                        <td><?php echo $med_inventory_date;?></td>
+                        <td>
+                          <?php echo $med_inv->user_name;?>
+                          <?php echo ucfirst( $med_inv->user_type);?>
+                        </td>
+                        <td><?php echo $med_inv->action;?></td>
 
-                  </div>   
+                        <td><?php echo $med_inv->med_name;?></td>
+                        <td><?php echo $med_inv->quantity;?></td>
+                      </tr>
 
+                    <?php endforeach;?>
+                   
+                  </tbody>
+                  
+                </table>
               </div>
               <!-- /.box-body -->
             </div>

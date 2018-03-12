@@ -808,7 +808,7 @@
           </div>
        
 
-
+          
 
     </section>
     <!-- /.content -->
@@ -865,7 +865,7 @@
 <script src="<?php echo site_url()?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- Page specific script -->
 <script>

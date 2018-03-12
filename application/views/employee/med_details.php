@@ -1,9 +1,25 @@
+ <?php 
+
+            //for system preferences
+            foreach($get_system_settings as $system_settings){
+                $system_name = $system_settings->system_name;
+                $system_color_skin = $system_settings->color_skin;
+                $system_logo = $system_settings->system_logo;
+                $system_background_color = $system_settings->background_color;
+
+
+                $system_id = $system_settings->systemsetting_id;
+           }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Vet District Clinic | Admin</title>
+  <title><?php echo $system_name;?> |  <?php
+  //comes frome the session
+   echo ucfirst($employee_type);?></title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>assets/dist/img/vet.png">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -17,7 +33,7 @@
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/skins/skin-green.css">
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/dist/css/skins/<?php echo $system_color_skin?>.css">
    
      <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
@@ -99,16 +115,16 @@ input:checked + .slider:before {
 
 </head>
 
-<body class="hold-transition skin-green sidebar-mini" id="medicine">
+<body class="hold-transition <?php echo $system_color_skin?> sidebar-mini" id="medicine">
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
     <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>Vet </b></span>
+      <span class="logo-mini"><b></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Vet District</b></span>
+      <span class="logo-lg"><b><?php echo $system_name;?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -135,11 +151,11 @@ input:checked + .slider:before {
 
           <?php 
 
-            foreach($current_admin_login as $admin_login){
-               $first_name = $admin_login->first_name;
-               $middle_name = $admin_login->middle_name;
-               $last_name = $admin_login->last_name;
-               $image = $admin_login->image;
+            foreach($current_employee_login as $employee_login){
+               $first_name = $employee_login->first_name;
+               $middle_name = $employee_login->middle_name;
+               $last_name = $employee_login->last_name;
+               $image = $employee_login->image;
             }
           ?>
 
@@ -150,7 +166,7 @@ input:checked + .slider:before {
                       <?php if(empty($image)){ ?>
                       <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="user-image" alt="User Image">
                      <?php }else{ ?>
-                     <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="user-image" alt="User Image">
+                     <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="user-image" alt="User Image">
                      <?php } ?>
 
 
@@ -159,18 +175,16 @@ input:checked + .slider:before {
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-
-                          <?php if(empty($image)){ ?>
+                       
+                        <?php if(empty($image)){ ?>
                         <img src="<?php echo site_url()?>assets/dist/img/guest2.jpg" class="img-circle" alt="User Image">
                        <?php }else{ ?>
-                       <img src="<?php echo site_url()?>uploads/admin_image/<?php echo $image;?>" class="img-circle" alt="User Image">
+                       <img src="<?php echo site_url()?>uploads/employee_image/<?php echo $image;?>" class="img-circle" alt="User Image">
                        <?php } ?>
 
-                        
-
-                        <p>
+                       <p>
                          <?php echo $first_name .' '. $middle_name .' '. $last_name;?>
-                         <small>Admin</small>
+                          <small><?php echo ucfirst($employee_login->employee_type);?></small>
                         </p>
                       </li>
                       <!-- Menu Body -->
@@ -178,15 +192,14 @@ input:checked + .slider:before {
                       <!-- Menu Footer-->
                       <li class="user-footer">
                         <div class="pull-left">
-                          <a href="<?php echo site_url()?>admin/profile" class="btn btn-default btn-flat">Profile</a>
+                          <a href="<?php echo site_url()?>employee/profile" class="btn btn-default btn-flat">Profile</a>
                         </div>
                         <div class="pull-right">
-                          <a href="<?php echo site_url()?>admin/sign_out" class="btn btn-default btn-flat">Sign out</a>
+                          <a href="<?php echo site_url()?>employee/sign_out" class="btn btn-default btn-flat">Sign out</a>
                         </div>
                       </li>
                     </ul>
           </li>
-
          
         </ul>
       </div>
@@ -204,7 +217,7 @@ input:checked + .slider:before {
         <small>Details</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Employee</a></li>
         <li class="active">Medicine</li>
         <li class="active">Medicine Details</li>
       </ol>
@@ -339,7 +352,7 @@ input:checked + .slider:before {
                 <fieldset>
 
                   <?php //beginning form
-                  echo form_open_multipart('admin/update_med_details','class="form-horizontal"');
+                  echo form_open_multipart('employee/update_med_details','class="form-horizontal"');
                   ?>
 
 
@@ -405,6 +418,8 @@ input:checked + .slider:before {
                           <?php }else { ?>
                                <img id="image" class="profile-user-img img-responsive " src="<?php echo site_url()?>uploads/med_image/<?php echo $med_details->image; ?>" width="100" alt="User profile picture">
                           <?php } ?>
+
+
                         </div>
 
                         <?php //for employee_id?>
@@ -528,7 +543,7 @@ input:checked + .slider:before {
                                 </div>
 
                                  <?php //beginning form
-                                    echo form_open_multipart('admin/update_med_state','class="form-horizontal"');
+                                    echo form_open_multipart('employee/update_med_state','class="form-horizontal"');
                               ?>
                                 <div class="modal-body">
                                   <input type="hidden" name="current_state" value="<?php echo  $med_details->is_active;?>">
@@ -564,7 +579,7 @@ input:checked + .slider:before {
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#">Vet District Animal Clinic</a>.</strong> All rights reserved.
+     <strong>Copyright &copy; <?php echo date('Y');?> <a href="#"><?php echo $system_name;?></a>.</strong> All rights reserved.
   </footer>
 
  
@@ -601,7 +616,7 @@ input:checked + .slider:before {
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- page script -->
 <script>

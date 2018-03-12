@@ -866,6 +866,9 @@ class Admin extends CI_Controller {
 
 		$data['get_all_sales'] = $this->sales_model->get_all_sales_report();
 
+
+		
+
 		//not use... duga mode on the way
 		//$data['get_all_sales'] = $this->sales_model->get_all_sales_report_by_sales_id();
 		

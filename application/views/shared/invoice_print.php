@@ -110,9 +110,9 @@
               
               <td><?php echo $data_from_sales_detail->product_name;?></td>
               <td><?php echo $data_from_sales_detail->product_type;?></td>
-              <td><?php echo $data_from_sales_detail->price_per_product;?></td>
+              <td>₱<?php echo $data_from_sales_detail->price_per_product;?></td>
                <td><?php echo $data_from_sales_detail->sales_quantity;?></td>
-              <td><?php echo $data_from_sales_detail->total_per_product;?></td>
+              <td>₱<?php echo $data_from_sales_detail->total_per_product;?></td>
             </tr>
           
           <?php endforeach;?>
@@ -136,16 +136,16 @@
           <table class="table">
             <tr>
               <th style="width:50%">Subtotal:</th>
-              <td><?php echo $total_amount;?></td>
+              <td>₱<?php echo $total_amount;?></td>
             </tr>
             <tr>
               <th>Total tax</th>
-              <td><?php echo $total_tax;?></td>
+              <td>₱<?php echo $total_tax;?></td>
             </tr>
            
             <tr>
               <th>Grand Total:</th>
-              <td><?php echo $sales_total;?></td>
+              <td>₱<?php echo $sales_total;?></td>
             </tr>
           </table>
         </div>

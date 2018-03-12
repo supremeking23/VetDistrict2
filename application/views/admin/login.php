@@ -149,7 +149,7 @@
 <!-- iCheck -->
 <script src="<?php echo site_url();?>assets/plugins/iCheck/icheck.min.js"></script>
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/adminjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <script>
   $(function () {

@@ -24,7 +24,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo $system_name;?> | Admin</title>
+  <title><?php echo $system_name;?> |  <?php
+  //comes frome the session
+   echo ucfirst($employee_type);?></title>
   <link rel="shortcut icon" href="<?php echo site_url(); ?>uploads/system_images/<?php echo $system_logo;?>">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -1015,11 +1017,12 @@
 <script src="<?php echo site_url()?>assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo site_url()?>assets/dist/js/demo.js"></script>
-<!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/employeejs.js"></script>
-
 <!-- Select2 -->
 <script src="<?php echo site_url()?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
+
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
+
+
 <!-- page script -->
 <script>
  

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2018 at 04:33 AM
+-- Generation Time: Mar 13, 2018 at 12:12 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -85,9 +85,11 @@ INSERT INTO `tblappointments` (`appointment_id`, `customer_id`, `customer_name`,
 (3, 21, 'Karla Rose Mayumi Dele Cruz', '090911', '09121212121', '2018-02-15', 'afternoon', 'sdsdsdsd', '2018-02-15 00:25:03', 'approved', ''),
 (4, 0, 'Customer 2', '3232', '434', '2018-02-15', 'evening', 'ssddsds', '2018-02-15 00:41:31', 'cancelled', 'hahhahahaha na cancel ko to'),
 (5, 0, 'Bruno Mars', '9999', '090911212112', '2018-02-17', 'evening', 'may sakit si junny boy', '2018-02-17 19:38:41', 'done', ''),
-(6, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-19', 'afternoon', 'pacheck up ng aso ko', '2018-02-17 22:42:22', 'approved', ''),
-(7, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-23', 'moring', 'hahahhaha', '2018-02-19 00:14:04', 'approved', ''),
-(8, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-27', 'afternoon', 'checking last', '2018-02-24 13:35:52', 'pending', '');
+(6, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-19', 'afternoon', 'pacheck up ng aso ko', '2018-02-17 22:42:22', 'cancelled', 'ayaw ko na'),
+(7, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-23', 'moring', 'hahahhaha', '2018-02-19 00:14:04', 'done', ''),
+(8, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-27', 'afternoon', 'checking last', '2018-02-24 13:35:52', 'done', ''),
+(9, 20, 'Terrence Bill Mendoza Romeo', '7777', '0907777777227', '2018-03-11', 'afternoon', 'sdsdasdasfd', '2018-03-11 18:05:12', 'approved', ''),
+(10, 0, 'ivan2', '34343242', '342424242', '2018-03-11', 'moring', 'dadsadadasd', '2018-03-11 18:06:08', 'approved', '');
 
 -- --------------------------------------------------------
 
@@ -144,13 +146,14 @@ CREATE TABLE `tblcustomers` (
 --
 
 INSERT INTO `tblcustomers` (`customer_id`, `customer_user_id`, `first_name`, `middle_name`, `last_name`, `address`, `cellphone`, `telephone`, `email`, `image`, `gender`, `is_active`, `password`, `date_added`, `date_birth`) VALUES
-(15, 'C1802110323006', 'Christine', 'Batacan', 'Domingo', 'Makait', '090911212112', '09111', 'christinedomingo@gmail.com', 'avatar3.png', 'female', 1, 'christinedomingo', '2018-02-11 15:24:33', '1995-06-06'),
-(16, 'C1802110324497', 'Rey Vincent Phillip', 'Dineros', 'Villaver', 'Brgy. Olimpia Makati City', '090911212112', '090911', 'rvpvillaver@gmail.com', '', 'male', 0, 'rvpvillaver', '2018-02-11 15:28:45', '1995-06-06'),
+(15, 'C1802110323006', 'Christine', '', 'Lazaro', 'Makait', '090911212112', '09111', 'christinelazaro@gmail.com', 'avatar3.png', 'female', 1, 'christinelazaro', '2018-02-11 15:24:33', '1995-06-06'),
+(16, 'C1802110324497', 'Rey Vincent Phillip', '', 'Villaver', 'Brgy. Olimpia Makati City', '090911212112', '090911', 'rvpvillaver@gmail.com', '', 'male', 0, 'rvpvillaver', '2018-02-11 15:28:45', '1995-06-06'),
 (17, 'C1802110328459', 'Aldwin ', 'Balagtas', 'Labrador', 'Cavite', '90093343434', '09111', 'A8labrador@gmail.com', '', 'male', 1, 'A8labrador', '2018-02-11 15:30:35', '1995-09-19'),
 (18, 'C1802110330352', 'Jay Jay', '', 'Helterbrand', 'Brgy. Ginebra San Miguel', '090911212112', '090911', 'mr.fast13@gmail.com', '', 'male', 1, 'mr.fast13', '2018-02-11 15:31:54', '1976-06-15'),
 (19, 'C1802110331543', 'Apple', '', 'David', 'Central City', '90093343434', '09111', 'appledavid@gmail.com', '', 'female', 1, 'appledavid', '2018-02-11 15:32:46', '1993-01-20'),
 (20, 'C1802111139284', 'Terrence Bill', 'Mendoza', 'Romeo', 'Global City', '0907777777227', '7777', 'TRomeo@gmail.com', '', 'male', 1, 'TRomeo', '2018-02-11 23:40:39', '1992-05-17'),
-(21, 'C1802111144176', 'Karla Rose', 'Mayumi', 'Dele Cruz', 'Central City', '09121212121', '090911', 'karlarose@gmail.com', '', 'female', 1, 'karlarose', '2018-02-11 23:45:18', '1998-06-23');
+(21, 'C1802111144176', 'Karla Rose', 'Mayumi', 'Dele Cruz', 'Central City', '09121212121', '090911', 'karlarose@gmail.com', 'avatar2.png', 'female', 1, 'karlarose', '2018-02-11 23:45:18', '1998-06-23'),
+(22, 'C1803111109329', 'Naruto', '', 'Uzumaki', 'Hidden Leaf Village', '090911212112', '09111', 'narutouzumaki@gmail.com', '', 'male', 1, 'narutouzumaki', '2018-03-11 23:11:10', '1995-06-13');
 
 -- --------------------------------------------------------
 
@@ -216,8 +219,9 @@ CREATE TABLE `tblemployees` (
 --
 
 INSERT INTO `tblemployees` (`employee_id`, `employee_user_id`, `employee_type`, `first_name`, `middle_name`, `last_name`, `email`, `cellphone`, `telephone`, `address`, `image`, `password`, `gender`, `is_active`, `date_birth`, `date_added`) VALUES
-(11, 'V1802121253177', 'vet', 'John', 'Hernandez', 'Villete', 'jvillete@gmail.com', '090911212112', '090911', 'Makait', '', 'jvillete', 'male', 1, '1995-06-14', '2018-02-12 00:54:00'),
-(12, 'S1802121254076', 'staff', 'John Rey', 'Gulo', 'Cruz', 'johnrey@gmail.com', '90093343434', '090911', 'Central City', 'images1.jpg', 'johnrey', 'male', 1, '1989-05-17', '2018-02-12 00:55:17');
+(11, 'V1802121253177', 'veterinarian', 'John', 'Hernandez', 'Villete', 'jvillete@gmail.com', '090911212112', '090911', 'Makait', '', 'jvillete', 'male', 1, '1995-06-14', '2018-02-12 00:54:00'),
+(12, 'S1802121254076', 'staff', 'John Rey', 'Gulo', 'Cruz', 'johnrey@gmail.com', '90093343434', '090911', 'Central City', 'images1.jpg', 'johnrey', 'male', 1, '1989-05-17', '2018-02-12 00:55:17'),
+(13, 'S1803111218034', 'veterinarian', 'Irene Joy', 'Echanes', 'Funcion', 'irenejoy@gmail.com', '0909112121', '911', 'Central City', '', 'irenejoy', 'female', 1, '1999-10-22', '2018-03-11 00:19:20');
 
 -- --------------------------------------------------------
 
@@ -289,7 +293,13 @@ INSERT INTO `tblinventoryforitems` (`inv_item_id`, `user_type`, `user_name`, `us
 (25, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 3, 2, '2018-03-09 02:29:57'),
 (26, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 2, 2, '2018-03-09 02:29:57'),
 (27, 'Customer (Member)', 'Apple  David', 19, 'Purchased Product', 6, 2, '2018-03-09 02:46:23'),
-(28, 'Customer (Walk in)', 'iaisadadsadsad', 0, 'Purchased Product', 3, 2, '2018-03-09 02:49:03');
+(28, 'Customer (Walk in)', 'iaisadadsadsad', 0, 'Purchased Product', 3, 2, '2018-03-09 02:49:03'),
+(29, 'Customer (Member)', 'Jay Jay  Helterbrand', 18, 'Purchased Product', 6, 3, '2018-03-10 23:19:23'),
+(30, 'Customer (Member)', 'Jay Jay  Helterbrand', 18, 'Purchased Product', 5, 2, '2018-03-10 23:19:23'),
+(31, 'staff', 'John Rey Gulo Cruz', 12, 'Update Quantity', 5, 107, '2018-03-11 18:22:48'),
+(32, 'Customer (Walk in)', '', 0, 'Purchased Product', 5, 2, '2018-03-11 23:35:55'),
+(33, 'Customer (Walk in)', '', 0, 'Purchased Product', 2, 2, '2018-03-11 23:35:55'),
+(34, 'Customer (Walk in)', 'Sarada Uchiha', 0, 'Purchased Product', 6, 3, '2018-03-11 23:36:33');
 
 -- --------------------------------------------------------
 
@@ -367,7 +377,17 @@ INSERT INTO `tblinventoryformedicines` (`inv_med_id`, `user_type`, `user_id`, `a
 (52, 'Customer (Walk in)', 0, 'Purchased Product', 5, 1, '2018-03-09 02:51:22', 'sdsdadfdfd'),
 (53, 'Customer (Member)', 20, 'Purchased Product', 5, 3, '2018-03-09 03:17:20', 'Terrence Bill Mendoza Romeo'),
 (54, 'Customer (Walk in)', 0, 'Purchased Product', 5, 4, '2018-03-09 03:17:47', 'dsds'),
-(55, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-09 03:17:47', 'dsds');
+(55, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-09 03:17:47', 'dsds'),
+(56, 'Customer (Member)', 18, 'Purchased Product', 5, 5, '2018-03-10 23:19:23', 'Jay Jay  Helterbrand'),
+(57, 'Customer (Member)', 18, 'Purchased Product', 4, 3, '2018-03-10 23:19:23', 'Jay Jay  Helterbrand'),
+(58, 'Customer (Walk in)', 0, 'Purchased Product', 5, 2, '2018-03-11 14:49:21', 'ivan 2'),
+(59, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-11 14:49:21', 'ivan 2'),
+(60, 'Customer (Walk in)', 0, 'Purchased Product', 5, 4, '2018-03-11 14:54:49', ''),
+(61, 'staff', 12, 'Update Quantity', 6, 111, '2018-03-11 22:00:47', 'John Rey Gulo Cruz'),
+(62, 'staff', 12, 'Update Quantity', 6, 116, '2018-03-11 22:12:44', 'John Rey Gulo Cruz'),
+(63, 'Customer (Walk in)', 0, 'Purchased Product', 5, 3, '2018-03-11 23:35:55', ''),
+(64, 'Customer (Walk in)', 0, 'Purchased Product', 5, 2, '2018-03-11 23:36:33', 'Sarada Uchiha'),
+(65, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-11 23:36:33', 'Sarada Uchiha');
 
 -- --------------------------------------------------------
 
@@ -439,7 +459,9 @@ INSERT INTO `tblpets` (`pet_id`, `pet_data_id`, `pet_name`, `pet_type`, `pet_bre
 (2, 'P1802111149553', 'Nimo', 1, 1, '3', '2016-05-17', 'female', '', '', '2018-02-11 23:50:33', 21, 0),
 (3, 'P1802111152454', 'Lily', 1, 2, '2', '2016-05-16', 'female', '', '', '2018-02-11 23:53:17', 21, 1),
 (4, 'P1802121206494', 'Vice Dragon', 1, 2, '5', '2010-06-15', 'male', '', '', '2018-02-12 00:11:22', 20, 1),
-(5, 'P1802170830167', 'tine', 1, 2, '4', '2016-06-23', 'female', '', '', '2018-02-17 20:30:39', 15, 1);
+(5, 'P1802170830167', 'tine', 1, 2, '4', '2016-06-23', 'female', '', '', '2018-02-17 20:30:39', 15, 1),
+(6, 'P1803111050360', 'Lara', 1, 1, '2', '2016-06-07', 'female', '', '', '2018-03-11 22:51:04', 18, 1),
+(7, 'P1803111053138', 'Rey', 2, 5, '1', '2012-07-23', 'male', '', '', '2018-03-11 22:53:45', 16, 0);
 
 -- --------------------------------------------------------
 
@@ -485,7 +507,7 @@ INSERT INTO `tblproductitems` (`prod_item_id`, `item_name`, `item_price`, `item_
 (2, 'Dog Lace 2', '50.00', 110, '', 1),
 (3, 'Cat lace', '55.00', 1000, '', 1),
 (4, 'Cat Food (50mg)', '160.00', 102, '', 1),
-(5, 'Cat Food (70mg)', '50.00', 101, '', 1);
+(5, 'Cat Food (70mg)', '50.00', 107, '', 1);
 
 -- --------------------------------------------------------
 
@@ -513,7 +535,7 @@ INSERT INTO `tblproductmedicines` (`prod_med_id`, `drugtype_id`, `med_name`, `me
 (3, 1, 'Antibiotic C', '444.00', 41, '', 1),
 (4, 2, 'Vitamin C++', '300.00', 161, '', 1),
 (5, 2, 'Carrots meds', '90.00', 555, '', 1),
-(6, 3, 'HAHAHAA1', '300.00', 1111, '', 1);
+(6, 3, 'HAHAHAA1', '300.00', 116, '', 1);
 
 -- --------------------------------------------------------
 
@@ -578,7 +600,12 @@ INSERT INTO `tblsales` (`sales_id`, `customer_type`, `customer_name`, `customer_
 (38, 'walk in', 'sds', 0, '50.00', '2.00', '52.00', '2018-03-09 02:50:28', '#180309025028'),
 (39, 'walk in', 'sdsdadfdfd', 0, '50.00', '2.00', '52.00', '2018-03-09 02:51:22', '#180309025122'),
 (40, 'member', 'Terrence Bill Mendoza Romeo', 20, '150.00', '6.00', '156.00', '2018-03-09 03:17:20', '#180309031720'),
-(41, 'walk in', 'dsds', 0, '520.00', '12.00', '532.00', '2018-03-09 03:17:47', '#180309031747');
+(41, 'walk in', 'dsds', 0, '520.00', '12.00', '532.00', '2018-03-09 03:17:47', '#180309031747'),
+(42, 'member', 'Jay Jay  Helterbrand', 18, '1,810.00', '26.00', '1,836.00', '2018-03-10 23:19:23', '#180310111923'),
+(43, 'walk in', 'ivan 2', 0, '420.00', '8.00', '428.00', '2018-03-11 14:49:21', '#180311024921'),
+(44, 'walk in', '', 0, '200.00', '8.00', '208.00', '2018-03-11 14:54:49', '#180311025449'),
+(45, 'walk in', '', 0, '1,218.00', '14.00', '1,232.00', '2018-03-11 23:35:55', '#180311113555'),
+(46, 'walk in', 'Sarada Uchiha', 0, '1,320.00', '14.00', '1,334.00', '2018-03-11 23:36:33', '#180311113633');
 
 -- --------------------------------------------------------
 
@@ -700,7 +727,20 @@ INSERT INTO `tblsales_detail` (`salesdetail_id`, `sales_id`, `product_type`, `pr
 (97, 39, 'item', 'Cat Food (70mg)', '50.00', 1, '50.00'),
 (98, 40, 'item', 'Cat Food (70mg)', '50.00', 3, '150.00'),
 (99, 41, 'item', 'Cat Food (70mg)', '50.00', 4, '200.00'),
-(100, 41, 'item', 'Cat Food (50mg)', '160.00', 2, '320.00');
+(100, 41, 'item', 'Cat Food (50mg)', '160.00', 2, '320.00'),
+(101, 42, 'item', 'Cat Food (70mg)', '50.00', 5, '250.00'),
+(102, 42, 'item', 'Cat Food (50mg)', '160.00', 3, '480.00'),
+(103, 42, 'medicine', 'HAHAHAA1', '300.00', 3, '900.00'),
+(104, 42, 'medicine', 'Carrots meds', '90.00', 2, '180.00'),
+(105, 43, 'item', 'Cat Food (70mg)', '50.00', 2, '100.00'),
+(106, 43, 'item', 'Cat Food (50mg)', '160.00', 2, '320.00'),
+(107, 44, 'item', 'Cat Food (70mg)', '50.00', 4, '200.00'),
+(108, 45, 'item', 'Cat Food (70mg)', '50.00', 3, '150.00'),
+(109, 45, 'medicine', 'Carrots meds', '90.00', 2, '180.00'),
+(110, 45, 'medicine', 'Antibiotic B', '444.00', 2, '888.00'),
+(111, 46, 'item', 'Cat Food (70mg)', '50.00', 2, '100.00'),
+(112, 46, 'item', 'Cat Food (50mg)', '160.00', 2, '320.00'),
+(113, 46, 'medicine', 'HAHAHAA1', '300.00', 3, '900.00');
 
 -- --------------------------------------------------------
 
@@ -795,6 +835,24 @@ CREATE TABLE `tblsystemsettings` (
 
 INSERT INTO `tblsystemsettings` (`systemsetting_id`, `system_name`, `system_logo`, `color_skin`, `background_color`, `login_photo_admin`, `login_photo_employee`, `login_photo_customer`, `mission`) VALUES
 (1, 'Vetopia', 'vet4.png', 'skin-green', '#008d4c', 'carousel-stateoftheart1.jpg', 'b22.jpg', 'carousel-fish.jpg', 'Generally, the import section of phpMyAdmin is used to import or restore the database from a SQL file. Like phpMyAdmin, there are various options are available to restore the tables of MySQL database. To import SQL file in the database, you need to login to your hosting server or phpMyAdmin. Also, you can restore the database from PHP script without login to your hosting server or phpMyAdmin.\r\n\r\nRestore database from PHP script is very useful when you want to allow the user to restore the database from your web application. A backup of the database needs to be taken for importing tables in MySQL database. In this tutorial, we will show you how to import and restore the database from SQL file using PHP. Our simple PHP script helps to restore MySQL database from SQL file.                                                                                                                                                                                                                                                                   ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_petdiagnosis`
+--
+
+CREATE TABLE `tbl_petdiagnosis` (
+  `diagnosis_id` int(11) NOT NULL,
+  `diagnosis_data_id` text NOT NULL,
+  `employee_user_id` text NOT NULL,
+  `customer_user_id` text NOT NULL,
+  `pet_data_id` text NOT NULL,
+  `subject` text NOT NULL,
+  `objective` text NOT NULL,
+  `assessment` text NOT NULL,
+  `plan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -939,6 +997,12 @@ ALTER TABLE `tblsystemsettings`
   ADD PRIMARY KEY (`systemsetting_id`);
 
 --
+-- Indexes for table `tbl_petdiagnosis`
+--
+ALTER TABLE `tbl_petdiagnosis`
+  ADD PRIMARY KEY (`diagnosis_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -951,7 +1015,7 @@ ALTER TABLE `tbladmins`
 -- AUTO_INCREMENT for table `tblappointments`
 --
 ALTER TABLE `tblappointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `tblcolorskins`
 --
@@ -961,7 +1025,7 @@ ALTER TABLE `tblcolorskins`
 -- AUTO_INCREMENT for table `tblcustomers`
 --
 ALTER TABLE `tblcustomers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `tbldrugprescribed`
 --
@@ -976,7 +1040,7 @@ ALTER TABLE `tbldrugtype`
 -- AUTO_INCREMENT for table `tblemployees`
 --
 ALTER TABLE `tblemployees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `tblimagegallery`
 --
@@ -986,12 +1050,12 @@ ALTER TABLE `tblimagegallery`
 -- AUTO_INCREMENT for table `tblinventoryforitems`
 --
 ALTER TABLE `tblinventoryforitems`
-  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT for table `tblinventoryformedicines`
 --
 ALTER TABLE `tblinventoryformedicines`
-  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT for table `tblpetbreed`
 --
@@ -1006,7 +1070,7 @@ ALTER TABLE `tblpetcheckup`
 -- AUTO_INCREMENT for table `tblpets`
 --
 ALTER TABLE `tblpets`
-  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tblpettype`
 --
@@ -1026,12 +1090,12 @@ ALTER TABLE `tblproductmedicines`
 -- AUTO_INCREMENT for table `tblsales`
 --
 ALTER TABLE `tblsales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
 -- AUTO_INCREMENT for table `tblsales_detail`
 --
 ALTER TABLE `tblsales_detail`
-  MODIFY `salesdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `salesdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 --
 -- AUTO_INCREMENT for table `tblserviceoffered`
 --
@@ -1056,7 +1120,12 @@ ALTER TABLE `tblservicetype`
 -- AUTO_INCREMENT for table `tblsystemsettings`
 --
 ALTER TABLE `tblsystemsettings`
-  MODIFY `systemsetting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
+  MODIFY `systemsetting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `tbl_petdiagnosis`
+--
+ALTER TABLE `tbl_petdiagnosis`
+  MODIFY `diagnosis_id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

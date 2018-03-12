@@ -13,6 +13,9 @@ class Appointment extends CI_Controller {
 		//for reading.. retrieving
 		$this->load->model('admin_model');
 
+    //for reading.. retrieving
+    $this->load->model('employee_model');
+
 		//for creating
 		$this->load->model('create_model');
 		//for updating
@@ -121,11 +124,17 @@ class Appointment extends CI_Controller {
 
 
 
+
+
+
+
+
+
     public function cancel_appointment_action(){
 
-    	if(!$this->session->userdata('logged_in')){
-				redirect('admin/login');
-		}
+      if(!$this->session->userdata('logged_in')){
+        redirect('admin/login');
+      }
 
 
 
@@ -163,11 +172,12 @@ class Appointment extends CI_Controller {
 
 
 
+
     public function done_appointment_action(){
 
     	if(!$this->session->userdata('logged_in')){
 				redirect('admin/login');
-		}
+		  }
 
 
 
@@ -204,11 +214,14 @@ class Appointment extends CI_Controller {
     }
 
 
+
+
+
     public function approve_appointment_action(){
 
     	if(!$this->session->userdata('logged_in')){
 				redirect('admin/login');
-		}
+		  }
 
 
 
@@ -238,6 +251,134 @@ class Appointment extends CI_Controller {
 	      
     		//print_r($this->input->post());
     }
+
+
+     /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+    public function cancel_appointment_action_employee(){
+
+      if(!$this->session->userdata('logged_in')){
+        redirect('employee/login');
+      }
+
+
+
+      $user_id = $this->session->userdata('user_id');
+
+        //get user_id via $user_id session //for sidebar
+      $data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
+
+      //password of the currently login user
+          $password_confirmation = $this->input->post('password_confirmation');
+          $check_password = $this->employee_model->get_employee_by_id_and_password($user_id,$password_confirmation);
+
+          if($check_password){
+
+            //update to cancel
+            $data = array(
+              'status' => 'cancelled',
+              'cancellation_reason' => $this->input->post('cancel_reason'),
+            );
+
+            $appointment_id = $this->input->post('appointment_id');
+            $this->appointment_model->update_appointment_status($appointment_id,$data);
+
+            $this->session->set_flashdata('appointment_cancel','The Schedule was cancelled successfully');
+
+          }else{
+            $this->session->set_flashdata('incorrect_password','Incorrect  Password');
+          }
+
+
+          redirect('employee/appointments');
+        
+        //print_r($this->input->post());
+    }
+
+
+
+    public function done_appointment_action_employee(){
+
+      if(!$this->session->userdata('logged_in')){
+        redirect('employee/login');
+      }
+
+
+
+      $user_id = $this->session->userdata('user_id');
+
+        //get user_id via $user_id session //for sidebar
+      $data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
+
+      //password of the currently login user
+          $password_confirmation = $this->input->post('password_confirmation');
+          $check_password = $this->employee_model->get_employee_by_id_and_password($user_id,$password_confirmation);
+
+          if($check_password){
+
+            //update to cancel
+            $data = array(
+              'status' => 'done',
+              
+            );
+
+            $appointment_id = $this->input->post('appointment_id');
+            $this->appointment_model->update_appointment_status($appointment_id,$data);
+
+            $this->session->set_flashdata('appointment_done','The appointment was done successfully');
+
+          }else{
+            $this->session->set_flashdata('incorrect_password','Incorrect  Password');
+          }
+
+
+          redirect('employee/appointments');
+        
+        //print_r($this->input->post());
+    }
+
+
+
+
+
+    public function approve_appointment_action_employee(){
+
+      if(!$this->session->userdata('logged_in')){
+        redirect('employee/login');
+      }
+
+
+
+      $user_id = $this->session->userdata('user_id');
+
+        //get user_id via $user_id session //for sidebar
+      $data['current_employee_login'] = $this->employee_model->get_employee_by_id($user_id);
+
+      //password of the currently login user
+        
+
+            //update to cancel
+            $data = array(
+              'status' => 'approved',
+              
+            );
+
+            echo $appointment_id =  $this->uri->segment(3);;
+            $this->appointment_model->update_appointment_status($appointment_id,$data);
+
+            $this->session->set_flashdata('appointment_approved','The appointment schedule was approved successfully');
+
+        
+
+
+          redirect('employee/appointments');
+        
+        //print_r($this->input->post());
+    }
+
 
 
 

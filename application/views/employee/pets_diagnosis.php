@@ -179,160 +179,11 @@
 
           <div id="modal_section">
 
-              <!-- add pet message--> 
-               <?php if ($this->session->flashdata('add_pets_success')) { ?>
-         
-                   <div class="modal modal-success" id="successmodal" role="dialog">
-                     <div class="modal-dialog">
-                     <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"></h4>
-                      </div>
-                      <div class="modal-body">
-                        <p> <?php echo $this->session->flashdata('add_pets_success'); ?> </p>
-                      </div>
-                      <div class="modal-footer">
-                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
-                     </div>
-                     </div>
-                     </div>
-                  </div>
-
-               <?php } ?>
-
-
-            
-
-               
-
-                   <!-- addPetModal-->  
-                <div class="modal fade" id="addPetModal">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new Pet</h4>
-                      </div>
-                      <div class="modal-body">
-                        <?php //beginning form
-                          echo form_open_multipart('employee/create_new_pet');
-                        ?>
-
-                         <div class="form-group has-feedback">
-                            <input type="text"   class="form-control" placeholder="Pet ID"   name="pet_data_id" id="pet_data_id" readonly="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                        <?php  //for customer name?>
-                          <div class="form-group has-feedback">
-                               <select name="customer_id" class="form-control select2" required="" style="width: 100%;min-height: 150px;max-height: 150px;overflow-y: auto;">
-                                <option value="">Customer Name</option>
-                                <?php foreach($customers as $customer):?>
-                                  
-                                 <option value="<?php echo $customer['customer_id']?>"><?php echo $customer['first_name'] .' '. $customer['middle_name'] .' '. $customer['last_name']?></option>
-                                 <?php ?>
-                               <?php endforeach;?>
-                               </select>
-                          </div>
-
-                            <!-- end dropdown-->
-
-                          <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Name"   name="pet_name" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           
-
-
-
-                          <?php //
-                                $option = array(
-                                    "" => "Gender",
-                                    "male" => "Male",
-                                    "female" => "Female",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
-                            </div>
-
-                            <!-- end dropdown-->
-
-
-                      <div class="form-group has-feedback">
-                        <select id="pet_type" name="pet_type" class="form-control" required="">
-                                 <option value="">Pet Type</option>
-                                <?php foreach($pet_type as $type):?>
-                                 
-                                 <option value="<?php echo $type['pettype_id']?>"><?php echo $type['pet_type'];?></option>
-                                 <?php ?>
-                               <?php endforeach;?>
-                               </select>
-                       </div>
-
-
-                        <div class="form-group has-feedback">
-                        <select id="breed" name="breed" class="form-control" required="">
-                       </select>
-                       </div>
-
-                            <!-- end dropdown-->
-
-
-                        <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Size in kg"   name="pet_size" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                        </div>
-
-
-
-                        <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth" required="">
-                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-                        </div>
-
-
-
-                      </div><!-- end modal content-->
-                      <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_pet', 'name' =>'add_pet', 'value' => 'Add Pet','class'=>'pull-right btn btn-primary')); ?>
-                        
-                      </div>
-
-                      <?php echo form_close();//endform?>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
+             
             </div>
         
 
-            <div class="col-md-4">
-              <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-firefox"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Pet Count 
-                  </span>
-                  
-                 
-                 <?php foreach($count_all_pet as $total_count_all_pet):?>
-                      <span class="info-box-number"><?php echo $total_count_all_pet['count_all'];?></span>
-                  <?php endforeach?>
-
-                  <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addPetModal">
-                    Add new pet
-                  </button>
-                 
-                </div>
-              </div>
-            </div>
+           
 
 
           
@@ -350,8 +201,8 @@
                         <div class="box-tools pull-right">
                           
                         
-                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Print Data">
-                            <i class="fa fa-print"></i></button>
+                          <button type="button" class="btn btn-box-tool"  data-toggle="tooltip" title="option">
+                            <i class="fa fa-gear"></i></button>
                         </div>
                       </div>
                       <div class="box-body table-responsive">
@@ -386,9 +237,164 @@
                                       <?php   } ?>
                                         
                                       </td>
-                                      <td><a href="<?php echo site_url()?>employee/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
+                                      <td><a href="<?php echo site_url()?>employee/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-fullscreen"></span> View More Details</a>
+                                      <a data-toggle="modal" data-target="#add_diagnosis<?php echo $pet_info['pet_id'];?>" class="btn btn-success btn-sm"><span class="fa fa-plus"></span> Add Diagnosis</a>
+                                      </td>
                                     </tr>
 
+                                            <div class="modal fade" id="add_diagnosis<?php echo $pet_info['pet_id'];?>">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span></button>
+                                                      <h4 class="modal-title text-center">Add Pet Diagnosis</h4>
+                                                    </div>
+
+                                                    <?php //beginning form
+                                                              echo form_open_multipart('pet_diagnosis/add_pet_diagnosis');
+                                                    ?> 
+
+
+                                                    <div class="modal-body">
+                                                         
+
+                                                            <div class="row">
+                                                                  <div class="col-md-9 offset-md-3">
+                                                                    <div class="row">
+                                                                      <div class="col-md-4">
+                                                                        <b>Pet ID:</b>
+                                                                      </div>
+                                                                      <div class="col-md-8">
+                                                                        <div class="form-group">
+                                                                          <input type="text" class="form-control" id="pet_data_id" name="pet_data_id" value="<?php echo $pet_info['pet_data_id'];?>" readonly="true" style="border-radius: 6px;" />  
+                                                                        </div>  
+                                                                      </div>
+                                                                    </div>  
+                                                                  </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                  <div class="col-md-9 offset-md-3">
+                                                                    <div class="row">
+                                                                      <div class="col-md-4">
+                                                                        <b>Pet Name:</b>
+                                                                      </div>
+                                                                      <div class="col-md-8">
+                                                                        <div class="form-group">
+                                                                          <input type="text" class="form-control" id="pet_name" name="pet_name" value="<?php echo $pet_info['pet_name'];?>" readonly="true" style="border-radius: 6px;" />  
+                                                                        </div>  
+                                                                      </div>
+                                                                    </div>  
+                                                                  </div>
+                                                            </div>
+
+
+                                                            <div class="row">
+                                                                  <div class="col-md-9 offset-md-3">
+                                                                    <div class="row">
+                                                                      <div class="col-md-4">
+                                                                        <b>Owner Name:</b>
+                                                                      </div>
+                                                                      <div class="col-md-8">
+                                                                        <div class="form-group">
+                                                                          <input type="text" class="form-control" id="owner_name" name="owner_name" value="<?php echo $pet_info['first_name'].' '. $pet_info['middle_name'].' '. $pet_info['last_name'];?>" readonly="true" style="border-radius: 6px;" />  
+                                                                        </div>  
+                                                                      </div>
+                                                                    </div>  
+                                                                  </div>
+                                                            </div>
+
+
+                                                             <div class="row">
+                                                                <div class="col-md-6">
+                                                                  <div class="row">
+                                                                    <div class="col-md-5">
+                                                                      <b> Body Weight:(in KG)</b>
+                                                                    </div>
+                                                                    <div class="col-md-7">
+                                                                      <div class="form-group">
+                                                                        <input type="number" min="0" max="1000"  class="form-control" id="bloodSugar" style="margin-left:5px;border-radius: 6px" name="body_weight" /> 
+                                                                       
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                  <div class="row">
+                                                                    <div class="col-md-6">
+                                                                    <b>Body Temperature (in Celcius):</b>  
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                      <div class="form-group">
+                                                                      <input type="text" class="form-control" id="body_temp" name="body_temp" style="border-radius: 6px" />  
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                </div>
+
+                                                               
+                                                             </div>
+
+                                                             <hr />
+
+                                                             <div class="row">
+                                                                <div class="col-md-12">
+                                                                  <label>Subject : </label> 
+                                                                  <div class="form-group">
+                                                                  <textarea name="subject" id="subject" class="form-control" style="height:100px" placeholder="Input Owner Statement"></textarea>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+
+
+                                                              <div class="row">
+                                                                <div class="col-md-12">
+                                                                  <label>Objective : </label> 
+                                                                  <div class="form-group">
+                                                                  <textarea name="objective" id="objective" class="form-control" style="height:100px" placeholder="Input Veterinarian Observation"></textarea>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+
+
+
+                                                              <div class="row">
+                                                                <div class="col-md-12">
+                                                                  <label>Assessment : </label> 
+                                                                  <div class="form-group">
+                                                                  <textarea name="assessment" id="assessment" class="form-control" style="height:100px" placeholder="Input Owner need to do"></textarea>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+
+
+                                                               <div class="row">
+                                                                <div class="col-md-12">
+                                                                  <label>Plan : </label> 
+                                                                  <div class="form-group">
+                                                                  <textarea name="plan" id="plan" class="form-control" style="height:100px" placeholder="Input Owner need to attain"></textarea>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+
+
+                                                            
+                                                           
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                                      <?php echo form_submit(array('id' => 'add_pet_diagnosis', 'name' =>'add_pet_diagnosis', 'value' => 'Add Diagnosis','class'=>'pull-right btn btn-primary')); ?>
+                                                    </div>
+                                                  <?php echo form_close();//endform?>
+                                                  </div>
+                                                  <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                              </div>
+                                              <!-- /.modal -->
 
                                     <?php endforeach; ?>
                                    

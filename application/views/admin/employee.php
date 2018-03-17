@@ -472,11 +472,11 @@
 <!-- page script -->
 <script>
   $(function () {
-            $('#employee_type').change(function(){
+          $('#employee_type').change(function(){
           var val = $(this).val();
           var employee_user_id = "";
 
-          if(val =="vet"){
+          if(val =="veterinarian"){
             var employee_user_id = "<?= 'V'.date("ymdhis") . abs(rand('0','9'));  ?>";
             $('#employee_user_id').val(employee_user_id);
           }else if(val=="staff"){

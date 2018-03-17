@@ -402,7 +402,7 @@ class Admin_Model extends CI_Model
 	public function get_all_pets_with_there_customers_for_veterinarian(){
 		
 
-		$this->db->select('a.pet_id,a.pet_data_id,a.pet_name,a.is_active,b.pet_type,c.breed,d.first_name,d.middle_name,d.last_name');
+		$this->db->select('a.pet_id,a.pet_data_id,a.pet_name,a.is_active,b.pet_type,c.breed,d.first_name,d.middle_name,d.last_name,d.customer_id,d.customer_user_id');
 		$this->db->from('tblpets a');
 		$this->db->join('tblpettype b','a.pet_type = b.pettype_id');
 		$this->db->join('tblpetbreed c','a.pet_breed = c.breed_id');
@@ -413,6 +413,9 @@ class Admin_Model extends CI_Model
 		$result_set = $this->db->get();
 		return $result_set->result_array();
 	}
+
+
+
 
 
 	public function get_all_pet_type(){

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2018 at 12:12 AM
+-- Generation Time: Mar 17, 2018 at 07:41 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -221,7 +221,8 @@ CREATE TABLE `tblemployees` (
 INSERT INTO `tblemployees` (`employee_id`, `employee_user_id`, `employee_type`, `first_name`, `middle_name`, `last_name`, `email`, `cellphone`, `telephone`, `address`, `image`, `password`, `gender`, `is_active`, `date_birth`, `date_added`) VALUES
 (11, 'V1802121253177', 'veterinarian', 'John', 'Hernandez', 'Villete', 'jvillete@gmail.com', '090911212112', '090911', 'Makait', '', 'jvillete', 'male', 1, '1995-06-14', '2018-02-12 00:54:00'),
 (12, 'S1802121254076', 'staff', 'John Rey', 'Gulo', 'Cruz', 'johnrey@gmail.com', '90093343434', '090911', 'Central City', 'images1.jpg', 'johnrey', 'male', 1, '1989-05-17', '2018-02-12 00:55:17'),
-(13, 'S1803111218034', 'veterinarian', 'Irene Joy', 'Echanes', 'Funcion', 'irenejoy@gmail.com', '0909112121', '911', 'Central City', '', 'irenejoy', 'female', 1, '1999-10-22', '2018-03-11 00:19:20');
+(13, 'V1803111218034', 'veterinarian', 'Irene Joy', 'Echanes', 'Funcion', 'irenejoy@gmail.com', '0909112121', '911', 'Central City', '', 'irenejoy', 'female', 1, '1999-10-22', '2018-03-11 00:19:20'),
+(14, 'V1803171052333', 'veterinarian', 'Karen Grace', 'Dasma', 'Smith', 'karengrace@gmail.com', '090911212112', '9999', 'Central City', '', 'karengrace', 'female', 1, '1990-05-14', '2018-03-17 22:56:13');
 
 -- --------------------------------------------------------
 
@@ -387,7 +388,9 @@ INSERT INTO `tblinventoryformedicines` (`inv_med_id`, `user_type`, `user_id`, `a
 (62, 'staff', 12, 'Update Quantity', 6, 116, '2018-03-11 22:12:44', 'John Rey Gulo Cruz'),
 (63, 'Customer (Walk in)', 0, 'Purchased Product', 5, 3, '2018-03-11 23:35:55', ''),
 (64, 'Customer (Walk in)', 0, 'Purchased Product', 5, 2, '2018-03-11 23:36:33', 'Sarada Uchiha'),
-(65, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-11 23:36:33', 'Sarada Uchiha');
+(65, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-11 23:36:33', 'Sarada Uchiha'),
+(66, 'Customer (Walk in)', 0, 'Purchased Product', 5, 3, '2018-03-18 00:09:00', 'das'),
+(67, 'Customer (Walk in)', 0, 'Purchased Product', 4, 3, '2018-03-18 00:09:00', 'das');
 
 -- --------------------------------------------------------
 
@@ -605,7 +608,9 @@ INSERT INTO `tblsales` (`sales_id`, `customer_type`, `customer_name`, `customer_
 (43, 'walk in', 'ivan 2', 0, '420.00', '8.00', '428.00', '2018-03-11 14:49:21', '#180311024921'),
 (44, 'walk in', '', 0, '200.00', '8.00', '208.00', '2018-03-11 14:54:49', '#180311025449'),
 (45, 'walk in', '', 0, '1,218.00', '14.00', '1,232.00', '2018-03-11 23:35:55', '#180311113555'),
-(46, 'walk in', 'Sarada Uchiha', 0, '1,320.00', '14.00', '1,334.00', '2018-03-11 23:36:33', '#180311113633');
+(46, 'walk in', 'Sarada Uchiha', 0, '1,320.00', '14.00', '1,334.00', '2018-03-11 23:36:33', '#180311113633'),
+(47, 'walk in', 'das', 0, '630.00', '12.00', '642.00', '2018-03-18 00:09:00', '#180318120900'),
+(48, 'walk in', 'dada', 0, '600.00', '8.00', '608.00', '2018-03-18 00:10:38', '#180318121038');
 
 -- --------------------------------------------------------
 
@@ -740,7 +745,10 @@ INSERT INTO `tblsales_detail` (`salesdetail_id`, `sales_id`, `product_type`, `pr
 (110, 45, 'medicine', 'Antibiotic B', '444.00', 2, '888.00'),
 (111, 46, 'item', 'Cat Food (70mg)', '50.00', 2, '100.00'),
 (112, 46, 'item', 'Cat Food (50mg)', '160.00', 2, '320.00'),
-(113, 46, 'medicine', 'HAHAHAA1', '300.00', 3, '900.00');
+(113, 46, 'medicine', 'HAHAHAA1', '300.00', 3, '900.00'),
+(114, 47, 'item', 'Cat Food (70mg)', '50.00', 3, '150.00'),
+(115, 47, 'item', 'Cat Food (50mg)', '160.00', 3, '480.00'),
+(116, 48, 'service', 'Nail Cutting (Big Breed)', '150.00', 4, '600.00');
 
 -- --------------------------------------------------------
 
@@ -790,7 +798,9 @@ CREATE TABLE `tblservices` (
 
 INSERT INTO `tblservices` (`service_id`, `servicetype_id`, `service_name`, `price`, `service_description`, `is_active`) VALUES
 (1, 1, 'Nail Cutting (Smal Breed)', '74.00', 'nail cutting for small breeds', 0),
-(2, 1, 'Nail Cutting (Big Breed)', '150.00', 'Nail Cutting for Big Breeds\r\n', 1);
+(2, 1, 'Nail Cutting (Big Breed)', '150.00', 'Nail Cutting for Big Breeds\r\n', 1),
+(3, 2, 'Deworming (Big Breads)', '250.00', 'Deworming for Big Breads ', 0),
+(4, 2, 'Deworming (Small Breads)', '200.00', 'Deworming for Small Breads', 0);
 
 -- --------------------------------------------------------
 
@@ -809,7 +819,8 @@ CREATE TABLE `tblservicetype` (
 --
 
 INSERT INTO `tblservicetype` (`servicetype_id`, `servicetype_name`, `servicetype_description`) VALUES
-(1, 'Grooming', 'Grooming includes the following services');
+(1, 'Grooming', 'Grooming includes the following services'),
+(2, 'Deworming', 'To eliminate worm infestation');
 
 -- --------------------------------------------------------
 
@@ -826,15 +837,18 @@ CREATE TABLE `tblsystemsettings` (
   `login_photo_admin` text NOT NULL,
   `login_photo_employee` text NOT NULL,
   `login_photo_customer` text NOT NULL,
-  `mission` text NOT NULL
+  `mission` text NOT NULL,
+  `company_contact` varchar(45) NOT NULL,
+  `company_address` varchar(45) NOT NULL,
+  `company_telephone` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblsystemsettings`
 --
 
-INSERT INTO `tblsystemsettings` (`systemsetting_id`, `system_name`, `system_logo`, `color_skin`, `background_color`, `login_photo_admin`, `login_photo_employee`, `login_photo_customer`, `mission`) VALUES
-(1, 'Vetopia', 'vet4.png', 'skin-green', '#008d4c', 'carousel-stateoftheart1.jpg', 'b22.jpg', 'carousel-fish.jpg', 'Generally, the import section of phpMyAdmin is used to import or restore the database from a SQL file. Like phpMyAdmin, there are various options are available to restore the tables of MySQL database. To import SQL file in the database, you need to login to your hosting server or phpMyAdmin. Also, you can restore the database from PHP script without login to your hosting server or phpMyAdmin.\r\n\r\nRestore database from PHP script is very useful when you want to allow the user to restore the database from your web application. A backup of the database needs to be taken for importing tables in MySQL database. In this tutorial, we will show you how to import and restore the database from SQL file using PHP. Our simple PHP script helps to restore MySQL database from SQL file.                                                                                                                                                                                                                                                                   ');
+INSERT INTO `tblsystemsettings` (`systemsetting_id`, `system_name`, `system_logo`, `color_skin`, `background_color`, `login_photo_admin`, `login_photo_employee`, `login_photo_customer`, `mission`, `company_contact`, `company_address`, `company_telephone`) VALUES
+(1, 'Vetopia', 'vet4.png', 'skin-green', '#008d4c', 'carousel-stateoftheart1.jpg', 'b22.jpg', 'carousel-fish.jpg', 'Generally, the import section of phpMyAdmin is used to import or restore the database from a SQL file. Like phpMyAdmin, there are various options are available to restore the tables of MySQL database. To import SQL file in the database, you need to login to your hosting server or phpMyAdmin. Also, you can restore the database from PHP script without login to your hosting server or phpMyAdmin.\r\n\r\nRestore database from PHP script is very useful when you want to allow the user to restore the database from your web application. A backup of the database needs to be taken for importing tables in MySQL database. In this tutorial, we will show you how to import and restore the database from SQL file using PHP. Our simple PHP script helps to restore MySQL database from SQL file.                                                                                                                                                                                                                                                                   ', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -847,12 +861,28 @@ CREATE TABLE `tbl_petdiagnosis` (
   `diagnosis_data_id` text NOT NULL,
   `employee_user_id` text NOT NULL,
   `customer_user_id` text NOT NULL,
+  `pet_id` int(11) NOT NULL,
   `pet_data_id` text NOT NULL,
   `subject` text NOT NULL,
   `objective` text NOT NULL,
   `assessment` text NOT NULL,
-  `plan` text NOT NULL
+  `plan` text NOT NULL,
+  `diagnosis_date` datetime NOT NULL,
+  `body_weight` varchar(45) NOT NULL,
+  `body_temperature` varchar(45) NOT NULL,
+  `service_fee` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_petdiagnosis`
+--
+
+INSERT INTO `tbl_petdiagnosis` (`diagnosis_id`, `diagnosis_data_id`, `employee_user_id`, `customer_user_id`, `pet_id`, `pet_data_id`, `subject`, `objective`, `assessment`, `plan`, `diagnosis_date`, `body_weight`, `body_temperature`, `service_fee`) VALUES
+(1, 'D1803171122082', 'V1803111218034', 'C1802110330352', 6, 'P1803111050360', 'dadas', 'adasd', 'asdasd', 'adada', '2018-03-17 23:22:19', '44', '44', '588.00'),
+(2, 'D1803171131003', 'V1803111218034', 'C1802110330352', 6, 'P1803111050360', 'dadsad', 'dada', 'sdada', 'sadad', '2018-03-17 23:31:13', '33', '44', '555.00'),
+(3, 'D1803171156107', 'V1803171052333', 'C1802110330352', 6, 'P1803111050360', 'dasda', 'dasdad', 'ada', 'dadasd', '2018-03-17 23:56:29', '33', '44', '333.00'),
+(4, 'D1803181231190', 'V1803171052333', 'C1802110323006', 5, 'P1802170830167', 'asdsad', 'adad', 'adad', 'asdad', '2018-03-18 00:31:19', '33', '44', '555.00'),
+(5, 'D1803181238299', 'V1803171052333', 'C1802110330352', 6, 'P1803111050360', 'dasdsad', 'adasd', 'sada', 'dad', '2018-03-18 00:38:29', '44', '44', '222.00');
 
 --
 -- Indexes for dumped tables
@@ -1040,7 +1070,7 @@ ALTER TABLE `tbldrugtype`
 -- AUTO_INCREMENT for table `tblemployees`
 --
 ALTER TABLE `tblemployees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `tblimagegallery`
 --
@@ -1055,7 +1085,7 @@ ALTER TABLE `tblinventoryforitems`
 -- AUTO_INCREMENT for table `tblinventoryformedicines`
 --
 ALTER TABLE `tblinventoryformedicines`
-  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 --
 -- AUTO_INCREMENT for table `tblpetbreed`
 --
@@ -1090,12 +1120,12 @@ ALTER TABLE `tblproductmedicines`
 -- AUTO_INCREMENT for table `tblsales`
 --
 ALTER TABLE `tblsales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `tblsales_detail`
 --
 ALTER TABLE `tblsales_detail`
-  MODIFY `salesdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `salesdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 --
 -- AUTO_INCREMENT for table `tblserviceoffered`
 --
@@ -1110,12 +1140,12 @@ ALTER TABLE `tblserviceprovided`
 -- AUTO_INCREMENT for table `tblservices`
 --
 ALTER TABLE `tblservices`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tblservicetype`
 --
 ALTER TABLE `tblservicetype`
-  MODIFY `servicetype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `servicetype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tblsystemsettings`
 --
@@ -1125,7 +1155,7 @@ ALTER TABLE `tblsystemsettings`
 -- AUTO_INCREMENT for table `tbl_petdiagnosis`
 --
 ALTER TABLE `tbl_petdiagnosis`
-  MODIFY `diagnosis_id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `diagnosis_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

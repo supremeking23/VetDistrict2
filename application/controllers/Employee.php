@@ -40,6 +40,8 @@ class Employee extends CI_Controller {
 
 		//isama na natin ung admin model para hindi hussle
 		$this->load->model('admin_model');
+
+		$this->load->model('diagnosis_model');
 		//library
 		$this->load->library('form_validation');
 	}
@@ -545,8 +547,26 @@ class Employee extends CI_Controller {
 			$data['pet_type'] = $this->admin_model->get_all_pet_type();
 
 
+			$data['service_type'] = $this->pos_model->get_all_service_type();
+
+
 			$this->load->view('employee/pets_diagnosis',$data);
 			$this->load->view('employee/layouts/sidebar.php',$data);
+	}
+
+
+		//ajax request
+	public function get_all_services_by_service($id){
+ 		$id = $id;
+        $result = $this->db->where("servicetype_id",$id)->get("tblservices")->result();
+        echo json_encode($result);
+	}
+
+
+	public function get_all_services_by_service_id($id){
+ 		$id = $id;
+        $result = $this->db->where("service_id",$id)->get("tblservices")->result();
+        echo json_encode($result);
 	}
 
 
@@ -929,6 +949,7 @@ class Employee extends CI_Controller {
 			$data['show_pet_details'] = $this->employee_model->get_complete_pet_info_by_id($id);
 
 			foreach($data['show_pet_details'] as $d){
+				//must be pettype_id
 				 $pet_id = $d->pettype_id;
 			}
 
@@ -937,8 +958,14 @@ class Employee extends CI_Controller {
 
 			$data['pet_breeds'] = $this->employee_model->get_all_pet_breed_by_type_id($pet_id);
 
+
+			//pet diagnosis
+			 $data['pets_diagnosis'] = $this->diagnosis_model->get_all_diagnosis_by_pet_id($id);
+
+
 			$this->load->view('employee/pet_details',$data);
 			$this->load->view('employee/layouts/sidebar.php',$data);
+			
 			//print_r($data);
 
 

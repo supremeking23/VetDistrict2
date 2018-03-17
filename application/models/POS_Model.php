@@ -51,6 +51,17 @@ class POS_Model extends CI_Model
 
 
 
+   public function get_all_service_type(){
+   		$this->db->select('*');
+		$this->db->from('tblservicetype');
+		$this->db->order_by('servicetype_id','DESC');
+		$result_set = $this->db->get();
+		return $result_set->result();
+   }
+
+
+
+
 
    public function add_sales($data){
 

@@ -102,6 +102,8 @@
                $middle_name = $employee_login->middle_name;
                $last_name = $employee_login->last_name;
                $image = $employee_login->image;
+
+               $employee_user_id = $employee_login->employee_user_id;
             }
           ?>
  
@@ -179,8 +181,30 @@
 
           <div id="modal_section">
 
+               <?php if ($this->session->flashdata('create_diagnosis')) { ?>
+         
+                   <div class="modal modal-success" id="successmodal" role="dialog">
+                     <div class="modal-dialog">
+                     <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                      </div>
+                      <div class="modal-body">
+                        <p> <?php echo $this->session->flashdata('create_diagnosis'); ?> </p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-outline pull-right" data-dismiss="modal">Close</button>
+                     </div>
+                     </div>
+                     </div>
+                  </div>
+
+               <?php } ?>
+
              
-            </div>
+          </div>
         
 
            
@@ -259,6 +283,9 @@
                                                     <div class="modal-body">
                                                          
 
+
+                                                         
+
                                                             <div class="row">
                                                                   <div class="col-md-9 offset-md-3">
                                                                     <div class="row">
@@ -300,6 +327,8 @@
                                                                       <div class="col-md-8">
                                                                         <div class="form-group">
                                                                           <input type="text" class="form-control" id="owner_name" name="owner_name" value="<?php echo $pet_info['first_name'].' '. $pet_info['middle_name'].' '. $pet_info['last_name'];?>" readonly="true" style="border-radius: 6px;" />  
+
+
                                                                         </div>  
                                                                       </div>
                                                                     </div>  
@@ -315,7 +344,7 @@
                                                                     </div>
                                                                     <div class="col-md-7">
                                                                       <div class="form-group">
-                                                                        <input type="number" min="0" max="1000"  class="form-control" id="bloodSugar" style="margin-left:5px;border-radius: 6px" name="body_weight" /> 
+                                                                        <input type="number" min="0" max="1000"  class="form-control" id="body_weight" style="margin-left:5px;border-radius: 6px" name="body_weight" /> 
                                                                        
                                                                       </div>
                                                                     </div>
@@ -380,12 +409,42 @@
                                                               </div>
 
 
+
+                                                             <div class="row">
+                                                                  <div class="col-md-9 offset-md-3">
+                                                                    <div class="row">
+                                                                      <div class="col-md-4">
+                                                                        <b>Veterinary Service Fee:</b>
+                                                                      </div>
+                                                                      <div class="col-md-8">
+                                                                        <div class="form-group">
+                                                                          <input type="text" class="form-control" id="vet_pet_service" name="vet_pet_service" value=""  style="border-radius: 6px;" />  
+                                                                        </div>  
+                                                                      </div>
+                                                                    </div>  
+                                                                  </div>
+                                                            </div>
+
+
+                                                          
+
+
                                                             
                                                            
 
                                                     </div>
                                                     <div class="modal-footer">
                                                       <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+
+                                                      <input type="hidden" name="customer_user_id" value="<?php echo $pet_info['customer_user_id'];?>">
+                                                      <input type="hidden" name="employee_user_id" value="<?php echo $employee_user_id;?>">
+
+                                                      <input type="hidden" name="pet_id" value="<?php echo $pet_info['pet_id'];?>">
+
+
+                                                     
+                                                    
+
                                                       <?php echo form_submit(array('id' => 'add_pet_diagnosis', 'name' =>'add_pet_diagnosis', 'value' => 'Add Diagnosis','class'=>'pull-right btn btn-primary')); ?>
                                                     </div>
                                                   <?php echo form_close();//endform?>
@@ -418,7 +477,7 @@
 
 
       <div class="row">
-        
+       
       </div>
 
     </section>
@@ -477,57 +536,11 @@
 <script>
   $(function () {
     
-    var pet_data_id = "<?= 'P'.date("ymdhis") . abs(rand('0','9'));  ?>";
-        $('#pet_data_id').val(pet_data_id);
+    var diagnosis_data_id = "<?= 'D'.date("ymdhis") . abs(rand('0','9'));  ?>";
+        
   })
 
 
-    $(document).ready(function() {
-
-          $('#breed').hide(); 
-
-          $('select[name="pet_type"]').on('change', function() {
-
-            var stateID = $(this).val();
-
-            if(stateID) {
-
-                 $('#breed').show(); 
-                $.ajax({
-
-                    url: '<?php echo base_url('admin/pet_breed/')?>'+stateID,
-
-                    type: "GET",
-
-                    dataType: "json",
-
-                    success:function(data) {
-
-                        $('select[name="breed"]').empty();
-                         $.each(data, function(key, value) {
-
-                            $('select[name="breed"]').append('<option value="'+ value.breed_id +'">'+ value.breed +'</option>');
-
-                        });
-
-                    }
-
-                });
-
-            }else{
-
-                $('select[name="breed"]').empty();
-
-            }
-
-        });
-
-
-
-    //modal test
-     
-
-    });
 
    
   </script>

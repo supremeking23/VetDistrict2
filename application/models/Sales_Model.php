@@ -26,6 +26,20 @@ class Sales_Model extends CI_Model
    }
 
 
+    public function get_all_sales_report_by_customer_id($customer_id){
+
+   	 	$this->db->select('*');
+		$this->db->from('tblsales');
+		$this->db->where('customer_id',$customer_id);
+		$this->db->order_by('sales_id', 'DESC');
+		$query = $this->db->get();
+		$result_set = $query->result();
+
+		return $result_set;
+
+   }
+
+
       public function get_sales_report_by_sales_id($sales_id){
 
    	 	$this->db->select('*');

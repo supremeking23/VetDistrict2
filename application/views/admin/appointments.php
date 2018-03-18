@@ -279,6 +279,12 @@
                                     </div>
 
 
+                                    <div class="form-group has-feedback">
+                                        <input type="date" class="form-control" name="preferred_date" placeholder="Preferred Date">
+                                      
+                                      </div>
+
+
 
 
                                      <div class="form-group has-feedback">
@@ -341,8 +347,7 @@
                   <h3 class="box-title">Appointment Record</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
+                       
                       
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#bookAppointment"><i class="fa fa-calendar" data-tooltip="tooltip" title="Book an Appointment"></i></button>
                       </div>
@@ -424,10 +429,14 @@
 
                             <a data-toggle="modal" data-target="#done_appointment<?php echo $appointment->appointment_id?>" class="btn btn-success btn-sm">Done</a>
 
+                              <a data-toggle="modal" data-target="#view_appointment<?php echo $appointment->appointment_id?>" class="btn btn-primary btn-sm">View Detail</a>
+
 
                           <?php  }else if($appointment->status == "pending"){ ?>
                          <a data-toggle="modal" data-target="#cancel_appointment<?php echo $appointment->appointment_id?>" class="btn btn-danger btn-sm">Cancel Appointment</a>
                           <a href="<?php echo site_url()?>appointment/approve_appointment_action/<?php echo $appointment->appointment_id;?>" class="btn btn-sm btn-info">Approve</a>
+
+                            <a data-toggle="modal" data-target="#view_appointment<?php echo $appointment->appointment_id?>" class="btn btn-primary btn-sm">View Detail</a>
 
                           <?php  }else if($appointment->status == "cancelled"){ ?>
                           
@@ -606,20 +615,7 @@
       <!-- /.row (main row) -->
 
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box " >
-              
-            <div class="box-body">
-              <!-- THE CALENDAR -->
-              <div id="calendar"></div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /. box -->
-        </div>
-        <!-- /.col -->
-      </div>
+     
 
 
       <div class="row">

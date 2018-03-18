@@ -1744,7 +1744,7 @@ class Employee extends CI_Controller {
 				'preferred_time_of_day' => $this->input->post('preferred_time'),
 				'appointment_reason' => $appointment_reason,
 				'status' => 'approved',
-				'preferred_date' => $now,
+				'preferred_date' => $this->input->post('preferred_date'),
 				'date_requested' => $now,
 
 			);

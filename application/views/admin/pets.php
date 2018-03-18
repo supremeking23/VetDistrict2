@@ -456,6 +456,8 @@
             </div>
 
 
+          <?php if($admin_type == "superadmin"):?>
+
 
             <div class="col-md-4">
               <div class="info-box">
@@ -493,6 +495,9 @@
                 </div>
               </div>
             </div>
+
+
+          <?php endif;?>
 
       </div> <!-- end first row -->
 

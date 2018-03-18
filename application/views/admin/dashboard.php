@@ -46,6 +46,10 @@
   <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/select2/dist/css/select2.min.css">
 
+
+   <!-- Morris charts -->
+  <link rel="stylesheet" href="<?php echo site_url(); ?>assets/bower_components/morris.js/morris.css">
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -267,547 +271,81 @@
       </div> <!--end row for boxes -->
 
 
-          <div class="row">
-              
-                <div class="modal fade" id="addCustomerModal">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new customer</h4>
-                      </div>
-                      <div class="modal-body">
-                        <?php //beginning form
-                          echo form_open_multipart('admin/create_new_customer');
-                        ?>
-
-                        <div class="form-group has-feedback">
-                            <input type="text"   class="form-control" placeholder="Customer ID"   name="customer_user_id" id="customer_user_id" readonly="" >
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text" required=""  class="form-control" placeholder="First Name"   name="first_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"     class="form-control" placeholder="Middle Name"  name="middle_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text" required=""  class="form-control" placeholder="Last Name" name="last_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-
-
-                          <?php //option for unit of measurements
-                                $option = array(
-                                    "" => "Gender",
-                                    "male" => "Male",
-                                    "female" => "Female",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
-                            </div>
-
-                            <!-- end dropdown-->
-
-                          <div class="form-group has-feedback">
-                            <input type="date" required=""  class="form-control" name="date_birth" placeholder="Date of Birth">
-                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text" required=""   class="form-control" placeholder="Telephone"  name="telephone">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text" required=""   class="form-control" placeholder="Cellphone"  name="cellphone">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"  required=""  class="form-control" placeholder="Address"  name="address">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-
-
-                          <div class="form-group has-feedback">
-                            <input type="text"  required=""  class="form-control" placeholder="Email"  name="email">
-                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="password" required=""   class="form-control" placeholder="Password"  name="password">
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                          </div>
-                          
-
-
-                      </div><!-- end modal content-->
-                      <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_customer', 'name' =>'add_customer', 'value' => 'Add Customer','class'=>'pull-right btn btn-primary')); ?>
-                        
-                      </div>
-
-                      <?php echo form_close();//endform?>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-
-
-                    <!-- addPetModal-->  
-                <div class="modal fade" id="addPetModal">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new Pet</h4>
-                      </div>
-                      <div class="modal-body">
-                        <?php //beginning form
-                          echo form_open_multipart('admin/create_new_pet');
-                        ?>
-
-                         <div class="form-group has-feedback">
-                            <input type="text"   class="form-control" placeholder="Pet ID"   name="pet_data_id" id="pet_data_id" readonly="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                        <?php  //for customer name?>
-                          <div class="form-group has-feedback">
-                               <select name="customer_id" class="form-control select2" required="" style="width: 100%;min-height: 150px;max-height: 150px;overflow-y: auto;">
-                                <option value="">Customer Name</option>
-                                <?php foreach($customers as $customer):?>
-                                  
-                                 <option value="<?php echo $customer['customer_id']?>"><?php echo $customer['first_name'] .' '. $customer['middle_name'] .' '. $customer['last_name']?></option>
-                                 <?php ?>
-                               <?php endforeach;?>
-                               </select>
-                          </div>
-
-                            <!-- end dropdown-->
-
-                          <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Name"   name="pet_name" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           
-
-
-
-                          <?php //
-                                $option = array(
-                                    "" => "Gender",
-                                    "male" => "Male",
-                                    "female" => "Female",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
-                            </div>
-
-                            <!-- end dropdown-->
-
-
-                      <div class="form-group has-feedback">
-                        <select id="pet_type" name="pet_type" class="form-control" required="">
-                                 <option value="">Pet Type</option>
-                                <?php foreach($pet_type as $type):?>
-                                 
-                                 <option value="<?php echo $type['pettype_id']?>"><?php echo $type['pet_type'];?></option>
-                                 <?php ?>
-                               <?php endforeach;?>
-                               </select>
-                       </div>
-
-
-                        <div class="form-group has-feedback">
-                        <select id="breed" name="breed" class="form-control" required="">
-                       </select>
-                       </div>
-
-                            <!-- end dropdown-->
-
-
-                        <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Pet Size in kg"   name="pet_size" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                        </div>
-
-
-
-                        <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth" required="">
-                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-                        </div>
-
-
-
-                      </div><!-- end modal content-->
-                      <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_pet', 'name' =>'add_pet', 'value' => 'Add Pet','class'=>'pull-right btn btn-primary')); ?>
-                        
-                      </div>
-
-                      <?php echo form_close();//endform?>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-
-
-                 <!-- -->  
-                <div class="modal fade" id="addEmployeeModal">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add new employee</h4>
-                      </div>
-                      <div class="modal-body">
-                        <?php //beginning form
-                          echo form_open_multipart('admin/create_new_employee');
-                        ?>
-
-                         <div class="form-group has-feedback">
-                            <input type="text" required=""  class="form-control" placeholder="Employee ID"   name="employee_user_id" id="employee_user_id" readonly="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <?php //option for employee type
-                                $option = array(
-                                    "" => "Employee Type",
-                                    "vet" => "Veterinarian",
-                                    "staff" => "Staff",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                              <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('employee_type',$option,'','class="form-control" id="employee_type" required');?>
-                            </div>
-
-
-                          <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="First Name"   name="first_name" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Middle Name"  name="middle_name">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="text"  class="form-control" placeholder="Last Name" name="last_name" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-
-
-                          <?php //option for  gender
-                                $option = array(
-                                    "" => "Gender",
-                                    "male" => "Male",
-                                    "female" => "Female",
-                                    
-                                );
-                            ?>
-                            <div class="form-group has-feedback">
-                              <?php //parameters(attribute name , options,selected option,added attibute ex:class,required)?>
-                             <?php echo form_dropdown('gender',$option,'','class="form-control" required');?>
-                            </div>
-
-                            <!-- end dropdown-->
-
-                          <div class="form-group has-feedback">
-                            <input type="date"  class="form-control" name="date_birth" placeholder="Date of Birth" required="">
-                            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Telephone"  name="telephone">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Cellphone"  name="cellphone" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Address"  name="address" required="">
-                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                          </div>
-
-
-
-                          <div class="form-group has-feedback">
-                            <input type="text"    class="form-control" placeholder="Email"  name="email" required="">
-                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                          </div>
-
-                           <div class="form-group has-feedback">
-                            <input type="password"    class="form-control" placeholder="Password"  name="password" required="">
-                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                          </div>
-                          
-
-
-                      </div><!-- end modal content-->
-                      <div class="modal-footer">
-                        <?php echo form_submit(array('id' => 'add_employee', 'name' =>'add_employee', 'value' => 'Add Employee','class'=>'pull-right btn btn-primary')); ?>
-                        
-                      </div>
-
-                      <?php echo form_close();//endform?>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-                <!-- /.modal -->
-
-
-          </div>
-
-
-          <div class="row">
-            <div class="col-md-12">
-                    
-              <!-- Default box -->
-                  <div class="box collapsed-box">
+      <div class="row">
+            
+            <div class="col-md-6">
+                         <!-- DONUT CHART -->
+                  <div class="box box-danger">
                     <div class="box-header with-border">
-                      <h3 class="box-title">Customer List</h3>
+                      <h3 class="box-title">Product (Medicine) Count</h3>
 
                       <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Expand">
-                          <i class="fa fa-plus"></i></button>
-                       <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addCustomerModal" data-tooltip="tooltip" title="Add Customer">
-                          <i class="fa fa-user"></i></button>
-                        
+                          
                       </div>
                     </div>
-                    <div class="box-body table-responsive">
-                        
-                       <table  class="data-table table table-bordered table-striped table-hover">
-                          <thead>
-                          <tr>
-                            <th>Customer ID</th>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            
-                            <th>Cellphone Number</th>
-                            <th>Status</th>
-                            <th>Member Since</th>
-                            <th>Action</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-
-                          <?php foreach($customers as $customer):?>
-                            <tr>
-                              <td><?php echo $customer['customer_user_id'];?></td>
-                              <td><?php echo $customer['first_name'] .' ' . $customer['middle_name'] .' ' . $customer['last_name'];?></td>
-                              <td><?php echo $customer['gender'];?></td>
-                              
-                              <td><?php echo $customer['cellphone'];?></td>
-                              <td><?php if($customer['is_active'] == 1){ ?>
-                                  <span class="label label-success">Active</span>
-                            <?php  }else{ ?>
-
-                                  <span class="label label-danger">Not Active</span>
-                            <?php   } ?></td>
-
-                              <?php
-                                $date =date_create($customer['date_added']);
-                                $date_added = date_format($date,"F j, Y, g:i a");
-                              ?>
-                            <td><?php echo $date_added;?></td>
-
-                              <td><a href="<?php echo site_url()?>admin/customer_details/<?php echo $customer['customer_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
-                            </tr>
-                          <?php endforeach; ?>
-
-                          </tbody>
-                          
-                        </table>
-
+                    <div class="box-body chart-responsive">
+                      <div class="chart" id="medicine-chart" style="height: 300px; position: relative;"></div>
                     </div>
                     <!-- /.box-body -->
-                    <div class="box-footer">
-                    
-                    </div>
-                    <!-- /.box-footer-->
                   </div>
                   <!-- /.box -->
             </div>
-          </div>
 
-           <div class="row">
-              <div class="col-md-12">
-                      
-                <!-- Default box -->
-                    <div class="box collapsed-box">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">Pet List</h3>
 
-                        <div class="box-tools pull-right">
-                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Expand">
-                            <i class="fa fa-plus"></i></button>
-                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addPetModal" data-tooltip="tooltip" title="Add Pet">
-                            <i class="fa fa-firefox"></i></button>
-                       
-                        </div>
-                      </div>
-                      <div class="box-body table-responsive">
+            <div class="col-md-6">
+                         <!-- DONUT CHART -->
+                  <div class="box box-info">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Product (Item) Count</h3>
+
+                      <div class="box-tools pull-right">
                           
-                                <table class="data-table table table-bordered table-striped" >
-                                    <thead>
-                                    <tr>
-                                      <th>Pet ID</th>
-                                      <th>Name</th>
-                                       <th>Animal Type <?php //echo date('F d Y',31556926)?></th>
-                                      <th>Breed</th>
-                                      <th>Owner</th>
-                                       <th>Status</th>
-                                      <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                  <?php foreach($pets as $pet_info):?>
-
-                                    <tr>
-                                      <td><?php echo $pet_info['pet_data_id'];?></td>
-                                      <td><?php echo $pet_info['pet_name'];?></td>
-                                      <td><?php echo $pet_info['pet_type'];?></td>
-                                      <td><?php echo $pet_info['breed'];?></td>
-                                      <td><?php echo $pet_info['first_name'] .' '. $pet_info['middle_name']. ' ' . $pet_info['last_name'];?></td>
-                                       <td><?php if($pet_info['is_active'] == 1){ ?>
-                                           <span class="label label-success">Active</span> 
-                                      <?php  }else{ ?>
-                                            <span class="label label-danger">Not Active</span>
-                                             
-                                      <?php   } ?>
-                                        
-                                      </td>
-                                      <td><a href="<?php echo site_url()?>admin/pet_details/<?php echo $pet_info['pet_id'];?>" class="btn btn-primary btn-sm">View More Details</a></td>
-                                    </tr>
-
-
-                                    <?php endforeach; ?>
-                                   
-                                    </tbody>
-                                
-                              </table>
-
                       </div>
-                      <!-- /.box-body -->
-                      <div class="box-footer">
-                      
-                      </div>
-                      <!-- /.box-footer-->
                     </div>
-                    <!-- /.box -->
-              </div>
-          </div>
-
-
-          <div class="row">
-              <div class="col-md-12">
-                      
-                <!-- Default box -->
-                    <div class="box collapsed-box">
-                      <div class="box-header with-border">
-                        <h3 class="box-title">Employee List</h3>
-
-                        <div class="box-tools pull-right">
-                          <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Expand">
-                            <i class="fa fa-plus"></i></button>
-                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#addEmployeeModal" data-tooltip="tooltip" title="Add Employee">
-                            <i class="fa fa-user"></i></button>
-                       
-                        </div>
-                      </div>
-                      <div class="box-body table-responsive">
-                          
-                          <table  class="data-table table table-bordered table-striped">
-                              <thead>
-                              <tr>
-                                <th>Employee ID</th>
-                                <th>Name</th>
-                                <th>Employee Type</th>
-                                <th>Cellphone Number</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              
-
-                              <?php foreach($employees as $employee):?>
-                              <tr>
-                                <td><?php echo $employee['employee_user_id'];?></td>
-                                <td><?php echo $employee['first_name'] .' '. $employee['middle_name'] .' '.$employee['last_name'] ;?></td>
-                                <td><?php  
-
-                                if($employee['employee_type'] == 'staff'){
-                                          echo "Staff";
-                                }else{
-                                          echo "Veterinarian";
-                                }?></td>
-
-                                <td><?php echo $employee['cellphone'];?></td>
-
-                                 <td><?php if($employee['is_active'] == 1){ ?>
-                                      <span class="label label-success">Active</span>
-                                <?php  }else{ ?>
-                                      <span class="label label-success">Not Active</span>
-                                      
-                                <?php   } ?></td>
-                               
-                                
-                                
-                                <td><a href="<?php echo site_url()?>admin/employee_details/<?php echo $employee['employee_id']; ?>" class="btn btn-primary btn-sm">View More Details</a></td>
-                              </tr>
-                             <?php endforeach;?>
-
-
-                              </tbody>
-                            
-                          </table>
-
-                      </div>
-                      <!-- /.box-body -->
-                      <div class="box-footer">
-                      
-                      </div>
-                      <!-- /.box-footer-->
+                    <div class="box-body chart-responsive">
+                      <div class="chart" id="item-chart" style="height: 300px; position: relative;"></div>
                     </div>
-                    <!-- /.box -->
-              </div>
-          </div>
+                    <!-- /.box-body -->
+                  </div>
+                  <!-- /.box -->
+            </div>
+
+      </div>
        
+          <?php 
 
+          foreach($medicines as $meds){
+
+             $med_name =$meds['med_name'];
+              $med_qty = $meds['med_qty'];
+
+             $data[] = array(
+                'label' => $meds['med_name'],
+                'value' => $meds['med_qty'],
+             );
+
+             $datas_med = json_encode($data);
+
+          }
+
+
+
+            foreach($items as $item){
+
+             $item_name =$item['item_name'];
+              $item_qty = $item['item_qty'];
+
+             $data[] = array(
+                'label' => $item['item_name'],
+                'value' => $item['item_qty'],
+             );
+
+             $datas_item = json_encode($data);
+
+          }
+
+
+          ?>
           
 
     </section>
@@ -864,6 +402,12 @@
 <!-- Select2 -->
 <script src="<?php echo site_url()?>assets/bower_components/select2/dist/js/select2.full.min.js"></script>
 
+
+
+<!-- Morris.js charts -->
+<script src="<?php echo site_url()?>assets/bower_components/raphael/raphael.min.js"></script>
+<script src="<?php echo site_url()?>assets/bower_components/morris.js/morris.min.js"></script>
+
 <!--admin scripts -->
 <script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
@@ -896,7 +440,25 @@
 
 
        
+     //DONUT CHART
+    var donut = new Morris.Donut({
+      element: 'medicine-chart',
+      resize: true,
+      
+      data: <?php echo $datas_med; ?>
+      ,
+      hideHover: 'auto'
+    });
 
+
+    var donut = new Morris.Donut({
+      element: 'item-chart',
+      resize: true,
+      
+      data: <?php echo $datas_item; ?>
+      ,
+      hideHover: 'auto'
+    });
 
         
      

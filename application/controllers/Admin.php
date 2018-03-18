@@ -35,6 +35,8 @@ class Admin extends CI_Controller {
 		//pos
 		$this->load->model('pos_model');
 
+		$this->load->model('diagnosis_model');
+
 		//library
 		$this->load->library('form_validation');
 	}
@@ -586,6 +588,17 @@ class Admin extends CI_Controller {
 
 		$data['pet_type'] = $this->admin_model->get_all_pet_type();
 		$data['pets'] = $this->admin_model->get_all_pets_with_there_customers();
+
+
+
+		//customer_female_count
+		/*$data['count_male_customer'] = $this->admin_model->get_count_male_customer();
+		$data['count_female_customer'] = $this->admin_model->get_count_female_customer();*/
+
+				//items
+		$data['items'] = $this->admin_model->get_all_item();
+
+		$data['medicines'] = $this->admin_model->get_all_medicine();
 		
 
 		$this->load->view('admin/dashboard',$data);
@@ -1149,6 +1162,10 @@ class Admin extends CI_Controller {
 
 			$data['pet_breeds'] = $this->admin_model->get_all_pet_breed_by_type_id($pet_id);
 
+
+			//pet diagnosis
+			 $data['pets_diagnosis'] = $this->diagnosis_model->get_all_diagnosis_by_pet_id($id);
+
 			$this->load->view('admin/pet_details',$data);
 			$this->load->view('admin/layouts/sidebar.php',$data);
 			//print_r($data);
@@ -1603,7 +1620,7 @@ class Admin extends CI_Controller {
 				'preferred_time_of_day' => $this->input->post('preferred_time'),
 				'appointment_reason' => $appointment_reason,
 				'status' => 'approved',
-				'preferred_date' => $now,
+				'preferred_date' => $this->input->post('preferred_date'),
 				'date_requested' => $now,
 
 			);

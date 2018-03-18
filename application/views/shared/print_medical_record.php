@@ -97,6 +97,8 @@
                                 $date =date_create($record_details->diagnosis_date);
                                 $diagnosis_date = date_format($date,"F j, Y, g:i a");
                         ?>
+          <b>Assess By: <?php echo $record_details->first_name .' '. $record_details->middle_name .' '. $record_details->last_name; ?></b>
+          <br/>
           <b> Assessment Date:</b> <?php echo $diagnosis_date?><br>
 
         </div>

@@ -21,6 +21,10 @@ class Customer extends CI_Controller {
 		//library
 		$this->load->library('form_validation');
 
+		$this->load->model('diagnosis_model');
+
+		$this->load->model('sales_model');
+		
 		//for system settings
 		$this->load->model('system_settings_model');
 	}
@@ -374,6 +378,38 @@ class Customer extends CI_Controller {
 
 
 
+	public function purchase_history(){
+
+
+		if(!$this->session->userdata('logged_in')){
+				redirect('customer/login');
+		}
+
+
+
+		$user_id = $this->session->userdata('user_id');
+
+		//get user_id via $user_id session
+		$data['current_customer_login'] = $this->customer_model->get_customer_by_id($user_id);
+
+		$data['get_system_settings'] = $this->system_settings_model->get_system_settings();
+
+
+		
+		$data['get_all_sales'] = $this->sales_model->get_all_sales_report_by_customer_id($user_id);
+
+		/*foreach($data['appointments'] as $d){
+			echo $d->appointment_id;
+		}*/
+
+		$this->load->view('customer/purchase_history',$data);
+		$this->load->view('customer/layouts/sidebar.php',$data);
+	}
+
+
+
+
+
 	public function pets(){
 
 		if(!$this->session->userdata('logged_in')){
@@ -431,6 +467,8 @@ class Customer extends CI_Controller {
 		
 			//$data['pet_breeds'] = $this->admin_model->get_all_pet_breed_by_type_id($pet_id);
 
+			//pet diagnosis
+			 $data['pets_diagnosis'] = $this->diagnosis_model->get_all_diagnosis_by_pet_id($id);
 			
 
 			$this->load->view('customer/pet_details',$data);

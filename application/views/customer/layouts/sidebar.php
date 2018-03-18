@@ -61,7 +61,6 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li id="med"><a href="<?php echo site_url();?>customer/pet_checkup_history"><i class="fa fa-circle-o"></i> Pet Checkup History</a></li>
             <li id="item"><a href="<?php echo site_url();?>customer/purchase_history"><i class="fa fa-circle-o"></i> Purchase History</a></li>
           </ul>
         </li>

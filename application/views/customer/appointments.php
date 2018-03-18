@@ -302,8 +302,7 @@
                   <h3 class="box-title">Appointment Record</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
+                       
                       
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#bookAppointment"><i class="fa fa-calendar" data-tooltip="tooltip" title="Book an Appointment"></i></button>
                       </div>
@@ -320,7 +319,7 @@
                       <th>Appointment Date</th>
                       <th>Time</th>
                       <th>Status</th>
-                      <th>View Details</th>
+                      
                       <th>Action</th>
                     </tr>
                     </thead>
@@ -356,89 +355,80 @@
                             
                           <span class="label label-<?php echo $label_type;?>"><?php echo ucfirst($appointment->status)?></span>
                           </td>
-
+  
                         <td><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewDetail<?php echo $appointment->appointment_id?>">View Details</button>
 
-
-                               <div class="modal fade" id="viewDetail<?php echo $appointment->appointment_id?>">
-                                  <div class="modal-dialog">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title">Appointment Detail</h4>
-                                      </div>
-                                      <div class="modal-body text-center">
-
-                                      <div class="row">
-                                        <div class="col-lg-9 col-md-12 col-xs-12">
-                                          
-                                          <div class="form-group row" style="margin-bottom: 15px">
-                                              <label for="date" class="col-sm-5 col-form-label"><b>Date</b></label>
-                                              <div class="col-sm-7">
-                                                
-                                                <input style="border-radius: 5px" type="text" class="form-control" name="date" id="date" disabled="" value ="<?php echo $preferred_date?>" />
-                                              </div>
-                                            </div>
-
-                                             <div class="form-group row" style="margin-bottom: 15px">
-                                              <label for="time" class="col-sm-5 col-form-label"><b>Time</b></label>
-                                              <div class="col-sm-7">
-                                                
-                                                <input style="border-radius: 5px" type="text" class="form-control" name="time" id="time" disabled="" value ="<?php echo ucfirst($appointment->preferred_time_of_day);?>" />
-                                              </div>
-                                            </div>
-
-
-
-                                              <div class="form-group row" style="margin-bottom: 15px">
-                                              <label for="status" class="col-sm-5 col-form-label"><b>Status</b></label>
-                                              <div class="col-sm-7">
-                                                
-                                                <input style="border-radius: 5px" type="text" class="form-control" name="status" id="status" disabled="" value ="<?php echo ucfirst($appointment->status);?>" />
-                                              </div>
-                                            </div>
-
-
-                                            <div class="form-group row" style="margin-bottom: 15px">
-                                              <label for="reason" class="col-sm-5 col-form-label"><b>Reason</b></label>
-                                              <div class="col-sm-7">
-                                                
-                                               <textarea name="reason" disabled="" class="form-control"  cols="25" rows="10"><?php echo $appointment->appointment_reason;?></textarea>
-                                              </div>
-                                            </div>
-
-
-
-                                        </div>
-
-
-                                      </div>
-
-                                       
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                       
-                                      </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
-                                </div>
-                                 <!-- /.modal -->
-
-                        </td>
-
-
-                        
-
-                               
-
-                        
-                        
-                        <td><button  class="btn btn-danger btn-sm">Cancel Appointment</button></td>
+                          <?php if($appointment->status != "cancelled"){ ?>
+                         <button  class="btn btn-danger btn-sm">Cancel Appointment</button></td>
+                         <?php } ?>
                     </tr>
+
+
+
+                   <div class="modal fade" id="viewDetail<?php echo $appointment->appointment_id?>">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Appointment Detail</h4>
+                          </div>
+                          <div class="modal-body text-center">
+
+                            <dl class="dl-horizontal">
+                              <dt>Customer Name</dt>
+                              <dd><?php echo $appointment->customer_name;?></dd>
+                              <dt>Appointment Time</dt>
+                              <dd><?php echo $preferred_date;?></dd>
+                              <dd><?php echo ucfirst($appointment->preferred_time_of_day);?></dd>
+                              
+                              <dt>Reason</dt>
+                              <dd>
+                                <?php echo ucfirst($appointment->appointment_reason);?>
+                              </dd>
+                            </dl>
+
+                            <hr>
+
+                            <dl class="dl-horizontal">
+                              <dt>Status</dt>
+                              <dd>
+                                <?php if($appointment->status == "pending"){
+                                  $label_type = "warning";
+                                }else if($appointment->status == "approved"){
+                                        $label_type = "info";
+                                }else if($appointment->status == "cancelled"){
+                                        $label_type = "danger";
+                                }else if($appointment->status == "done"){
+                                   $label_type = "success";
+                                }?>
+
+                              <span class="label label-<?php echo $label_type;?>"><?php echo ucfirst($appointment->status)?></span>
+
+
+                              </dd>
+                              
+                              <?php if($appointment->status == "cancelled"):?>
+                               
+                                <dt>Cancellation Reason</dt>
+                                <dd>
+                                  <?php echo ucfirst($appointment->cancellation_reason);?>
+                                </dd>
+                                
+                              <?php endif;?>
+
+                           
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                           
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                     <!-- /.modal -->
 
 
                    <?php endforeach;?>
@@ -516,7 +506,7 @@
 
 
 <!--admin scripts -->
-<script src="<?php echo site_url()?>assets/js/customerjs.js"></script>
+<script src="<?php echo site_url()?>assets/js/globaljs.js"></script>
 
 <!-- Page specific script -->
 <!-- CK Editor -->

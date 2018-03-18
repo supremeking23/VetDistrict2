@@ -288,7 +288,7 @@ input:checked + .slider:before {
                       <div class="checkbox">
                         <label class="switch">
 
-                          <input type="checkbox" id="check_edit"> 
+                          <input type="checkbox" id="check_edit" <?php if($admin_type != "superadmin"){echo "disabled"; } ?> > 
                           <span class="slider round"></span>
                         </label>
                       </div>
@@ -317,7 +317,7 @@ input:checked + .slider:before {
                         }
 
                       ?>
-                      <button title="Click to change state. Current state is <?php echo $state;?>" class="btn btn-success btn-block" data-tooltip="tooltip" data-toggle="modal" data-target="#access_confirmation" data-placement="bottom"> <?php echo $state; //echo $admin_details->is_active;?></button>
+                      <button title="Click to change state. Current state is <?php echo $state;?>" class="btn btn-success btn-block" data-tooltip="tooltip" data-toggle="modal" data-target="#access_confirmation" data-placement="bottom" <?php if($admin_type != "superadmin"){echo "disabled"; } ?>> <?php echo $state; //echo $admin_details->is_active;?></button>
                     </div>
                     
                 </div>
@@ -393,7 +393,7 @@ input:checked + .slider:before {
                     <label for="middle_name" class="col-sm-2 control-label">Middle Name</label>
 
                     <div class="col-sm-10">
-                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $admin_details->middle_name?>" required="">
+                      <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?php echo $admin_details->middle_name?>" >
                     </div>
                   </div>
 

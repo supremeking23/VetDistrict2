@@ -244,7 +244,7 @@ input:checked + .slider:before {
               <h3 class="profile-username text-center"><?php echo $employee_details->first_name .' '. $employee_details->middle_name .' '. $employee_details->last_name;?></h3>
 
 
-              <?php if($employee_details->employee_type == "vet"){
+              <?php if($employee_details->employee_type == "veterinarian"){
                   $emp_type = "Veterinarian";
               }else{
                   $emp_type = "Staff";
@@ -380,13 +380,13 @@ input:checked + .slider:before {
 
 
                    <div class="form-group">
-                    <label for="account_type" class="col-sm-2 control-label">Account Type</label>
+                    <label for="account_type" class="col-sm-2 control-label">Employee Type</label>
 
                     <div class="col-sm-10">
                        <?php //option for employee type
                                 $option = array(
                                     "" => "Employee Type",
-                                    "vet" => "Veterinarian",
+                                    "veterinarian" => "Veterinarian",
                                     "staff" => "Staff",
                                     
                                 );

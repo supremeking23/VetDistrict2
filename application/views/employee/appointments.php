@@ -277,6 +277,12 @@
                                     </div>
 
 
+                                      <div class="form-group has-feedback">
+                                        <input type="date" class="form-control" name="preferred_date" placeholder="Preferred Date">
+                                      
+                                      </div>
+
+
 
 
                                      <div class="form-group has-feedback">
@@ -339,8 +345,7 @@
                   <h3 class="box-title">Appointment Record</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
+                     
                       
                         <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#bookAppointment"><i class="fa fa-calendar" data-tooltip="tooltip" title="Book an Appointment"></i></button>
                       </div>

@@ -194,6 +194,18 @@ class Admin_Model extends CI_Model
 	}
 
 
+		public function get_all_vets(){
+			$this->db->select('*');
+			$this->db->from('tblemployees');
+			$this->db->order_by('employee_id','DESC');
+			$this->db->where('employee_type','veterinarian');
+			$this->db->where('is_active',1);
+			$query = $this->db->get();
+			$result_set = $query->result();
+			return $result_set;
+	}
+
+
 	public function get_count_all_employee(){
 			$result_set = $this->db->query('SELECT COUNT(*) AS "count_all" FROM tblemployees ');
 			return $result_set->result_array();

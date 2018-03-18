@@ -273,9 +273,13 @@
                       <span class="info-box-number"><?php echo $total_count_all_item['count_all'];?></span>
                   <?php endforeach?>
 
+                   <?php if($admin_type == "superadmin"):?>
+
                   <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addItemModal">
                     Add new Item
                   </button>
+
+                <?php endif;?>
                  
                 </div>
               </div>

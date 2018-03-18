@@ -214,12 +214,27 @@
                           </div>
 
                           <?php //option for unit of measurements
+
+                             if($admin_type == "superadmin"){
+
                                 $option = array(
                                     "" => "Admin Type",
                                     "superadmin" => "Super Admin",
                                     "admin" => "Admin",
                                     
                                 );
+
+                              }else{
+
+                                   $option = array(
+                                    "" => "Admin Type",
+                                   
+                                    "admin" => "Admin",
+                                    
+                                );
+
+                                   
+                              }
                             ?>
                             <div class="form-group has-feedback">
                              <?php echo form_dropdown('admin_type',$option,'','class="form-control" id="admin_type"','required');?>

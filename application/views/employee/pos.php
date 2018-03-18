@@ -319,7 +319,7 @@
 
                                               $total = $total + ($values['product_quantity'] * $values['product_price']);
 
-                                              $total_tax = $tax * array_sum(array_column($_SESSION['shopping_cart'], 'product_quantity'));
+                                               $total_tax = $total * .12;
 
 
                                               $total_payable = $total + $total_tax;
@@ -473,7 +473,7 @@
                             <tr class="info">
                             <td width="25%"><a href="#" id="add_discount"></a></td>
                             <td class="text-right" style="padding-right:10px;"><span id="ds_con"></span></td>
-                            <td width="25%"><a href="#" id="add_tax">Order Tax</a></td>
+                            <td width="25%"><a href="#" id="add_tax">Total Tax</a></td>
                             <td class="text-right"><span id="ts_con">₱<?php
                             if(!empty($_SESSION['shopping_cart'])){
                              echo number_format($total_tax,2); } ?></span></td>
@@ -638,7 +638,7 @@
 
                          <input type="number" class="" name="product_quantity" value=""  style="width: 50px " min="1" max="<?php echo $item['item_qty'];?>" required="">
 
-                          <button type="submit" class="btn btn-sm btn-success" data-tooltip="tooltip" title="add product"><span class="fa fa-plus"></span></button>
+                          <button type="submit" class="btn btn-sm btn-success" data-tooltip="tooltip" title="add product to cart"><span class="fa fa-plus"></span></button>
 
                       
                          <?php echo form_close();//endform?>
@@ -765,7 +765,7 @@
 
                          <input type="number" class="" name="product_quantity" value=""  style="width: 50px " min="1" max="<?php echo $medicine['med_qty'];?>" required="">
 
-                          <button type="submit" class="btn btn-sm btn-success" data-tooltip="tooltip" title="add product"><span class="fa fa-plus"></span></button>
+                          <button type="submit" class="btn btn-sm btn-success" data-tooltip="tooltip" title="add product to cart"><span class="fa fa-plus"></span></button>
 
                       
                          <?php echo form_close();//endform?>
@@ -899,7 +899,7 @@
 
                          <input type="number" class="" name="product_quantity" value=""  style="width: 50px " min="1" max="1000" required="">
 
-                          <button type="submit" class="btn btn-sm btn-success" data-tooltip="tooltip" title="add product"><span class="fa fa-plus"></span></button>
+                          <button type="submit" class="btn btn-sm btn-success" data-tooltip="tooltip" title=""><span class="fa fa-plus"></span></button>
 
                       
                          <?php echo form_close();//endform?>

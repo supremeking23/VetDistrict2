@@ -251,6 +251,8 @@
                 <!-- /.modal -->
 
 
+
+
                 <!--addTypeModal-->
                 <div class="modal fade" id="addServiceTypeModal">
                 <div class="modal-dialog">
@@ -305,16 +307,21 @@
                  
                       <span class="info-box-number">10</span>
                 
+                <?php if($admin_type == "superadmin"):?>
 
                   <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addServiceModal">
                     Add new service
                   </button>
+
+                <?php endif;?>
                  
                 </div>
               </div>
             </div>
 
 
+
+            <?php if($admin_type == "superadmin"):?>
 
             <div class="col-md-4">
               <div class="info-box">
@@ -336,7 +343,7 @@
 
 
 
-            
+            <?php endif;?>
 
 
 

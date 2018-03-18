@@ -28,6 +28,11 @@ $(function(){
   $("#settings a:contains('Settings')").parent().addClass('active');
 
 
+   $("#purchase_history  a:contains('History')").parent().addClass('active');
+  $("#purchase_history ul li a:contains('Purchase History')").parent().addClass('active');
+
+
+
 });
 
 

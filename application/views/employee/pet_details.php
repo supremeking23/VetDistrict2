@@ -521,18 +521,20 @@ input:checked + .slider:before {
 
               <div class="tab-pane" id="pet_medical_records">
                 <table  class="data-table table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Assess By</th>
-                  <th>Action</th>
-                
-                </tr>
-                </thead>
-                <tbody>
+                  <thead>
+                  <tr>
+                    <th>Medical Record ID</th>
+                    <th>Date</th>
+                    <th>Assess By</th>
+                    <th>Action</th>
+                  
+                  </tr>
+                  </thead>
+                  <tbody>
                
                <?php foreach($pets_diagnosis as $diagnosis):?>
                 <tr>
+                  <td><?php echo $diagnosis->diagnosis_data_id;?></td>
                   <?php 
 
                      $date =date_create($diagnosis->diagnosis_date);
@@ -736,7 +738,7 @@ input:checked + .slider:before {
                 <?php endforeach;?>
                 </tbody>
                
-              </table>
+                </table>
               
               </div>
               <!-- /.tab-pane -->

@@ -262,14 +262,32 @@ class POS_Controller extends CI_Controller {
 				'user_id' => $customer_id,
 				'user_name' => $customer_name,
 				'action' => $action ,
-				'product_med_id' => $product_id,
+				'product_item_id' => $product_id,
 				'quantity' => $sales_quantity,
 				'inventory_date' => $inventory_date,
 
 			);
 
 			
-			$this->create_model->create_med_inventory($data);
+			
+			$this->create_model->create_item_inventory($data);
+
+			//load existing quantity
+
+			$existing_item_quantity = $this->admin_model->get_item_details_by_id_from_tblproductitems($product_id);
+
+			foreach ($existing_item_quantity as $item_quantity) {
+					$remaining_item_quantity = $item_quantity->item_qty;
+			}
+
+			$new_item_quantity = $remaining_item_quantity - $sales_quantity;
+			
+			$data = array(
+				'item_qty' => $new_item_quantity,
+			);
+
+			$this->update_model->update_product_item($product_id,$data);
+
 
 
 			}else if($product_type == "medicine"){
@@ -285,13 +303,31 @@ class POS_Controller extends CI_Controller {
 				'user_id' => $customer_id,
 				'user_name' => $customer_name,
 				'action' => $action ,
-				'product_item_id' =>  $product_id,
+				'product_med_id' =>  $product_id,
 				'quantity' => $sales_quantity,
 				'inventory_date' => $inventory_date,
 			);
 
 
-			$this->create_model->create_item_inventory($data);
+			$this->create_model->create_med_inventory($data);
+
+			//update product count in med
+
+			$existing_med_quantity = $this->admin_model->get_med_details_by_id_from_tblproductmedicines($product_id);
+
+			foreach ($existing_med_quantity as $med_quantity) {
+					$remaining_med_quantity = $med_quantity->med_qty;
+			}
+
+			$new_med_quantity = $remaining_med_quantity - $sales_quantity;
+
+			
+
+			$data = array(
+				'med_qty' => $new_med_quantity,
+			);
+
+			$this->update_model->update_product_med($product_id,$data);
 
 
 				echo "product type is medicine <br />";
@@ -324,7 +360,7 @@ class POS_Controller extends CI_Controller {
 
 
 
-		public function add_to_cart_employee(){
+	public function add_to_cart_employee(){
 
 			//will execute if an item is added
 
@@ -445,7 +481,7 @@ class POS_Controller extends CI_Controller {
 
 
 
-		public function checkout_employee(){
+	public function checkout_employee(){
 		print_r($this->input->post());
 
 		$customer_id = $this->input->post('customer_id');
@@ -540,14 +576,29 @@ class POS_Controller extends CI_Controller {
 				'user_id' => $customer_id,
 				'user_name' => $customer_name,
 				'action' => $action ,
-				'product_med_id' => $product_id,
+				'product_item_id' => $product_id,
 				'quantity' => $sales_quantity,
 				'inventory_date' => $inventory_date,
 
 			);
 
 			
-			$this->create_model->create_med_inventory($data);
+			$this->create_model->create_item_inventory($data);
+
+			$existing_item_quantity = $this->admin_model->get_item_details_by_id_from_tblproductitems($product_id);
+
+			foreach ($existing_item_quantity as $item_quantity) {
+					$remaining_item_quantity = $item_quantity->item_qty;
+			}
+
+			$new_item_quantity = $remaining_item_quantity - $sales_quantity;
+			
+			$data = array(
+				'item_qty' => $new_item_quantity,
+			);
+
+			$this->update_model->update_product_item($product_id,$data);
+
 
 
 			}else if($product_type == "medicine"){
@@ -563,16 +614,34 @@ class POS_Controller extends CI_Controller {
 				'user_id' => $customer_id,
 				'user_name' => $customer_name,
 				'action' => $action ,
-				'product_item_id' =>  $product_id,
+				'product_med_id' =>  $product_id,
 				'quantity' => $sales_quantity,
 				'inventory_date' => $inventory_date,
 			);
 
 
-			$this->create_model->create_item_inventory($data);
+			$this->create_model->create_med_inventory($data);
 
 
-				echo "product type is medicine <br />";
+			$existing_med_quantity = $this->admin_model->get_med_details_by_id_from_tblproductmedicines($product_id);
+
+			foreach ($existing_med_quantity as $med_quantity) {
+					$remaining_med_quantity = $med_quantity->med_qty;
+			}
+
+			$new_med_quantity = $remaining_med_quantity - $sales_quantity;
+
+			
+
+			$data = array(
+				'med_qty' => $new_med_quantity,
+			);
+
+			$this->update_model->update_product_med($product_id,$data);
+			
+
+
+			echo "product type is medicine <br />";
 			}else if($product_type == "service"){
 				
 

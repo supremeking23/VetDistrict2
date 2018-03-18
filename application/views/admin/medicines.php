@@ -347,15 +347,22 @@
                       <span class="info-box-number"><?php echo $total_count_all_med['count_all'];?></span>
                   <?php endforeach?>
 
+
+                   <?php if($admin_type == "superadmin"):?>
+
                   <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#addMedModal">
                     Add new medicine
                   </button>
+
+                <?php endif;?>
                  
                 </div>
               </div>
             </div>
 
 
+
+          <?php if($admin_type == "superadmin"):?>
 
             <div class="col-md-4">
               <div class="info-box">
@@ -375,7 +382,7 @@
               </div>
             </div>
 
-
+          <?php endif;?>
 
 
       </div> <!-- end first row -->

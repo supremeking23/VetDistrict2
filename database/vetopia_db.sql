@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2018 at 07:41 PM
+-- Generation Time: Mar 18, 2018 at 07:59 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -54,7 +54,8 @@ CREATE TABLE `tbladmins` (
 INSERT INTO `tbladmins` (`admin_id`, `admin_user_id`, `admin_type`, `first_name`, `middle_name`, `last_name`, `gender`, `date_birth`, `cellphone`, `telephone`, `address`, `date_added`, `email`, `password`, `is_active`, `image`) VALUES
 (4, 'SA1802120123200', 'superadmin', 'Kim', 'Kang', 'Kong', 'male', '1990-02-13', '090911212112', '23232323', 'Central City', '2018-02-12 01:23:53', 'kangkong@gmail.com', 'kangkong', 1, ''),
 (5, 'SA1802120134251', 'superadmin', 'Ivan Christian Jay', 'Echanes', 'Funcion', 'male', '1995-11-23', '09479888749', '666', 'Makait', '2018-02-12 01:36:06', 'adminivan@gmail.com', 'adminivan', 1, 'ivan.jpg'),
-(6, 'A1802120140362', 'admin', 'So-Hyun', '', 'Kim', 'female', '1999-06-04', '90093343434', '090911', 'SoKor', '2018-02-12 01:41:26', 'wowkimsohyun@gmail.com', 'wowkimsohyun', 1, '');
+(6, 'A1802120140362', 'admin', 'So-Hyuns', '', 'Kim', 'female', '1999-06-04', '90093343434', '090911', 'SoKor', '2018-02-12 01:41:26', 'wowkimsohyun@gmail.com', 'wowkimsohyun', 1, ''),
+(7, 'A1803190153018', 'admin', 'Arthur', 'Middleton', 'Curry', 'male', '2018-03-08', '090911212112', '09111', 'Central City', '2018-03-19 01:53:40', 'aquaman@gmail.com', 'aquaman', 1, '');
 
 -- --------------------------------------------------------
 
@@ -81,15 +82,19 @@ CREATE TABLE `tblappointments` (
 --
 
 INSERT INTO `tblappointments` (`appointment_id`, `customer_id`, `customer_name`, `telephone`, `cellphone`, `preferred_date`, `preferred_time_of_day`, `appointment_reason`, `date_requested`, `status`, `cancellation_reason`) VALUES
-(2, 0, 'Customer 1', '111111', '1111111', '2018-02-14', 'evening', 'hahha sample1', '2018-02-14 23:59:18', 'approved', ''),
-(3, 21, 'Karla Rose Mayumi Dele Cruz', '090911', '09121212121', '2018-02-15', 'afternoon', 'sdsdsdsd', '2018-02-15 00:25:03', 'approved', ''),
+(2, 0, 'Customer 1', '111111', '1111111', '2018-02-14', 'evening', 'hahha sample1', '2018-02-14 23:59:18', 'done', ''),
+(3, 21, 'Karla Rose Mayumi Dele Cruz', '090911', '09121212121', '2018-02-15', 'afternoon', 'sdsdsdsd', '2018-02-15 00:25:03', 'done', ''),
 (4, 0, 'Customer 2', '3232', '434', '2018-02-15', 'evening', 'ssddsds', '2018-02-15 00:41:31', 'cancelled', 'hahhahahaha na cancel ko to'),
 (5, 0, 'Bruno Mars', '9999', '090911212112', '2018-02-17', 'evening', 'may sakit si junny boy', '2018-02-17 19:38:41', 'done', ''),
 (6, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-19', 'afternoon', 'pacheck up ng aso ko', '2018-02-17 22:42:22', 'cancelled', 'ayaw ko na'),
 (7, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-23', 'moring', 'hahahhaha', '2018-02-19 00:14:04', 'done', ''),
 (8, 15, 'Christine Batacan Domingo', '09111', '090911212112', '2018-02-27', 'afternoon', 'checking last', '2018-02-24 13:35:52', 'done', ''),
-(9, 20, 'Terrence Bill Mendoza Romeo', '7777', '0907777777227', '2018-03-11', 'afternoon', 'sdsdasdasfd', '2018-03-11 18:05:12', 'approved', ''),
-(10, 0, 'ivan2', '34343242', '342424242', '2018-03-11', 'moring', 'dadsadadasd', '2018-03-11 18:06:08', 'approved', '');
+(9, 20, 'Terrence Bill Mendoza Romeo', '7777', '0907777777227', '2018-03-11', 'afternoon', 'sdsdasdasfd', '2018-03-11 18:05:12', 'done', ''),
+(10, 0, 'ivan2', '34343242', '342424242', '2018-03-11', 'moring', 'dadsadadasd', '2018-03-11 18:06:08', 'done', ''),
+(11, 0, 'Lara Lee', '090911', '3343242', '2018-03-13', 'moring', 'hahsdhadasddsd', '2018-03-18 21:01:57', 'done', ''),
+(12, 22, 'Naruto  Uzumaki', '09111', '090911212112', '2018-03-22', 'afternoon', 'asdasdsss', '2018-03-18 21:04:57', 'done', ''),
+(13, 22, 'Naruto  Uzumaki', '09111', '090911212112', '2018-03-23', 'afternoon', 'sdasdsds', '2018-03-18 21:10:51', 'approved', ''),
+(14, 18, 'Jay Jay  Helterbrand', '090911', '090911212112', '2018-03-20', 'moring', 'Boomer is sick', '2018-03-18 22:29:24', 'cancelled', 'the customer has cancelled his appointment');
 
 -- --------------------------------------------------------
 
@@ -222,7 +227,7 @@ INSERT INTO `tblemployees` (`employee_id`, `employee_user_id`, `employee_type`, 
 (11, 'V1802121253177', 'veterinarian', 'John', 'Hernandez', 'Villete', 'jvillete@gmail.com', '090911212112', '090911', 'Makait', '', 'jvillete', 'male', 1, '1995-06-14', '2018-02-12 00:54:00'),
 (12, 'S1802121254076', 'staff', 'John Rey', 'Gulo', 'Cruz', 'johnrey@gmail.com', '90093343434', '090911', 'Central City', 'images1.jpg', 'johnrey', 'male', 1, '1989-05-17', '2018-02-12 00:55:17'),
 (13, 'V1803111218034', 'veterinarian', 'Irene Joy', 'Echanes', 'Funcion', 'irenejoy@gmail.com', '0909112121', '911', 'Central City', '', 'irenejoy', 'female', 1, '1999-10-22', '2018-03-11 00:19:20'),
-(14, 'V1803171052333', 'veterinarian', 'Karen Grace', 'Dasma', 'Smith', 'karengrace@gmail.com', '090911212112', '9999', 'Central City', '', 'karengrace', 'female', 1, '1990-05-14', '2018-03-17 22:56:13');
+(14, 'V1803171052333', 'veterinarian', 'Karen Grace', 'Dasma', 'Smith', 'karengrace@gmail.com', '090911212112', '9999', 'Central City', 'doctor-chase.jpg', 'karengrace', 'female', 1, '1990-05-14', '2018-03-17 22:56:13');
 
 -- --------------------------------------------------------
 
@@ -243,7 +248,8 @@ INSERT INTO `tblimagegallery` (`image_id`, `image_name`) VALUES
 (1, 'carousel-mission.jpg'),
 (2, 'carousel-lifestyle.jpg'),
 (3, 'carousel-fish.jpg'),
-(4, 'carousel-mission.jpg');
+(4, 'carousel-mission.jpg'),
+(5, 'carousel-stateoftheart.jpg');
 
 -- --------------------------------------------------------
 
@@ -300,7 +306,14 @@ INSERT INTO `tblinventoryforitems` (`inv_item_id`, `user_type`, `user_name`, `us
 (31, 'staff', 'John Rey Gulo Cruz', 12, 'Update Quantity', 5, 107, '2018-03-11 18:22:48'),
 (32, 'Customer (Walk in)', '', 0, 'Purchased Product', 5, 2, '2018-03-11 23:35:55'),
 (33, 'Customer (Walk in)', '', 0, 'Purchased Product', 2, 2, '2018-03-11 23:35:55'),
-(34, 'Customer (Walk in)', 'Sarada Uchiha', 0, 'Purchased Product', 6, 3, '2018-03-11 23:36:33');
+(34, 'Customer (Walk in)', 'Sarada Uchiha', 0, 'Purchased Product', 6, 3, '2018-03-11 23:36:33'),
+(35, 'Customer (Member)', 'Terrence Bill Mendoza Romeo', 20, 'Purchased Product', 5, 1, '2018-03-18 21:28:26'),
+(36, 'Customer (Member)', 'Jay Jay  Helterbrand', 18, 'Purchased Product', 5, 1, '2018-03-18 21:29:53'),
+(37, 'Customer (Member)', 'Terrence Bill Mendoza Romeo', 20, 'Purchased Product', 1, 12, '2018-03-18 21:30:09'),
+(38, 'Customer (Walk in)', 'ivan1', 0, 'Purchased Product', 5, 7, '2018-03-18 21:49:28'),
+(39, 'superadmin', 'Ivan Christian Jay Echanes Funcion', 5, 'Update Quantity', 5, 55, '2018-03-18 22:06:57'),
+(40, 'Customer (Walk in)', 'ivan2', 0, 'Purchased Product', 5, 5, '2018-03-18 22:07:21'),
+(41, 'Customer (Member)', 'Terrence Bill Mendoza Romeo', 20, 'Purchased Product', 5, 3, '2018-03-18 22:20:22');
 
 -- --------------------------------------------------------
 
@@ -390,7 +403,16 @@ INSERT INTO `tblinventoryformedicines` (`inv_med_id`, `user_type`, `user_id`, `a
 (64, 'Customer (Walk in)', 0, 'Purchased Product', 5, 2, '2018-03-11 23:36:33', 'Sarada Uchiha'),
 (65, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-11 23:36:33', 'Sarada Uchiha'),
 (66, 'Customer (Walk in)', 0, 'Purchased Product', 5, 3, '2018-03-18 00:09:00', 'das'),
-(67, 'Customer (Walk in)', 0, 'Purchased Product', 4, 3, '2018-03-18 00:09:00', 'das');
+(67, 'Customer (Walk in)', 0, 'Purchased Product', 4, 3, '2018-03-18 00:09:00', 'das'),
+(68, 'Customer (Walk in)', 0, 'Purchased Product', 5, 2, '2018-03-18 19:28:51', '21212'),
+(69, 'Customer (Walk in)', 0, 'Purchased Product', 4, 2, '2018-03-18 19:28:51', '21212'),
+(70, 'Customer (Walk in)', 0, 'Purchased Product', 5, 1, '2018-03-18 21:25:21', 'ivan1'),
+(71, 'Customer (Member)', 20, 'Purchased Product', 6, 1, '2018-03-18 21:29:22', 'Terrence Bill Mendoza Romeo'),
+(72, 'Customer (Member)', 20, 'Purchased Product', 6, 12, '2018-03-18 21:30:53', 'Terrence Bill Mendoza Romeo'),
+(73, 'Customer (Walk in)', 0, 'Purchased Product', 6, 6, '2018-03-18 21:51:59', 'dsds'),
+(74, 'superadmin', 5, 'Update Quantity', 6, 55, '2018-03-18 22:06:47', 'Ivan Christian Jay Echanes Funcion'),
+(75, 'Customer (Member)', 18, 'Purchased Product', 6, 2, '2018-03-18 22:20:32', 'Jay Jay  Helterbrand'),
+(76, 'Customer (Member)', 15, 'Purchased Product', 5, 5, '2018-03-18 22:20:48', 'Christine  Lazaro');
 
 -- --------------------------------------------------------
 
@@ -413,7 +435,18 @@ INSERT INTO `tblpetbreed` (`breed_id`, `breed`, `pettype_id`) VALUES
 (2, 'Great Dane', 1),
 (3, 'Garfield', 2),
 (4, 'Tilapya', 3),
-(5, 'lazy cat', 2);
+(5, 'lazy cat', 2),
+(6, 'Abruzzenhund', 1),
+(7, 'Affenpinscher', 1),
+(8, 'Afghan Hound', 1),
+(9, 'Africanis', 1),
+(10, 'Aidi', 1),
+(11, 'Ainu Dog', 1),
+(12, 'Labrador Husky', 1),
+(13, 'Labrador Retriever', 1),
+(14, 'Ragdoll Cat', 2),
+(15, 'Bengal Cats', 2),
+(16, 'Siamese Cat', 2);
 
 -- --------------------------------------------------------
 
@@ -510,7 +543,7 @@ INSERT INTO `tblproductitems` (`prod_item_id`, `item_name`, `item_price`, `item_
 (2, 'Dog Lace 2', '50.00', 110, '', 1),
 (3, 'Cat lace', '55.00', 1000, '', 1),
 (4, 'Cat Food (50mg)', '160.00', 102, '', 1),
-(5, 'Cat Food (70mg)', '50.00', 107, '', 1);
+(5, 'Cat Food (70mg)', '50.00', 47, '', 1);
 
 -- --------------------------------------------------------
 
@@ -537,8 +570,8 @@ INSERT INTO `tblproductmedicines` (`prod_med_id`, `drugtype_id`, `med_name`, `me
 (2, 1, 'Antibiotic B', '444.00', 41, '', 1),
 (3, 1, 'Antibiotic C', '444.00', 41, '', 1),
 (4, 2, 'Vitamin C++', '300.00', 161, '', 1),
-(5, 2, 'Carrots meds', '90.00', 555, '', 1),
-(6, 3, 'HAHAHAA1', '300.00', 116, '', 1);
+(5, 2, 'Carrots meds', '90.00', 550, '', 1),
+(6, 3, 'HAHAHAA1', '300.00', 53, '', 1);
 
 -- --------------------------------------------------------
 
@@ -610,7 +643,23 @@ INSERT INTO `tblsales` (`sales_id`, `customer_type`, `customer_name`, `customer_
 (45, 'walk in', '', 0, '1,218.00', '14.00', '1,232.00', '2018-03-11 23:35:55', '#180311113555'),
 (46, 'walk in', 'Sarada Uchiha', 0, '1,320.00', '14.00', '1,334.00', '2018-03-11 23:36:33', '#180311113633'),
 (47, 'walk in', 'das', 0, '630.00', '12.00', '642.00', '2018-03-18 00:09:00', '#180318120900'),
-(48, 'walk in', 'dada', 0, '600.00', '8.00', '608.00', '2018-03-18 00:10:38', '#180318121038');
+(48, 'walk in', 'dada', 0, '600.00', '8.00', '608.00', '2018-03-18 00:10:38', '#180318121038'),
+(49, 'walk in', '21212', 0, '420.00', '50.40', '470.40', '2018-03-18 19:28:51', '#180318072851'),
+(50, 'walk in', 'ivan1', 0, '50.00', '6.00', '56.00', '2018-03-18 21:25:21', '#180318092521'),
+(51, 'member', 'Karla Rose Mayumi Dele Cruz', 21, '50.00', '6.00', '56.00', '2018-03-18 21:26:48', '#180318092648'),
+(52, 'member', 'Karla Rose Mayumi Dele Cruz', 21, '50.00', '6.00', '56.00', '2018-03-18 21:27:26', '#180318092726'),
+(53, 'member', 'Terrence Bill Mendoza Romeo', 20, '50.00', '6.00', '56.00', '2018-03-18 21:28:26', '#180318092826'),
+(54, 'member', 'Terrence Bill Mendoza Romeo', 20, '300.00', '36.00', '336.00', '2018-03-18 21:29:22', '#180318092922'),
+(55, 'member', 'Jay Jay  Helterbrand', 18, '50.00', '6.00', '56.00', '2018-03-18 21:29:53', '#180318092953'),
+(56, 'member', 'Terrence Bill Mendoza Romeo', 20, '600.00', '72.00', '672.00', '2018-03-18 21:30:09', '#180318093009'),
+(57, 'member', 'Terrence Bill Mendoza Romeo', 20, '3,600.00', '432.00', '4,032.00', '2018-03-18 21:30:53', '#180318093053'),
+(58, 'member', 'Terrence Bill Mendoza Romeo', 20, '350.00', '42.00', '392.00', '2018-03-18 21:31:21', '#180318093121'),
+(59, 'walk in', 'ivan1', 0, '350.00', '42.00', '392.00', '2018-03-18 21:49:28', '#180318094928'),
+(60, 'walk in', 'dsds', 0, '1,800.00', '216.00', '2,016.00', '2018-03-18 21:51:59', '#180318095159'),
+(61, 'walk in', 'ivan2', 0, '250.00', '30.00', '280.00', '2018-03-18 22:07:21', '#180318100721'),
+(62, 'member', 'Terrence Bill Mendoza Romeo', 20, '150.00', '18.00', '168.00', '2018-03-18 22:20:22', '#180318102022'),
+(63, 'member', 'Jay Jay  Helterbrand', 18, '600.00', '72.00', '672.00', '2018-03-18 22:20:32', '#180318102032'),
+(64, 'member', 'Christine  Lazaro', 15, '450.00', '54.00', '504.00', '2018-03-18 22:20:48', '#180318102048');
 
 -- --------------------------------------------------------
 
@@ -748,7 +797,25 @@ INSERT INTO `tblsales_detail` (`salesdetail_id`, `sales_id`, `product_type`, `pr
 (113, 46, 'medicine', 'HAHAHAA1', '300.00', 3, '900.00'),
 (114, 47, 'item', 'Cat Food (70mg)', '50.00', 3, '150.00'),
 (115, 47, 'item', 'Cat Food (50mg)', '160.00', 3, '480.00'),
-(116, 48, 'service', 'Nail Cutting (Big Breed)', '150.00', 4, '600.00');
+(116, 48, 'service', 'Nail Cutting (Big Breed)', '150.00', 4, '600.00'),
+(117, 49, 'item', 'Cat Food (70mg)', '50.00', 2, '100.00'),
+(118, 49, 'item', 'Cat Food (50mg)', '160.00', 2, '320.00'),
+(119, 50, 'item', 'Cat Food (70mg)', '50.00', 1, '50.00'),
+(120, 51, 'item', 'Cat Food (70mg)', '50.00', 1, '50.00'),
+(121, 52, 'item', 'Cat Food (70mg)', '50.00', 1, '50.00'),
+(122, 53, 'item', 'Cat Food (70mg)', '50.00', 1, '50.00'),
+(123, 54, 'medicine', 'HAHAHAA1', '300.00', 1, '300.00'),
+(124, 55, 'item', 'Cat Food (70mg)', '50.00', 1, '50.00'),
+(125, 56, 'item', 'Dog Lace', '50.00', 12, '600.00'),
+(126, 57, 'medicine', 'HAHAHAA1', '300.00', 12, '3600.00'),
+(127, 58, 'service', 'Deworming (Small Breads)', '200.00', 1, '200.00'),
+(128, 58, 'service', 'Nail Cutting (Big Breed)', '150.00', 1, '150.00'),
+(129, 59, 'item', 'Cat Food (70mg)', '50.00', 7, '350.00'),
+(130, 60, 'medicine', 'HAHAHAA1', '300.00', 6, '1800.00'),
+(131, 61, 'item', 'Cat Food (70mg)', '50.00', 5, '250.00'),
+(132, 62, 'item', 'Cat Food (70mg)', '50.00', 3, '150.00'),
+(133, 63, 'medicine', 'HAHAHAA1', '300.00', 2, '600.00'),
+(134, 64, 'medicine', 'Carrots meds', '90.00', 5, '450.00');
 
 -- --------------------------------------------------------
 
@@ -800,7 +867,7 @@ INSERT INTO `tblservices` (`service_id`, `servicetype_id`, `service_name`, `pric
 (1, 1, 'Nail Cutting (Smal Breed)', '74.00', 'nail cutting for small breeds', 0),
 (2, 1, 'Nail Cutting (Big Breed)', '150.00', 'Nail Cutting for Big Breeds\r\n', 1),
 (3, 2, 'Deworming (Big Breads)', '250.00', 'Deworming for Big Breads ', 0),
-(4, 2, 'Deworming (Small Breads)', '200.00', 'Deworming for Small Breads', 0);
+(4, 2, 'Deworming (Small Breads)', '200.00', 'Deworming for Small Breads', 1);
 
 -- --------------------------------------------------------
 
@@ -819,8 +886,9 @@ CREATE TABLE `tblservicetype` (
 --
 
 INSERT INTO `tblservicetype` (`servicetype_id`, `servicetype_name`, `servicetype_description`) VALUES
-(1, 'Grooming', 'Grooming includes the following services'),
-(2, 'Deworming', 'To eliminate worm infestation');
+(1, 'Grooming', 'Our therapeutic grooming treatments help battle fleas, allergic dermatitis, and other challenging skin conditions.'),
+(2, 'Deworming', 'We Offer deworming'),
+(3, 'Skin and coat treatment', 'Skin and coat treatment for pets');
 
 -- --------------------------------------------------------
 
@@ -1040,12 +1108,12 @@ ALTER TABLE `tbl_petdiagnosis`
 -- AUTO_INCREMENT for table `tbladmins`
 --
 ALTER TABLE `tbladmins`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tblappointments`
 --
 ALTER TABLE `tblappointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `tblcolorskins`
 --
@@ -1075,22 +1143,22 @@ ALTER TABLE `tblemployees`
 -- AUTO_INCREMENT for table `tblimagegallery`
 --
 ALTER TABLE `tblimagegallery`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tblinventoryforitems`
 --
 ALTER TABLE `tblinventoryforitems`
-  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `inv_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `tblinventoryformedicines`
 --
 ALTER TABLE `tblinventoryformedicines`
-  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `inv_med_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT for table `tblpetbreed`
 --
 ALTER TABLE `tblpetbreed`
-  MODIFY `breed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `breed_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `tblpetcheckup`
 --
@@ -1120,12 +1188,12 @@ ALTER TABLE `tblproductmedicines`
 -- AUTO_INCREMENT for table `tblsales`
 --
 ALTER TABLE `tblsales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `tblsales_detail`
 --
 ALTER TABLE `tblsales_detail`
-  MODIFY `salesdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `salesdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 --
 -- AUTO_INCREMENT for table `tblserviceoffered`
 --
@@ -1145,7 +1213,7 @@ ALTER TABLE `tblservices`
 -- AUTO_INCREMENT for table `tblservicetype`
 --
 ALTER TABLE `tblservicetype`
-  MODIFY `servicetype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `servicetype_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tblsystemsettings`
 --

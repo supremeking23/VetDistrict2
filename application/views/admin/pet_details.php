@@ -363,6 +363,7 @@ input:checked + .slider:before {
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#settings" data-toggle="tab">Account Settings</a></li>
+              <li><a href="#pet_medical_records" data-toggle="tab">Pet Medical Records</a></li>
             </ul>
             <div class="tab-content">
              
@@ -517,6 +518,230 @@ input:checked + .slider:before {
                 </fieldset> <?php //end fieldset?>
 
 
+              </div>
+              <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="pet_medical_records">
+                <table  class="data-table table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Medical Record ID</th>
+                    <th>Date</th>
+                    <th>Assess By</th>
+                    <th>Action</th>
+                  
+                  </tr>
+                  </thead>
+                  <tbody>
+               
+               <?php foreach($pets_diagnosis as $diagnosis):?>
+                <tr>
+                  <td><?php echo $diagnosis->diagnosis_data_id;?></td>
+                  <?php 
+
+                     $date =date_create($diagnosis->diagnosis_date);
+                              $diagnosis_date= date_format($date,"F j, Y, g:i a");
+                  ?>
+                  <td><?php echo  $diagnosis_date;?></td>
+                  <td><?php echo $diagnosis->first_name .' '. $diagnosis->middle_name .' '. $diagnosis->last_name?></td>
+                  <td><a role="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#view_detail<?php echo $diagnosis->diagnosis_id;?>">View Detail</a> <a class="btn btn-info btn-sm" href="<?php echo site_url()?>pet_diagnosis/print/<?php echo $diagnosis->diagnosis_id;?>">Print Detail</a></td>
+
+                  <div class="modal fade" id="view_detail<?php echo $diagnosis->diagnosis_id;?>">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title text-center">Diagnosis Detail</h4>
+                        </div>
+                        <div class="modal-body">
+                            
+                              <div class="row">
+                                <div class="col-md-9 offset-md-3">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <b>Diagnosis ID:</b>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <div class="form-group">
+                                        <input type="text" class="form-control" id="diagnosis_data_id" name="diagnosis_data_id" value="<?php echo $diagnosis->diagnosis_data_id?>" readonly="true" style="border-radius: 6px;" />  
+                                      </div>  
+                                    </div>
+                                  </div>  
+                                </div>
+                             </div>
+
+                            <div class="row">
+                                  <div class="col-md-9 offset-md-3">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <b>Pet ID:</b>
+                                      </div>
+                                      <div class="col-md-8">
+                                        <div class="form-group">
+                                          <input type="text" class="form-control" id="pet_data_id" name="pet_data_id" value="<?php echo $diagnosis->pet_data_id?>" readonly="true" style="border-radius: 6px;" />  
+                                        </div>  
+                                      </div>
+                                    </div>  
+                                  </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-9 offset-md-3">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <b>Pet Name:</b>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <div class="form-group">
+                                        <input type="text" class="form-control" id="pet_name" name="pet_name" value="<?php echo $diagnosis->pet_name?>" readonly="true" style="border-radius: 6px;" />  
+                                      </div>  
+                                    </div>
+                                  </div>  
+                                </div>
+                          </div>
+
+
+
+                            <div class="row">
+                                <div class="col-md-9 offset-md-3">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                      <b>Owner Name:</b>
+                                    </div>
+                                    <div class="col-md-8">
+                                      <div class="form-group">
+                                        <input type="text" class="form-control" id="owner_name" name="owner_name" value="<?php echo $diagnosis->cus_firstname .' '. $diagnosis->cus_middlename .' '. $diagnosis->cus_lastname; ?>" readonly="true" style="border-radius: 6px;" />  
+
+
+                                      </div>  
+                                    </div>
+                                  </div>  
+                                </div>
+                          </div>
+
+
+                           <div class="row">
+                              <div class="col-md-6">
+                                <div class="row">
+                                  <div class="col-md-5">
+                                    <b> Body Weight:(in KG)</b>
+                                  </div>
+                                  <div class="col-md-7">
+                                    <div class="form-group">
+                                      <input type="number" readonly="" value="<?php echo $diagnosis->body_weight; ?>" min="0" max="1000"  class="form-control" id="body_weight" style="margin-left:5px;border-radius: 6px" name="body_weight" /> 
+                                     
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                  <b>Body Temperature (in Celcius):</b>  
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                    <input type="text" readonly="" value="<?php echo $diagnosis->body_temperature; ?>" class="form-control" id="body_temp" name="body_temp" style="border-radius: 6px" />  
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                             
+                           </div>
+
+                            <hr />
+
+                         <div class="row">
+                            <div class="col-md-12">
+                              <label>Subject : </label> 
+                              <div class="form-group">
+                              <textarea name="subject" readonly=""  id="subject" class="form-control" style="height:100px" placeholder="Input Owner Statement">
+                                 <?php echo $diagnosis->subject; ?>
+                              </textarea>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>Objective : </label> 
+                              <div class="form-group">
+                              <textarea name="objective" readonly="" id="objective" class="form-control" style="height:100px" placeholder="Input Veterinarian Observation">
+                                <?php echo $diagnosis->objective; ?>
+                              </textarea>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                          <div class="row">
+                            <div class="col-md-12">
+                              <label>Assessment : </label> 
+                              <div class="form-group">
+                              <textarea name="assessment" readonly=""  id="assessment" class="form-control" style="height:100px" placeholder="Input Owner need to do">
+                                <?php echo $diagnosis->assessment; ?>
+                              </textarea>
+                              </div>
+                            </div>
+                          </div>
+
+
+                           <div class="row">
+                            <div class="col-md-12">
+                              <label>Plan : </label> 
+                              <div class="form-group">
+                              <textarea name="plan" id="plan" readonly=""  class="form-control" style="height:100px" placeholder="Input Owner need to attain">
+                                <?php echo $diagnosis->plan; ?>
+                              </textarea>
+                              </div>
+                            </div>
+                          </div>
+
+
+
+                         <div class="row">
+                              <div class="col-md-9 offset-md-3">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <b>Veterinary Service Fee:</b>
+                                  </div>
+                                  <div class="col-md-8">
+                                    <div class="form-group">
+                                      <input type="text" readonly="" class="form-control" id="vet_pet_service" name="vet_pet_service" value="<?php echo $diagnosis->service_fee; ?>"  style="border-radius: 6px;" />  
+                                    </div>  
+                                  </div>
+                                </div>  
+                              </div>
+                        </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+                  
+
+                
+                </tr>
+                
+                <?php endforeach;?>
+                </tbody>
+               
+                </table>
+              
               </div>
               <!-- /.tab-pane -->
             </div>
